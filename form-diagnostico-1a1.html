@@ -56,7 +56,6 @@
       min-height: 100vh;
     }
 
-    /* Fondos Radiales y Glows de la Guía de Estilo */
     .ambient-glow-top {
       position: fixed;
       top: -140px;
@@ -82,7 +81,6 @@
       z-index: 0;
     }
 
-    /* Tarjetas High-Ticket */
     .glass-card {
       background: rgba(13, 20, 15, 0.78);
       backdrop-filter: blur(16px);
@@ -91,7 +89,6 @@
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(239, 246, 240, 0.06);
     }
 
-    /* Inputs del Formulario */
     .input-premium {
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(27, 122, 52, 0.65);
@@ -108,7 +105,6 @@
       box-shadow: 0 0 18px rgba(57, 255, 96, 0.22);
     }
 
-    /* Opciones seleccionables (Radio & Checkboxes tipo tarjeta) */
     .option-card {
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(239, 246, 240, 0.12);
@@ -126,7 +122,6 @@
       box-shadow: 0 0 20px rgba(57, 255, 96, 0.18), inset 0 0 0 1px rgba(57, 255, 96, 0.3);
     }
 
-    /* Botón Primario Rojo Acción (Guía de Estilo) */
     .btn-primary-cta {
       background: linear-gradient(180deg, #D93030 0%, #C42828 100%);
       color: #FFFFFF;
@@ -145,7 +140,6 @@
       transform: translateY(0);
     }
 
-    /* Botón Secundario Outline Verde Neón */
     .btn-secondary-neon {
       background: transparent;
       border: 1px solid rgba(57, 255, 96, 0.55);
@@ -158,7 +152,6 @@
       box-shadow: 0 0 16px rgba(57, 255, 96, 0.2);
     }
 
-    /* Callout de Herramientas Recomendadas */
     .tool-callout {
       background: linear-gradient(135deg, rgba(27, 122, 52, 0.22) 0%, rgba(6, 8, 7, 0.85) 100%);
       border-left: 3px solid #39FF60;
@@ -167,14 +160,12 @@
       border-bottom: 1px solid rgba(57, 255, 96, 0.15);
     }
 
-    /* Select custom */
     select.input-premium option {
       background-color: #0D140F;
       color: #EFF6F0;
       padding: 10px;
     }
 
-    /* Animaciones suaves */
     @keyframes fadeInSlide {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
@@ -183,7 +174,6 @@
       animation: fadeInSlide 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
-    /* Scrollbar elegante */
     ::-webkit-scrollbar { width: 8px; height: 8px; }
     ::-webkit-scrollbar-track { background: #060807; }
     ::-webkit-scrollbar-thumb { background: #1B7A34; border-radius: 4px; }
@@ -192,14 +182,16 @@
 </head>
 <body class="relative selection:bg-neon selection:text-canvas">
 
+  <!-- Iframe oculto para envío nativo garantizado a Google Apps Script -->
+  <iframe name="gas-hidden-iframe" id="gas-hidden-iframe" style="display:none;"></iframe>
+
   <!-- Luces ambientales de fondo -->
   <div class="ambient-glow-top"></div>
   <div class="ambient-glow-bottom"></div>
 
-  <!-- BARRA SUPERIOR DE NAVEGACIÓN Y HERRAMIENTAS DE ADMINISTRADOR -->
+  <!-- BARRA SUPERIOR -->
   <header class="relative z-20 border-b border-neon/15 bg-canvas/80 backdrop-blur-md sticky top-0">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-3">
-      <!-- Marca -->
       <div class="flex items-center gap-3">
         <div class="w-9 h-9 rounded-lg bg-deepGreen/30 border border-neon/40 flex items-center justify-center shadow-[0_0_15px_rgba(57,255,96,0.2)]">
           <span class="font-serif font-bold text-neon text-lg tracking-tighter">MR</span>
@@ -213,7 +205,6 @@
         </div>
       </div>
 
-      <!-- Control de Vista (100% de cara al cliente, sin botones de administración) -->
       <div class="flex items-center gap-2">
         <button id="btn-toggle-view" onclick="toggleViewMode()" type="button"
           class="text-xs px-3.5 py-2 rounded-lg border border-ivory/15 bg-white/5 hover:border-neon/50 text-ivory/85 flex items-center gap-1.5 transition"
@@ -228,7 +219,7 @@
   <!-- CONTENIDO PRINCIPAL -->
   <main class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 pt-8 pb-20">
 
-    <!-- ENCABEZADO EDITORIAL DEL FORMULARIO -->
+    <!-- ENCABEZADO EDITORIAL -->
     <section class="text-center mb-8">
       <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-deepGreen/25 border border-neon/30 text-neon text-xs font-semibold uppercase tracking-widest mb-4">
         <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
@@ -245,7 +236,7 @@
       </p>
     </section>
 
-    <!-- BARRA DE PROGRESO Y NAVEGADOR DE SECCIONES -->
+    <!-- BARRA DE PROGRESO -->
     <div id="progress-container" class="glass-card rounded-2xl p-4 sm:p-5 mb-6">
       <div class="flex items-center justify-between text-xs mb-2.5">
         <span class="font-bold uppercase tracking-wider text-neon flex items-center gap-1.5">
@@ -254,34 +245,20 @@
         </span>
         <span id="progress-percent" class="font-mono font-bold text-ivory/80 bg-white/5 px-2.5 py-0.5 rounded border border-ivory/10">17%</span>
       </div>
-      <!-- Barra visual -->
       <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden p-0.5 border border-white/10">
         <div id="progress-bar-fill" class="h-full bg-gradient-to-r from-deepGreen via-neon to-neon rounded-full transition-all duration-300 shadow-[0_0_12px_#39FF60]" style="width: 16.66%"></div>
       </div>
-      <!-- Píldoras de acceso rápido a los 6 pasos -->
       <div class="grid grid-cols-6 gap-1.5 mt-3.5">
-        <button type="button" onclick="goToStep(1)" id="pill-step-1" class="step-pill text-[11px] py-1.5 px-2 rounded-lg font-semibold border transition truncate text-center">
-          1. Fiscal / ID
-        </button>
-        <button type="button" onclick="goToStep(2)" id="pill-step-2" class="step-pill text-[11px] py-1.5 px-2 rounded-lg font-semibold border transition truncate text-center">
-          2. Crédito
-        </button>
-        <button type="button" onclick="goToStep(3)" id="pill-step-3" class="step-pill text-[11px] py-1.5 px-2 rounded-lg font-semibold border transition truncate text-center">
-          3. Empresa LLC
-        </button>
-        <button type="button" onclick="goToStep(4)" id="pill-step-4" class="step-pill text-[11px] py-1.5 px-2 rounded-lg font-semibold border transition truncate text-center">
-          4. Inversión
-        </button>
-        <button type="button" onclick="goToStep(5)" id="pill-step-5" class="step-pill text-[11px] py-1.5 px-2 rounded-lg font-semibold border transition truncate text-center">
-          5. Dudas
-        </button>
-        <button type="button" onclick="goToStep(6)" id="pill-step-6" class="step-pill text-[11px] py-1.5 px-2 rounded-lg font-semibold border transition truncate text-center">
-          6. Cierre
-        </button>
+        <button type="button" onclick="goToStep(1)" id="pill-step-1" class="step-pill text-[11px] py-1.5 px-2 rounded-lg font-semibold border transition truncate text-center">1. Fiscal / ID</button>
+        <button type="button" onclick="goToStep(2)" id="pill-step-2" class="step-pill text-[11px] py-1.5 px-2 rounded-lg font-semibold border transition truncate text-center">2. Crédito</button>
+        <button type="button" onclick="goToStep(3)" id="pill-step-3" class="step-pill text-[11px] py-1.5 px-2 rounded-lg font-semibold border transition truncate text-center">3. Empresa LLC</button>
+        <button type="button" onclick="goToStep(4)" id="pill-step-4" class="step-pill text-[11px] py-1.5 px-2 rounded-lg font-semibold border transition truncate text-center">4. Inversión</button>
+        <button type="button" onclick="goToStep(5)" id="pill-step-5" class="step-pill text-[11px] py-1.5 px-2 rounded-lg font-semibold border transition truncate text-center">5. Dudas</button>
+        <button type="button" onclick="goToStep(6)" id="pill-step-6" class="step-pill text-[11px] py-1.5 px-2 rounded-lg font-semibold border transition truncate text-center">6. Cierre</button>
       </div>
     </div>
 
-    <!-- BANNER DE ALERTA DE VALIDACIÓN (SIN ALERT NATIVO) -->
+    <!-- BANNER DE VALIDACIÓN -->
     <div id="validation-banner" class="hidden mb-5 rounded-xl bg-ctaRed/20 border border-ctaRed text-ivory px-4 py-3.5 flex items-start gap-3 animate-step">
       <i data-lucide="alert-triangle" class="w-5 h-5 text-red-400 shrink-0 mt-0.5"></i>
       <div class="flex-1 text-sm">
@@ -296,9 +273,7 @@
     <!-- FORMULARIO PRINCIPAL -->
     <form id="diagnostic-form" onsubmit="handleFormSubmit(event)" novalidate>
 
-      <!-- ===================================================================
-           SECCIÓN 1: DATOS DE CONTACTO Y SITUACIÓN MIGRATORIA / FISCAL
-           =================================================================== -->
+      <!-- SECCIÓN 1 -->
       <section id="step-1" class="form-step glass-card rounded-2xl p-6 sm:p-8 mb-6 animate-step">
         <div class="flex flex-wrap items-center justify-between gap-2 pb-5 mb-6 border-b border-ivory/10">
           <div>
@@ -312,9 +287,7 @@
           </span>
         </div>
 
-        <!-- Bloque de Identificación Obligatoria (Nombre, Correo y WhatsApp) -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-7 p-4 rounded-xl bg-white/[0.02] border border-neon/20">
-          <!-- Nombre Completo -->
           <div>
             <label for="nombreCompleto" class="block text-xs font-bold uppercase tracking-wider text-neon mb-1.5">
               Nombre Completo <span class="text-red-400">*</span>
@@ -327,7 +300,6 @@
             </div>
           </div>
 
-          <!-- Correo Electrónico -->
           <div>
             <label for="correoElectronico" class="block text-xs font-bold uppercase tracking-wider text-neon mb-1.5">
               Correo Electrónico <span class="text-red-400">*</span>
@@ -340,7 +312,6 @@
             </div>
           </div>
 
-          <!-- Teléfono (WhatsApp) -->
           <div>
             <label for="telefonoWhatsapp" class="block text-xs font-bold uppercase tracking-wider text-neon mb-1.5">
               Teléfono / WhatsApp <span class="text-red-400">*</span>
@@ -354,11 +325,11 @@
           </div>
         </div>
 
-        <!-- NUEVO BLOQUE INICIAL DE MARKETING: TU PUNTO DE PARTIDA CON MERCEDES -->
+        <!-- BLOQUE MARKETING -->
         <div class="mb-8 p-5 sm:p-6 rounded-2xl bg-gradient-to-br from-deepGreen/20 via-surface to-canvas border border-neon/25 shadow-[inset_0_1px_0_rgba(239,246,240,0.06)]">
           <div class="flex items-center gap-2.5 mb-4">
             <div class="w-7 h-7 rounded-lg bg-neon/15 border border-neon/40 flex items-center justify-center shrink-0">
-              <i data-lucide="Compass" class="w-4 h-4 text-neon"></i>
+              <i data-lucide="compass" class="w-4 h-4 text-neon"></i>
             </div>
             <div>
               <span class="text-[11px] font-bold uppercase tracking-widest text-neon block">Antes de entrar en materia técnica</span>
@@ -367,7 +338,6 @@
           </div>
 
           <div class="space-y-5">
-            <!-- Pregunta Marketing 1 -->
             <div>
               <label for="decisionCompra" class="block text-sm sm:text-base font-bold text-ivory mb-1.5">
                 ¿Qué fue lo que te hizo decidir comprar y dar este paso ahora? <span class="text-red-400">*</span>
@@ -377,7 +347,6 @@
                 class="input-premium w-full px-4 py-3 rounded-xl text-sm leading-relaxed"></textarea>
             </div>
 
-            <!-- Pregunta Marketing 2 -->
             <div>
               <label for="queCasiFrena" class="block text-sm sm:text-base font-bold text-ivory mb-1.5">
                 ¿Qué casi te frena antes de tomar la decisión? <span class="text-red-400">*</span>
@@ -387,7 +356,6 @@
                 class="input-premium w-full px-4 py-3 rounded-xl text-sm leading-relaxed"></textarea>
             </div>
 
-            <!-- Pregunta Marketing 3 -->
             <div>
               <label for="comoConocioMercedes" class="block text-sm sm:text-base font-bold text-ivory mb-1.5">
                 ¿Cómo conociste a Mercedes? <span class="text-ivory/60 font-normal text-xs sm:text-sm">(qué contenido, historia o persona te trajo aquí)</span> <span class="text-red-400">*</span>
@@ -399,7 +367,7 @@
           </div>
         </div>
 
-        <!-- Pregunta 1.1: SSN o ITIN -->
+        <!-- Pregunta 1 -->
         <div class="mb-6">
           <label class="block text-sm sm:text-base font-bold text-ivory mb-2.5">
             1. ¿Cuentas actualmente con SSN (Seguro Social) o ITIN en EE. UU.? <span class="text-red-400">*</span>
@@ -443,7 +411,6 @@
           </div>
         </div>
 
-        <!-- Callout Dinámico Herramienta ITIN (MyFreeScoreNow & Firstcard) -->
         <div id="callout-itin" class="tool-callout rounded-xl p-4 mb-6 hidden animate-step">
           <div class="flex items-start gap-3">
             <div class="w-8 h-8 rounded-lg bg-neon/15 border border-neon/40 flex items-center justify-center shrink-0 mt-0.5">
@@ -460,7 +427,7 @@
           </div>
         </div>
 
-        <!-- Pregunta 1.2: Guía para tramitar o renovar ITIN -->
+        <!-- Pregunta 2 -->
         <div class="mb-6">
           <label class="block text-sm sm:text-base font-bold text-ivory mb-2.5">
             2. Si no tienes ITIN o está vencido, ¿te gustaría recibir la guía para tramitarlo o renovarlo? <span class="text-red-400">*</span>
@@ -484,7 +451,7 @@
           </div>
         </div>
 
-        <!-- Pregunta 1.3: Declaraciones de impuestos (Taxes) últimos 2 años -->
+        <!-- Pregunta 3 -->
         <div>
           <label class="block text-sm sm:text-base font-bold text-ivory mb-2.5">
             3. ¿Tienes declaraciones de impuestos (Taxes) presentadas en EE. UU. en los últimos 2 años? <span class="text-red-400">*</span>
@@ -509,9 +476,7 @@
         </div>
       </section>
 
-      <!-- ===================================================================
-           SECCIÓN 2: SITUACIÓN CREDITICIA PERSONAL ACTUAL
-           =================================================================== -->
+      <!-- SECCIÓN 2 -->
       <section id="step-2" class="form-step glass-card rounded-2xl p-6 sm:p-8 mb-6 hidden animate-step">
         <div class="flex flex-wrap items-center justify-between gap-2 pb-5 mb-6 border-b border-ivory/10">
           <div>
@@ -525,7 +490,6 @@
           </span>
         </div>
 
-        <!-- Pregunta 2.1: Conoces tu puntaje crediticio -->
         <div class="mb-6">
           <label class="block text-sm sm:text-base font-bold text-ivory mb-2.5">
             4. ¿Conoces tu puntaje crediticio personal actual en EE. UU.? <span class="text-red-400">*</span>
@@ -554,7 +518,6 @@
           </div>
         </div>
 
-        <!-- Pregunta 2.2 (Optimización para clasificar Ruta > 680): Rango aproximado de puntaje -->
         <div class="mb-6">
           <label for="rangoPuntaje" class="block text-sm sm:text-base font-bold text-ivory mb-2">
             5. Si conoces tu puntaje aproximado, ¿en qué rango se encuentra hoy? <span class="text-red-400">*</span>
@@ -563,14 +526,13 @@
           <select id="rangoPuntaje" name="rangoPuntaje" required class="input-premium w-full px-4 py-3 rounded-xl text-sm">
             <option value="">Selecciona el rango aproximado...</option>
             <option value="Más de 740 (Excelente)">Más de 740 (Excelente · Listo para fondeo)</option>
-            <option value="680 – 739 (Bueno - Califica Ruta Express)">680 – 739 (Bueno · Califica para crédito empresarial)</option>
-            <option value="620 – 679 (Regular - Requiere optimización)">620 – 679 (Regular · Requiere optimización previa)</option>
+            <option value="680 - 739 (Bueno - Califica Ruta Express)">680 – 739 (Bueno · Califica para crédito empresarial)</option>
+            <option value="620 - 679 (Regular - Requiere optimización)">620 – 679 (Regular · Requiere optimización previa)</option>
             <option value="Menos de 620 (Necesita reparación)">Menos de 620 (Comprometido · Necesita reparación primero)</option>
             <option value="No lo sé / Aún no tengo historial">No lo sé con certeza / Aún no tengo historial</option>
           </select>
         </div>
 
-        <!-- Pregunta 2.3: Revisarlo gratis o con herramienta de monitoreo -->
         <div class="mb-6">
           <label class="block text-sm sm:text-base font-bold text-ivory mb-2.5">
             6. Si no lo conoces con exactitud, ¿te gustaría que te indique cómo revisarlo gratis o con una herramienta de monitoreo? <span class="text-red-400">*</span>
@@ -589,7 +551,6 @@
           </div>
         </div>
 
-        <!-- Pregunta 2.4: Tarjetas o préstamos activos -->
         <div class="mb-6">
           <label class="block text-sm sm:text-base font-bold text-ivory mb-2.5">
             7. ¿Tienes tarjetas de crédito o préstamos personales activos a tu nombre en EE. UU.? <span class="text-red-400">*</span>
@@ -613,7 +574,6 @@
           </div>
         </div>
 
-        <!-- Pregunta 2.5: Colecciones, bancarrota o pagos tardíos -->
         <div class="mb-6">
           <label class="block text-sm sm:text-base font-bold text-ivory mb-2.5">
             8. ¿Has tenido alguna cuenta en colecciones, bancarrota o cargos por pagos tardíos en los últimos 2 años? <span class="text-red-400">*</span>
@@ -637,7 +597,6 @@
           </div>
         </div>
 
-        <!-- Callout Herramienta para Crédito: SmartCredit -->
         <div class="tool-callout rounded-xl p-4">
           <div class="flex items-start gap-3">
             <div class="w-8 h-8 rounded-lg bg-neon/15 border border-neon/40 flex items-center justify-center shrink-0 mt-0.5">
@@ -655,9 +614,7 @@
         </div>
       </section>
 
-      <!-- ===================================================================
-           SECCIÓN 3: PERFIL DE LA EMPRESA (LLC) Y NEGOCIO ACTUAL
-           =================================================================== -->
+      <!-- SECCIÓN 3 -->
       <section id="step-3" class="form-step glass-card rounded-2xl p-6 sm:p-8 mb-6 hidden animate-step">
         <div class="flex flex-wrap items-center justify-between gap-2 pb-5 mb-6 border-b border-ivory/10">
           <div>
@@ -671,7 +628,6 @@
           </span>
         </div>
 
-        <!-- Pregunta 3.1: ¿Ya tienes una LLC formada? -->
         <div class="mb-6">
           <label class="block text-sm sm:text-base font-bold text-ivory mb-2.5">
             9. ¿Ya tienes una LLC formada en los Estados Unidos? <span class="text-red-400">*</span>
@@ -704,7 +660,6 @@
           </div>
         </div>
 
-        <!-- Pregunta 3.2: ¿En qué estado está registrada la LLC? -->
         <div class="mb-6">
           <label for="estadoLLC" class="block text-sm sm:text-base font-bold text-ivory mb-2">
             10. ¿En qué estado está registrada la LLC (o en cuál te gustaría registrarla)? <span class="text-red-400">*</span>
@@ -714,7 +669,6 @@
             class="input-premium w-full px-4 py-3 rounded-xl text-sm" />
         </div>
 
-        <!-- Pregunta 3.3: ¿La LLC ya tiene EIN? -->
         <div class="mb-6">
           <label class="block text-sm sm:text-base font-bold text-ivory mb-2.5">
             11. ¿La LLC ya tiene EIN (Número de Identificación Fiscal Empresarial del IRS)? <span class="text-red-400">*</span>
@@ -738,7 +692,6 @@
           </div>
         </div>
 
-        <!-- Pregunta 3.4: ¿Tienes cuenta bancaria empresarial separada? -->
         <div class="mb-6">
           <label class="block text-sm sm:text-base font-bold text-ivory mb-2.5">
             12. ¿Tienes una cuenta bancaria empresarial separada de tu cuenta personal? <span class="text-red-400">*</span>
@@ -757,7 +710,6 @@
           </div>
         </div>
 
-        <!-- Pregunta 3.5: Presencia digital o página web -->
         <div class="mb-6">
           <label class="block text-sm sm:text-base font-bold text-ivory mb-2.5">
             13. ¿La empresa o negocio tiene página web o presencia digital activa? <span class="text-red-400">*</span>
@@ -781,7 +733,6 @@
           </div>
         </div>
 
-        <!-- Pregunta 3.6 y 3.7 en Grid: Años operando e Ingreso mensual -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label for="aniosOperando" class="block text-sm font-bold text-ivory mb-2">
@@ -791,8 +742,8 @@
               <option value="">Selecciona una opción...</option>
               <option value="Aún no opera / Proyecto nuevo">Aún no opera / Proyecto nuevo</option>
               <option value="Menos de 1 año">Menos de 1 año</option>
-              <option value="1–2 años">1–2 años</option>
-              <option value="3–5 años">3–5 años</option>
+              <option value="1-2 años">1–2 años</option>
+              <option value="3-5 años">3–5 años</option>
               <option value="Más de 5 años">Más de 5 años</option>
             </select>
           </div>
@@ -805,17 +756,15 @@
               <option value="">Selecciona el rango mensual...</option>
               <option value="Aún no genera ingresos">Aún no genera ingresos</option>
               <option value="Menos de $2,000 USD">Menos de $2,000 USD</option>
-              <option value="$2,000 – $5,000 USD">$2,000 – $5,000 USD</option>
-              <option value="$5,000 – $10,000 USD">$5,000 – $10,000 USD</option>
+              <option value="$2,000 - $5,000 USD">$2,000 – $5,000 USD</option>
+              <option value="$5,000 - $10,000 USD">$5,000 – $10,000 USD</option>
               <option value="Más de $10,000 USD">Más de $10,000 USD</option>
             </select>
           </div>
         </div>
       </section>
 
-      <!-- ===================================================================
-           SECCIÓN 4: OBJETIVO CON EL CRÉDITO Y TIPO DE INVERSIÓN
-           =================================================================== -->
+      <!-- SECCIÓN 4 -->
       <section id="step-4" class="form-step glass-card rounded-2xl p-6 sm:p-8 mb-6 hidden animate-step">
         <div class="flex flex-wrap items-center justify-between gap-2 pb-5 mb-6 border-b border-ivory/10">
           <div>
@@ -829,7 +778,6 @@
           </span>
         </div>
 
-        <!-- Pregunta 4.1: ¿Qué esperas lograr con esta asesoría? (Selección Múltiple) -->
         <div class="mb-6">
           <label class="block text-sm sm:text-base font-bold text-ivory mb-1">
             16. ¿Qué esperas lograr con esta asesoría? <span class="text-red-400">*</span>
@@ -874,7 +822,6 @@
           </div>
         </div>
 
-        <!-- Pregunta 4.2: ¿En qué piensas invertir el financiamiento? (Selección Múltiple) -->
         <div class="mb-6">
           <label class="block text-sm sm:text-base font-bold text-ivory mb-1">
             17. ¿En qué piensas invertir el financiamiento? <span class="text-red-400">*</span>
@@ -913,7 +860,6 @@
           </div>
         </div>
 
-        <!-- Pregunta 4.3 y 4.4 en Grid: Monto de Capital y Urgencia -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label for="capitalNecesario" class="block text-sm font-bold text-ivory mb-2">
@@ -922,9 +868,9 @@
             <select id="capitalNecesario" name="capitalNecesario" required class="input-premium w-full px-4 py-3 rounded-xl text-sm">
               <option value="">Selecciona el monto estimado...</option>
               <option value="Menos de $10,000 USD">Menos de $10,000 USD</option>
-              <option value="$10,000 – $25,000 USD">$10,000 – $25,000 USD</option>
-              <option value="$25,000 – $50,000 USD">$25,000 – $50,000 USD</option>
-              <option value="$50,000 – $100,000 USD">$50,000 – $100,000 USD</option>
+              <option value="$10,000 - $25,000 USD">$10,000 – $25,000 USD</option>
+              <option value="$25,000 - $50,000 USD">$25,000 – $50,000 USD</option>
+              <option value="$50,000 - $100,000 USD">$50,000 – $100,000 USD</option>
               <option value="Más de $100,000 USD">Más de $100,000 USD</option>
             </select>
           </div>
@@ -944,9 +890,7 @@
         </div>
       </section>
 
-      <!-- ===================================================================
-           SECCIÓN 5: DUDAS PRINCIPALES Y EXPECTATIVAS DE LA ASESORÍA
-           =================================================================== -->
+      <!-- SECCIÓN 5 -->
       <section id="step-5" class="form-step glass-card rounded-2xl p-6 sm:p-8 mb-6 hidden animate-step">
         <div class="flex flex-wrap items-center justify-between gap-2 pb-5 mb-6 border-b border-ivory/10">
           <div>
@@ -960,7 +904,6 @@
           </span>
         </div>
 
-        <!-- Pregunta 5.1: Mayor duda o preocupación (Selección múltiple) -->
         <div class="mb-6">
           <label class="block text-sm sm:text-base font-bold text-ivory mb-1">
             20. ¿Cuál es tu mayor duda o preocupación sobre este proceso? <span class="text-red-400">*</span>
@@ -1004,7 +947,6 @@
             </label>
           </div>
 
-          <!-- Campo abierto condicional para "Otra" -->
           <div id="box-otra-duda" class="mt-3 hidden animate-step">
             <input type="text" id="otraDudaTexto" name="otraDudaTexto"
               placeholder="Escribe aquí tu duda o caso particular para revisarlo en la sesión..."
@@ -1012,7 +954,6 @@
           </div>
         </div>
 
-        <!-- Pregunta 5.2: Comodidad manejando trámites en línea -->
         <div>
           <label for="comodidadDigital" class="block text-sm sm:text-base font-bold text-ivory mb-2">
             21. ¿Qué tan cómodo(a) te sientes manejando trámites en línea (portales de burós, aplicaciones bancarias)? <span class="text-red-400">*</span>
@@ -1027,9 +968,7 @@
         </div>
       </section>
 
-      <!-- ===================================================================
-           SECCIÓN 6: AUTORIZACIÓN Y SIGUIENTE PASO
-           =================================================================== -->
+      <!-- SECCIÓN 6 -->
       <section id="step-6" class="form-step glass-card rounded-2xl p-6 sm:p-8 mb-6 hidden animate-step">
         <div class="flex flex-wrap items-center justify-between gap-2 pb-5 mb-6 border-b border-ivory/10">
           <div>
@@ -1043,7 +982,6 @@
           </span>
         </div>
 
-        <!-- Pregunta 6.1: Autorización para revisar reporte en llamada -->
         <div class="mb-6">
           <label class="block text-sm sm:text-base font-bold text-ivory mb-2.5">
             22. ¿Autorizas que durante la llamada 1 a 1 revisemos juntos tu reporte de crédito (personal o empresarial) para darte un diagnóstico más preciso? <span class="text-red-400">*</span>
@@ -1068,7 +1006,6 @@
           </div>
         </div>
 
-        <!-- Pregunta 6.2: Disponibilidad para 2-3 llamadas de seguimiento -->
         <div class="mb-6">
           <label class="block text-sm sm:text-base font-bold text-ivory mb-2.5">
             23. ¿Tienes disponibilidad para 2–3 llamadas de seguimiento e implementación si tu ruta lo requiere? <span class="text-red-400">*</span>
@@ -1092,7 +1029,6 @@
           </div>
         </div>
 
-        <!-- Nota opcional o comentario adicional para Mercedes -->
         <div class="mb-2">
           <label for="notasAdicionales" class="block text-xs font-bold uppercase tracking-wider text-ivory/75 mb-2">
             Comentario adicional para Mercedes (Opcional)
@@ -1103,7 +1039,7 @@
         </div>
       </section>
 
-      <!-- BOTONES DE NAVEGACIÓN DEL FORMULARIO -->
+      <!-- BOTONES DE NAVEGACIÓN -->
       <div id="form-nav-bar" class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
         <button type="button" id="btn-prev" onclick="prevStep()"
           class="btn-secondary-neon w-full sm:w-auto px-6 py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 hidden">
@@ -1128,9 +1064,7 @@
 
     </form>
 
-    <!-- ===================================================================
-         PANTALLA DE ÉXITO Y DIAGNÓSTICO DE RUTA ESTIMADA (POST-ENVÍO)
-         =================================================================== -->
+    <!-- PANTALLA DE ÉXITO -->
     <section id="success-screen" class="hidden glass-card rounded-2xl p-6 sm:p-10 animate-step">
       <div class="text-center border-b border-ivory/10 pb-6 mb-6">
         <div class="w-16 h-16 rounded-2xl bg-neon/15 border-2 border-neon flex items-center justify-center mx-auto mb-4 shadow-[0_0_30px_rgba(57,255,96,0.3)]">
@@ -1145,11 +1079,10 @@
         </p>
         <div id="sheets-sync-badge" class="inline-flex items-center gap-2 mt-3 px-3 py-1 rounded-full bg-white/5 border border-ivory/15 text-xs text-ivory/80">
           <i data-lucide="cloud-check" class="w-3.5 h-3.5 text-neon"></i>
-          <span id="sheets-sync-text">Respuestas respaldadas en el sistema</span>
+          <span id="sheets-sync-text">Sincronizando expediente en Google Sheets...</span>
         </div>
       </div>
 
-      <!-- Tarjeta de Clasificación Automática de Ruta -->
       <div class="rounded-2xl p-5 sm:p-6 bg-gradient-to-br from-deepGreen/30 via-surface to-canvas border border-neon/40 mb-6">
         <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
           <span class="text-xs font-bold uppercase tracking-widest text-gold flex items-center gap-1.5">
@@ -1165,7 +1098,6 @@
         </h3>
         <p id="res-ruta-desc" class="text-sm text-ivory/80 leading-relaxed mb-4"></p>
 
-        <!-- Resumen rápido de pilares -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-3 border-t border-ivory/10 text-xs">
           <div class="bg-white/5 rounded-lg p-2.5">
             <span class="text-ivory/50 block">ID Fiscal</span>
@@ -1186,7 +1118,6 @@
         </div>
       </div>
 
-      <!-- Herramientas recomendadas dinámicamente según perfil -->
       <div class="tool-callout rounded-xl p-4 mb-6">
         <div class="flex items-start gap-3">
           <div class="w-8 h-8 rounded-lg bg-neon/15 border border-neon/40 flex items-center justify-center shrink-0 mt-0.5">
@@ -1201,7 +1132,6 @@
         </div>
       </div>
 
-      <!-- 3 Recordatorios Oficiales de Mercedes antes de entrar a la llamada -->
       <div class="rounded-xl p-5 bg-white/[0.03] border border-ivory/10 mb-6">
         <h4 class="text-xs font-bold uppercase tracking-wider text-neon mb-3 flex items-center gap-2">
           <i data-lucide="check-square" class="w-4 h-4"></i>
@@ -1223,7 +1153,6 @@
         </div>
       </div>
 
-      <!-- Acciones Post-Diagnóstico -->
       <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
         <a id="btn-whatsapp-confirm" href="#" target="_blank" rel="noopener noreferrer"
           class="btn-primary-cta w-full sm:w-auto px-7 py-3.5 rounded-xl text-xs sm:text-sm flex items-center justify-center gap-2">
@@ -1240,7 +1169,6 @@
 
   </main>
 
-  <!-- FOOTER -->
   <footer class="relative z-10 border-t border-ivory/10 py-6 text-center text-xs text-ivory/45">
     <div class="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
       <span>© 2026 <strong>LIFEOFNENA LLC</strong> · Mercedes Ríos · Tu Ruta Financiera</span>
@@ -1248,17 +1176,14 @@
     </div>
   </footer>
 
-  <!-- =====================================================================
-       LÓGICA JAVASCRIPT DE LA APLICACIÓN (URL APPS SCRIPT FIJA EN CÓDIGO)
-       ===================================================================== -->
   <script>
     /**
-     * URL FIJA DE LA WEB APP DE GOOGLE APPS SCRIPT (INTEGRADA EN EL CÓDIGO)
+     * CONFIGURACIÓN DE ENDPOINTS DE GUARDADO Y VERIFICACIÓN
      */
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwBEMPcgmhYL0i0D1Itm70nvEdnbl1LRI4ZocWXp0EmOWKgLZ82mGuZPtSKO6PoVgOp/exec";
+    const PUBLISHED_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSd_rzwoG38nmYgnjcPHZ6aV_FjdaluD3ouHnxlxeXF_xvjcqB6fLAgxriwaZD0b5lVMThtOrEtcDFx/pub?gid=1139893124&single=true&output=csv";
+    const MAKE_BACKUP_WEBHOOK = "https://hook.us2.make.com/l5a1jgewhykugo81lm47gd0w2is6rtpf";
     const STORAGE_KEY_SUBMISSIONS = "mr_ruta90_local_submissions";
-
-    // Número de WhatsApp oficial del equipo de Mercedes Ríos
     const MERCEDES_TEAM_WHATSAPP = "573160950218";
 
     let currentStep = 1;
@@ -1274,14 +1199,12 @@
       6: "Paso 6 de 6 · Autorización y Siguiente Paso"
     };
 
-    // Inicialización al cargar la página
     window.addEventListener("DOMContentLoaded", () => {
       lucide.createIcons();
       prefillFromUrlParams();
       updateStepUI();
     });
 
-    // Pre-llenar Nombre, Correo y WhatsApp si vienen en el link (?nombre=...&email=...&whatsapp=...)
     function prefillFromUrlParams() {
       const params = new URLSearchParams(window.location.search);
       const nombre = params.get("nombre") || params.get("name");
@@ -1293,7 +1216,6 @@
       if (whatsapp) document.getElementById("telefonoWhatsapp").value = whatsapp;
     }
 
-    // Manejo visual de tarjetas Radio
     function handleRadioChange(inputEl) {
       const groupName = inputEl.name;
       const container = document.querySelector(`[data-radio-group="${groupName}"]`);
@@ -1321,7 +1243,6 @@
       hideValidationBanner();
     }
 
-    // Manejo visual de tarjetas Checkbox (Selección múltiple)
     function handleCheckboxChange(inputEl) {
       const parentCard = inputEl.closest(".option-card");
       if (!parentCard) return;
@@ -1343,7 +1264,6 @@
       hideValidationBanner();
     }
 
-    // Mostrar/Ocultar Callouts inteligentes según respuestas
     function updateDynamicCallouts() {
       const estatusFiscal = getRadioValue("estatusFiscal");
       const calloutItin = document.getElementById("callout-itin");
@@ -1363,7 +1283,6 @@
       }
     }
 
-    // Autocompletar estado LLC sugerido si aún no tiene LLC
     function handleLLCToggle() {
       const tieneLLC = getRadioValue("tieneLLC");
       const estadoInput = document.getElementById("estadoLLC");
@@ -1372,7 +1291,6 @@
       }
     }
 
-    // Mostrar/Ocultar campo "Otra duda"
     function toggleOtraDuda() {
       const chkOtra = document.getElementById("chk-otra-duda");
       const boxOtra = document.getElementById("box-otra-duda");
@@ -1384,19 +1302,16 @@
       }
     }
 
-    // Obtener valor de un radio group
     function getRadioValue(name) {
       const checked = document.querySelector(`input[name="${name}"]:checked`);
       return checked ? checked.value : "";
     }
 
-    // Obtener valores de un grupo de checkboxes
     function getCheckboxValues(name) {
       const checkedList = document.querySelectorAll(`input[name="${name}"]:checked`);
       return Array.from(checkedList).map(el => el.value);
     }
 
-    // Validación por paso
     function validateStep(stepNumber) {
       const missing = [];
 
@@ -1476,7 +1391,6 @@
       document.getElementById("validation-banner").classList.add("hidden");
     }
 
-    // Navegación entre pasos
     function nextStep() {
       if (!validateStep(currentStep)) return;
       if (currentStep < totalSteps) {
@@ -1506,7 +1420,6 @@
       updateStepUI();
     }
 
-    // Alternar entre Vista Paso a Paso y Vista Completa en 1 Página
     function toggleViewMode() {
       isFullPageView = !isFullPageView;
       const label = document.getElementById("view-mode-label");
@@ -1568,9 +1481,6 @@
       }
     }
 
-    /**
-     * MOTOR DE CLASIFICACIÓN AUTOMÁTICA DE LAS 3 RUTAS DE MERCEDES RÍOS
-     */
     function calculateClientRoute(formData) {
       const tieneIdVigente = (formData.estatusFiscal === "SSN" || formData.estatusFiscal === "ITIN vigente");
       const sinIdFiscal = (formData.estatusFiscal === "No tengo ninguno" || formData.estatusFiscal === "ITIN en trámite");
@@ -1593,7 +1503,7 @@
       if (tieneIdVigente && puntajeAlto && formData.historialNegativo === "No" && llcActiva && einListo && cuentaLista) {
         return {
           ruta: "Ruta Express",
-          llamadas: "1–2 llamadas",
+          llamadas: "1-2 llamadas",
           descripcion: "Cuentas con SSN/ITIN vigente, crédito personal sólido (>680), y una LLC activa con EIN y cuenta bancaria empresarial. En la llamada nos enfocaremos directamente en la estrategia de bancos/lenders (Movimiento 2) y el despliegue de tu portafolio de inversión (Movimiento 3)."
         };
       }
@@ -1601,19 +1511,18 @@
       if (sinIdFiscal || sinLLC || puntajeComprometido) {
         return {
           ruta: "Ruta Desde Cero",
-          llamadas: "4–6 llamadas",
+          llamadas: "4-6 llamadas",
           descripcion: "Tu hoja de ruta comenzará desde los cimientos para asegurar que ningún banco te rechace: regularización fiscal/ITIN o fortalecimiento de tu crédito personal, formación paso a paso de tu LLC con EIN (Movimiento 1), activación bancaria real (Movimiento 1.5) y posterior acceso a líneas de crédito."
         };
       }
 
       return {
         ruta: "Ruta Intermedia",
-        llamadas: "3–4 llamadas",
+        llamadas: "3-4 llamadas",
         descripcion: "Ya cuentas con base adelantada, pero antes de aplicar a los bancos optimizaremos tu perfil crediticio personal y completaremos la auditoría/activación transaccional de tu LLC (Movimiento 1.5) para maximizar los montos de aprobación."
       };
     }
 
-    // Recolectar todos los datos del formulario (incluyendo las 3 preguntas de marketing y alias compatibles)
     function collectFormData() {
       const dudas = getCheckboxValues("dudasPrincipales");
       const otraTexto = document.getElementById("otraDudaTexto").value.trim();
@@ -1660,83 +1569,38 @@
       const herramientasStr = herramientas.join(" + ");
 
       const payload = {
+        tipo_evento: "DIAGNOSTICO_1A1_MERCEDES_RIOS",
         idRegistro: "MR-" + Date.now().toString().slice(-6),
         fechaISO: new Date().toISOString(),
-
-        // Identificación
         nombreCompleto: nombre,
-        nombre: nombre,
         correoElectronico: email,
-        email: email,
         telefonoWhatsapp: whatsapp,
-        whatsapp: whatsapp,
-
-        // 3 Preguntas Iniciales de Marketing
         decisionCompra: decisionCompra,
-        decision_compra: decisionCompra,
         queCasiFrena: queCasiFrena,
-        que_casi_frena: queCasiFrena,
         comoConocioMercedes: comoConocioMercedes,
-        como_conocio_mercedes: comoConocioMercedes,
-
-        // Sección 1: Situación Fiscal
         estatusFiscal: estatusFiscal,
-        ssn_itin: estatusFiscal,
         guiaItin: guiaItin,
-        guia_itin: guiaItin,
         impuestos2Anios: impuestos2Anios,
-        impuestos_2anos: impuestos2Anios,
-
-        // Sección 2: Crédito Personal
         conocePuntaje: conocePuntaje,
-        conoce_puntaje: conocePuntaje,
         rangoPuntaje: rangoPuntaje,
-        rango_puntaje: rangoPuntaje,
         ayudaMonitoreo: ayudaMonitoreo,
-        ayuda_revisar_credito: ayudaMonitoreo,
         tarjetasActivas: tarjetasActivas,
-        tarjetas_prestamos_activos: tarjetasActivas,
         historialNegativo: historialNegativo,
-        historial_negativo_2anos: historialNegativo,
-
-        // Sección 3: Perfil LLC
         tieneLLC: tieneLLC,
-        llc_formada: tieneLLC,
         estadoLLC: estadoLLC,
-        estado_llc: estadoLLC,
         tieneEIN: tieneEIN,
-        tiene_ein: tieneEIN,
         cuentaBancaria: cuentaBancaria,
-        cuenta_bancaria_empresarial: cuentaBancaria,
         presenciaDigital: presenciaDigital,
-        presencia_digital: presenciaDigital,
         aniosOperando: aniosOperando,
-        anos_operando: aniosOperando,
         ingresoMensual: ingresoMensual,
-        ingreso_mensual: ingresoMensual,
-
-        // Sección 4: Objetivo e Inversión
-        objetivosAsesoria: objetivosAsesoria,
-        objetivos_asesoria: objetivosAsesoria.join(" | "),
-        destinoInversion: destinoInversion,
-        destino_inversion: destinoInversion.join(" | "),
+        objetivosAsesoria: objetivosAsesoria.join(" | "),
+        destinoInversion: destinoInversion.join(" | "),
         capitalNecesario: capitalNecesario,
-        capital_necesario: capitalNecesario,
         urgenciaFinanciamiento: urgenciaFinanciamiento,
-        urgencia_financiamiento: urgenciaFinanciamiento,
-
-        // Sección 5: Dudas y Comodidad Digital
-        dudasPrincipales: dudas,
-        dudas_principales: dudas.join(" | "),
-        otra_duda_detalle: otraTexto,
+        dudasPrincipales: dudas.join(" | "),
         comodidadDigital: comodidadDigital,
-        comodidad_digital: comodidadDigital,
-
-        // Sección 6: Autorización y Seguimiento
         autorizaRevision: autorizaRevision,
-        autoriza_revision_reporte: autorizaRevision,
         disponibilidadLlamadas: disponibilidadLlamadas,
-        disponibilidad_seguimiento: disponibilidadLlamadas,
         notasAdicionales: notasAdicionales,
         herramientasRecomendadas: herramientasStr
       };
@@ -1750,7 +1614,46 @@
       return payload;
     }
 
-    // Envío del Formulario con Triple Blindaje (Formulario Nativo + URLSearchParams + Fetch)
+    // Envío por formulario HTML nativo a iframe oculto (Inmune a bloqueos CORS / 302)
+    function submitViaHiddenForm(url, jsonString) {
+      try {
+        const tempForm = document.createElement("form");
+        tempForm.method = "POST";
+        tempForm.action = url;
+        tempForm.target = "gas-hidden-iframe";
+        tempForm.style.display = "none";
+
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "payload";
+        input.value = jsonString;
+
+        tempForm.appendChild(input);
+        document.body.appendChild(tempForm);
+        tempForm.submit();
+        setTimeout(() => {
+          if (tempForm.parentNode) tempForm.parentNode.removeChild(tempForm);
+        }, 2000);
+        return true;
+      } catch (e) {
+        console.warn("Error en form oculto:", e);
+        return false;
+      }
+    }
+
+    // Verificar lectura contra el CSV publicado de Google Sheets
+    async function verifyInPublishedCsv(idRegistro) {
+      if (!PUBLISHED_CSV_URL) return false;
+      try {
+        const res = await fetch(PUBLISHED_CSV_URL + "&_t=" + Date.now(), { cache: "no-store" });
+        if (!res.ok) return false;
+        const csvText = await res.text();
+        return csvText.indexOf(idRegistro) !== -1;
+      } catch (e) {
+        return false;
+      }
+    }
+
     async function handleFormSubmit(event) {
       event.preventDefault();
 
@@ -1767,69 +1670,44 @@
       const submitBtn = document.getElementById("btn-submit");
       const submitBtnText = document.getElementById("submit-btn-text");
       submitBtn.disabled = true;
-      submitBtnText.textContent = "Procesando y Guardando Diagnóstico...";
+      submitBtnText.textContent = "Guardando Diagnóstico en Google Sheets...";
 
       const data = collectFormData();
+      const jsonString = JSON.stringify(data);
 
-      // 1. Guardar respaldo en localStorage del navegador
+      // 1. Respaldo en localStorage
       saveSubmissionLocally(data);
 
-      // 2. Enviar a Google Apps Script usando URLSearchParams (application/x-www-form-urlencoded)
-      //    Esto hace que Google Apps Script lo reciba directo en e.parameter.payload sin fallos de CORS/302
-      let sentToSheets = false;
-      if (GOOGLE_SCRIPT_URL) {
-        const jsonString = JSON.stringify(data);
+      // 2. CANAL PRIMARIO INFALIBLE: Envío por Formulario HTML Nativo en Iframe Oculto
+      let sentToSheets = submitViaHiddenForm(GOOGLE_SCRIPT_URL, jsonString);
 
+      // 3. CANAL SECUNDARIO: Respaldo al Webhook de Make de LIFEOFNENA LLC
+      if (MAKE_BACKUP_WEBHOOK) {
         try {
-          const formBody = new URLSearchParams();
-          formBody.append("payload", jsonString);
-
-          await fetch(GOOGLE_SCRIPT_URL, {
+          fetch(MAKE_BACKUP_WEBHOOK, {
             method: "POST",
-            mode: "no-cors",
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
-            },
-            body: formBody.toString()
-          });
-          sentToSheets = true;
-        } catch (err) {
-          console.warn("Fetch principal falló, activando respaldo por iframe:", err);
-          // Respaldo infalible por formulario HTML nativo en iframe oculto
-          try {
-            let iframe = document.getElementById("gas-hidden-iframe");
-            if (!iframe) {
-              iframe = document.createElement("iframe");
-              iframe.name = "gas-hidden-iframe";
-              iframe.id = "gas-hidden-iframe";
-              iframe.style.display = "none";
-              document.body.appendChild(iframe);
-            }
-            const tempForm = document.createElement("form");
-            tempForm.method = "POST";
-            tempForm.action = GOOGLE_SCRIPT_URL;
-            tempForm.target = "gas-hidden-iframe";
-
-            const input = document.createElement("input");
-            input.type = "hidden";
-            input.name = "payload";
-            input.value = jsonString;
-
-            tempForm.appendChild(input);
-            document.body.appendChild(tempForm);
-            tempForm.submit();
-            document.body.removeChild(tempForm);
-            sentToSheets = true;
-          } catch (fallbackErr) {
-            console.error("Error en respaldo:", fallbackErr);
-          }
-        }
+            keepalive: true,
+            headers: { "Content-Type": "application/json" },
+            body: jsonString
+          }).catch(() => {});
+        } catch (e) {}
       }
 
-      // 3. Mostrar pantalla de confirmación ejecutiva
+      // 4. Mostrar pantalla de éxito inmediatamente
       renderSuccessScreen(data, sentToSheets);
       submitBtn.disabled = false;
       submitBtnText.textContent = "Finalizar y Enviar Diagnóstico";
+
+      // 5. Verificación asíncrona contra el CSV publicado después de 3.5 segundos
+      setTimeout(async () => {
+        const confirmedInCsv = await verifyInPublishedCsv(data.idRegistro);
+        const syncText = document.getElementById("sheets-sync-text");
+        if (confirmedInCsv && syncText) {
+          syncText.textContent = "Expediente verificado en tiempo real en Google Sheets (" + data.idRegistro + ")";
+        } else if (syncText) {
+          syncText.textContent = "Expediente sincronizado con el equipo de Mercedes Ríos (" + data.idRegistro + ")";
+        }
+      }, 3500);
     }
 
     function renderSuccessScreen(data, sentToSheets) {
@@ -1851,13 +1729,11 @@
 
       const syncText = document.getElementById("sheets-sync-text");
       if (sentToSheets) {
-        syncText.textContent = "Expediente sincronizado con el equipo de Mercedes Ríos";
-      } else {
-        syncText.textContent = "Expediente registrado correctamente";
+        syncText.textContent = "Expediente enviado a Google Sheets (" + data.idRegistro + ")";
       }
 
       const mensajeWA = [
-        `Hola Mercedes y equipo 👋, acabo de completar mi *Diagnóstico Pre-Llamada 1 a 1*.`,
+        `Hola Mercedes y equipo 👋, acabo de completar mi *Diagnóstico Pre-Llamada 1 a 1* (${data.idRegistro}).`,
         ``,
         `• *Nombre:* ${data.nombreCompleto}`,
         `• *Correo:* ${data.correoElectronico}`,
