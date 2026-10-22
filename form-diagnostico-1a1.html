@@ -1750,7 +1750,7 @@
       return payload;
     }
 
-    // Envío del Formulario directo a la URL de Google Apps Script fija en el código
+    // Envío del Formulario con Triple Blindaje (Formulario Nativo + URLSearchParams + Fetch)
     async function handleFormSubmit(event) {
       event.preventDefault();
 
@@ -1774,19 +1774,55 @@
       // 1. Guardar respaldo en localStorage del navegador
       saveSubmissionLocally(data);
 
-      // 2. Enviar a Google Apps Script (usando text/plain sin preflight CORS para máxima compatibilidad en GitHub Pages)
+      // 2. Enviar a Google Apps Script usando URLSearchParams (application/x-www-form-urlencoded)
+      //    Esto hace que Google Apps Script lo reciba directo en e.parameter.payload sin fallos de CORS/302
       let sentToSheets = false;
       if (GOOGLE_SCRIPT_URL) {
+        const jsonString = JSON.stringify(data);
+
         try {
+          const formBody = new URLSearchParams();
+          formBody.append("payload", jsonString);
+
           await fetch(GOOGLE_SCRIPT_URL, {
             method: "POST",
             mode: "no-cors",
-            headers: { "Content-Type": "text/plain;charset=utf-8" },
-            body: JSON.stringify(data)
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+            },
+            body: formBody.toString()
           });
           sentToSheets = true;
         } catch (err) {
-          console.error("Error al enviar a Google Sheets:", err);
+          console.warn("Fetch principal falló, activando respaldo por iframe:", err);
+          // Respaldo infalible por formulario HTML nativo en iframe oculto
+          try {
+            let iframe = document.getElementById("gas-hidden-iframe");
+            if (!iframe) {
+              iframe = document.createElement("iframe");
+              iframe.name = "gas-hidden-iframe";
+              iframe.id = "gas-hidden-iframe";
+              iframe.style.display = "none";
+              document.body.appendChild(iframe);
+            }
+            const tempForm = document.createElement("form");
+            tempForm.method = "POST";
+            tempForm.action = GOOGLE_SCRIPT_URL;
+            tempForm.target = "gas-hidden-iframe";
+
+            const input = document.createElement("input");
+            input.type = "hidden";
+            input.name = "payload";
+            input.value = jsonString;
+
+            tempForm.appendChild(input);
+            document.body.appendChild(tempForm);
+            tempForm.submit();
+            document.body.removeChild(tempForm);
+            sentToSheets = true;
+          } catch (fallbackErr) {
+            console.error("Error en respaldo:", fallbackErr);
+          }
         }
       }
 
