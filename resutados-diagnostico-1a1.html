@@ -57,7 +57,6 @@
       min-height: 100vh;
     }
 
-    /* Orbes de iluminación radial de la Guía de Estilo */
     .ambient-glow-top {
       position: fixed;
       top: -150px;
@@ -82,7 +81,6 @@
       z-index: 0;
     }
 
-    /* Tarjetas High-Ticket */
     .glass-card {
       background: rgba(13, 20, 15, 0.82);
       backdrop-filter: blur(16px);
@@ -101,7 +99,6 @@
       background: rgba(27, 122, 52, 0.08);
     }
 
-    /* Inputs y Selectores */
     .input-premium {
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(27, 122, 52, 0.65);
@@ -123,7 +120,6 @@
       color: #EFF6F0;
     }
 
-    /* Items de la lista lateral de clientes */
     .client-item {
       border: 1px solid rgba(239, 246, 240, 0.08);
       background: rgba(255, 255, 255, 0.02);
@@ -141,7 +137,6 @@
       box-shadow: 0 0 22px rgba(57, 255, 96, 0.16), inset 0 0 0 1px rgba(57, 255, 96, 0.25);
     }
 
-    /* Botones */
     .btn-primary-cta {
       background: linear-gradient(180deg, #D93030 0%, #C42828 100%);
       color: #FFFFFF;
@@ -168,7 +163,6 @@
       box-shadow: 0 0 16px rgba(57, 255, 96, 0.22);
     }
 
-    /* Badges de Ruta */
     .badge-express {
       background: rgba(27, 122, 52, 0.35);
       border: 1px solid #39FF60;
@@ -185,13 +179,11 @@
       color: #FCA5A5;
     }
 
-    /* Scrollbar */
     ::-webkit-scrollbar { width: 7px; height: 7px; }
     ::-webkit-scrollbar-track { background: #060807; }
     ::-webkit-scrollbar-thumb { background: #1B7A34; border-radius: 4px; }
     ::-webkit-scrollbar-thumb:hover { background: #39FF60; }
 
-    /* Estilos de Impresión para exportar Ficha del Cliente en PDF */
     @media print {
       body { background: #060807 !important; color: #EFF6F0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
       .no-print { display: none !important; }
@@ -210,7 +202,6 @@
        ===================================================================== -->
   <header class="relative z-20 border-b border-neon/15 bg-canvas/85 backdrop-blur-md sticky top-0 no-print">
     <div class="max-w-[1440px] mx-auto px-4 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-4">
-      <!-- Identidad -->
       <div class="flex items-center gap-3">
         <div class="w-10 h-10 rounded-xl bg-deepGreen/30 border border-neon/45 flex items-center justify-center shadow-[0_0_18px_rgba(57,255,96,0.22)]">
           <span class="font-serif font-bold text-neon text-lg tracking-tighter">MR</span>
@@ -218,31 +209,30 @@
         <div>
           <div class="flex items-center gap-2">
             <span class="text-[11px] uppercase tracking-[0.22em] text-neon font-extrabold">Tu Ruta Financiera</span>
-            <span class="text-[10px] uppercase tracking-widest px-2 py-0.5 rounded bg-gold/15 text-gold border border-gold/35 font-bold">Command Center 1 a 1</span>
+            <span class="text-[10px] uppercase tracking-widest px-2 py-0.5 rounded bg-gold/15 text-gold border border-gold/35 font-bold">Command Center 1 a 1 + Calendly</span>
           </div>
           <h1 class="text-sm sm:text-base font-bold text-ivory">
-            Panel de Diagnósticos y Siguientes Pasos por Cliente · <span class="text-ivory/60 font-normal">Mercedes Ríos</span>
+            Panel de Diagnósticos, Agendas y Siguientes Pasos · <span class="text-ivory/60 font-normal">Mercedes Ríos</span>
           </h1>
         </div>
       </div>
 
-      <!-- Estado de Conexión y Controles -->
       <div class="flex flex-wrap items-center gap-2.5">
         <div id="sync-status-pill" class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/[0.03] border border-ivory/10 text-xs">
           <span id="sync-dot" class="w-2 h-2 rounded-full bg-neon animate-pulse"></span>
-          <span id="sync-label" class="text-ivory/80 font-medium">Conectado a Google Sheets</span>
+          <span id="sync-label" class="text-ivory/80 font-medium">Conectando Sheets + Calendly...</span>
         </div>
 
         <button type="button" onclick="fetchClientsFromSources(true)"
           class="btn-secondary-neon px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5">
           <i data-lucide="refresh-cw" id="icon-refresh" class="w-3.5 h-3.5 text-neon"></i>
-          <span>Sincronizar Ahora</span>
+          <span>Sincronizar Todo</span>
         </button>
 
         <button type="button" onclick="openImportModal()"
           class="px-3.5 py-2 rounded-xl text-xs font-semibold border border-ivory/15 bg-white/5 hover:border-neon/40 text-ivory/85 flex items-center gap-1.5 transition">
           <i data-lucide="database" class="w-3.5 h-3.5 text-gold"></i>
-          <span>Fuente de Datos</span>
+          <span>Configuración</span>
         </button>
 
         <a href="form-diagnostico-1a1.html" target="_blank"
@@ -259,17 +249,29 @@
        ===================================================================== -->
   <main class="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 py-6">
 
-    <!-- FILA 1: KPIs GLOBALES DE LA COHORTE -->
-    <section class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5 mb-6 no-print">
+    <!-- FILA 1: KPIs GLOBALES DE LA COHORTE (INCLUYE AGENDAS CALENDLY) -->
+    <section class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5 mb-6 no-print">
       <!-- Total Clientes -->
-      <div class="glass-card rounded-2xl p-4 flex items-center justify-between">
+      <div onclick="resetAllFilters()" class="glass-card rounded-2xl p-4 flex items-center justify-between cursor-pointer hover:border-neon/50 transition">
         <div>
           <span class="text-[11px] font-bold uppercase tracking-wider text-ivory/55 block">Total Evaluados</span>
           <span id="kpi-total" class="text-2xl sm:text-3xl font-extrabold text-ivory font-mono mt-0.5 block">0</span>
-          <span class="text-[11px] text-neon font-medium">Expedientes activos</span>
+          <span class="text-[11px] text-neon font-medium">Expedientes en Sheet</span>
         </div>
         <div class="w-10 h-10 rounded-xl bg-white/5 border border-ivory/10 flex items-center justify-center">
           <i data-lucide="users" class="w-5 h-5 text-ivory/80"></i>
+        </div>
+      </div>
+
+      <!-- Citas Agendadas en Calendly -->
+      <div onclick="toggleCalendlyFilter('AGENDADA')" class="glass-card rounded-2xl p-4 flex items-center justify-between cursor-pointer hover:border-neon transition border-neon/35">
+        <div>
+          <span class="text-[11px] font-bold uppercase tracking-wider text-neon block">Con Cita Calendly</span>
+          <span id="kpi-agendados" class="text-2xl sm:text-3xl font-extrabold text-neon font-mono mt-0.5 block">0</span>
+          <span id="kpi-pendientes-agenda" class="text-[11px] text-gold font-medium">0 por agendar</span>
+        </div>
+        <div class="w-10 h-10 rounded-xl bg-deepGreen/35 border border-neon/50 flex items-center justify-center shadow-[0_0_15px_rgba(57,255,96,0.2)]">
+          <i data-lucide="calendar-check-2" class="w-5 h-5 text-neon"></i>
         </div>
       </div>
 
@@ -278,7 +280,7 @@
         <div>
           <span class="text-[11px] font-bold uppercase tracking-wider text-neon block">Ruta Express</span>
           <span id="kpi-express" class="text-2xl sm:text-3xl font-extrabold text-neon font-mono mt-0.5 block">0</span>
-          <span class="text-[11px] text-ivory/60">1–2 llamadas (Listos)</span>
+          <span class="text-[11px] text-ivory/60">1–2 llamadas</span>
         </div>
         <div class="w-10 h-10 rounded-xl bg-deepGreen/30 border border-neon/40 flex items-center justify-center">
           <i data-lucide="zap" class="w-5 h-5 text-neon"></i>
@@ -290,7 +292,7 @@
         <div>
           <span class="text-[11px] font-bold uppercase tracking-wider text-gold block">Ruta Intermedia</span>
           <span id="kpi-intermedia" class="text-2xl sm:text-3xl font-extrabold text-gold font-mono mt-0.5 block">0</span>
-          <span class="text-[11px] text-ivory/60">3–4 llamadas (Ajuste)</span>
+          <span class="text-[11px] text-ivory/60">3–4 llamadas</span>
         </div>
         <div class="w-10 h-10 rounded-xl bg-gold/15 border border-gold/40 flex items-center justify-center">
           <i data-lucide="sliders" class="w-5 h-5 text-gold"></i>
@@ -302,15 +304,15 @@
         <div>
           <span class="text-[11px] font-bold uppercase tracking-wider text-red-400 block">Ruta Desde Cero</span>
           <span id="kpi-cero" class="text-2xl sm:text-3xl font-extrabold text-red-400 font-mono mt-0.5 block">0</span>
-          <span class="text-[11px] text-ivory/60">4–6 llamadas (Cimientos)</span>
+          <span class="text-[11px] text-ivory/60">4–6 llamadas</span>
         </div>
         <div class="w-10 h-10 rounded-xl bg-ctaRed/25 border border-red-400/40 flex items-center justify-center">
-          <i data-lucide="Compass" class="w-5 h-5 text-red-400"></i>
+          <i data-lucide="compass" class="w-5 h-5 text-red-400"></i>
         </div>
       </div>
 
       <!-- Autorizan Revisión en Vivo -->
-      <div class="glass-card rounded-2xl p-4 flex items-center justify-between col-span-2 sm:col-span-1">
+      <div class="glass-card rounded-2xl p-4 flex items-center justify-between">
         <div>
           <span class="text-[11px] font-bold uppercase tracking-wider text-ivory/55 block">Reporte en Vivo</span>
           <span id="kpi-autorizan" class="text-2xl sm:text-3xl font-extrabold text-ivory font-mono mt-0.5 block">0%</span>
@@ -322,13 +324,13 @@
       </div>
     </section>
 
-    <!-- FILA 2: BARRA DE BÚSQUEDA RÁPIDA Y SELECTOR DIRECTO DE CLIENTE -->
+    <!-- FILA 2: BARRA DE BÚSQUEDA, SELECTOR DE CLIENTE Y FILTRO DE CALENDLY -->
     <section class="glass-card rounded-2xl p-4 sm:p-5 mb-6 no-print">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
-        <!-- Buscador por Nombre, Correo, Teléfono o ID -->
-        <div class="lg:col-span-5">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 items-center">
+        <!-- Buscador -->
+        <div class="lg:col-span-4">
           <label for="search-input" class="block text-[11px] font-bold uppercase tracking-wider text-neon mb-1.5">
-            1. Buscar Cliente (Nombre, Correo, WhatsApp o Estado LLC)
+            1. Buscar Cliente (Nombre, Correo o WhatsApp)
           </label>
           <div class="relative">
             <i data-lucide="search" class="w-4 h-4 text-neon absolute left-3.5 top-3.5"></i>
@@ -341,7 +343,7 @@
           </div>
         </div>
 
-        <!-- Selector Desplegable Directo de Cliente -->
+        <!-- Selector Desplegable Directo -->
         <div class="lg:col-span-4">
           <label for="client-select-dropdown" class="block text-[11px] font-bold uppercase tracking-wider text-gold mb-1.5">
             2. Selector Directo de Expediente
@@ -352,56 +354,68 @@
           </select>
         </div>
 
+        <!-- Filtro por Estado de Agenda Calendly -->
+        <div class="lg:col-span-2">
+          <label for="calendly-filter" class="block text-[11px] font-bold uppercase tracking-wider text-neon mb-1.5">
+            3. Estado en Calendly
+          </label>
+          <select id="calendly-filter" onchange="handleSearchAndFilter()"
+            class="input-premium w-full px-3 py-2.5 rounded-xl text-xs sm:text-sm">
+            <option value="ALL">Todas las Agendas</option>
+            <option value="AGENDADA">📅 Con Cita Agendada</option>
+            <option value="PENDIENTE">⏳ Falta Agendar</option>
+          </select>
+        </div>
+
         <!-- Filtro por Ruta -->
-        <div class="lg:col-span-3">
+        <div class="lg:col-span-2">
           <label for="route-filter" class="block text-[11px] font-bold uppercase tracking-wider text-ivory/70 mb-1.5">
-            3. Filtrar por Ruta Asignada
+            4. Ruta Asignada
           </label>
           <select id="route-filter" onchange="handleSearchAndFilter()"
-            class="input-premium w-full px-3.5 py-2.5 rounded-xl text-sm">
+            class="input-premium w-full px-3 py-2.5 rounded-xl text-xs sm:text-sm">
             <option value="ALL">Todas las Rutas</option>
-            <option value="Express">🟢 Ruta Express (1–2 llamadas)</option>
-            <option value="Intermedia">🟡 Ruta Intermedia (3–4 llamadas)</option>
-            <option value="Desde Cero">🔴 Ruta Desde Cero (4–6 llamadas)</option>
+            <option value="Express">🟢 Ruta Express</option>
+            <option value="Intermedia">🟡 Ruta Intermedia</option>
+            <option value="Desde Cero">🔴 Ruta Desde Cero</option>
           </select>
         </div>
       </div>
     </section>
 
     <!-- ===================================================================
-         LAYOUT MAESTRO: LISTA LATERAL DE CLIENTES (IZQ) + EXPEDIENTE 360 (DER)
+         LAYOUT MAESTRO: LISTA LATERAL (IZQ) + EXPEDIENTE 360 (DER)
          =================================================================== -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
 
-      <!-- COLUMNA IZQUIERDA (4 COLS): DIRECTORIO INTERACTIVO DE CLIENTES -->
+      <!-- COLUMNA IZQUIERDA (4 COLS): DIRECTORIO DE CLIENTES CON BADGE CALENDLY -->
       <aside class="lg:col-span-4 glass-card rounded-2xl p-4 sm:p-5 no-print">
         <div class="flex items-center justify-between pb-3 mb-3 border-b border-ivory/10">
           <div class="flex items-center gap-2">
             <i data-lucide="folder-kanban" class="w-4 h-4 text-neon"></i>
             <h2 class="text-xs font-extrabold uppercase tracking-wider text-ivory">
-              Clientes Registrados (<span id="filtered-count">0</span>)
+              Clientes (<span id="filtered-count">0</span>)
             </h2>
           </div>
-          <span class="text-[11px] text-ivory/50">Clic para analizar</span>
+          <span class="text-[11px] text-ivory/50">Match Correo / Nombre</span>
         </div>
 
-        <!-- Lista scrolleable -->
-        <div id="client-list-container" class="space-y-2.5 max-h-[760px] overflow-y-auto pr-1">
-          <!-- Renderizado dinámicamente por JS -->
+        <div id="client-list-container" class="space-y-2.5 max-h-[820px] overflow-y-auto pr-1">
+          <!-- Renderizado dinámicamente -->
         </div>
       </aside>
 
-      <!-- COLUMNA DERECHA (8 COLS): EXPEDIENTE INDIVIDUAL Y PLAN DE ACCIÓN -->
+      <!-- COLUMNA DERECHA (8 COLS): EXPEDIENTE INDIVIDUAL + CALENDLY + PLAN DE ACCIÓN -->
       <section id="client-detail-panel" class="lg:col-span-8 space-y-6">
 
-        <!-- TARJETA 1: CABECERA DEL CLIENTE + SEMÁFORO DE RUTA + ACCIONES RÁPIDAS -->
+        <!-- TARJETA 1: CABECERA DEL CLIENTE + TARJETA DE AGENDA CALENDLY INTEGRADA -->
         <div class="glass-card rounded-2xl p-6 sm:p-7 relative overflow-hidden">
-          <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-6 border-b border-ivory/10">
+          <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-5 border-b border-ivory/10">
             <div>
               <div class="flex flex-wrap items-center gap-2 mb-2">
                 <span id="det-id" class="font-mono text-xs px-2.5 py-0.5 rounded bg-white/5 border border-ivory/15 text-ivory/75">MR-000000</span>
                 <span id="det-fecha" class="text-xs text-ivory/55 flex items-center gap-1">
-                  <i data-lucide="calendar" class="w-3.5 h-3.5"></i> --
+                  <i data-lucide="clock" class="w-3.5 h-3.5"></i> Diagnóstico: --
                 </span>
                 <span id="det-urgencia-pill" class="text-[11px] font-bold uppercase px-2.5 py-0.5 rounded bg-ctaRed/25 text-red-300 border border-red-400/30">
                   Urgencia: --
@@ -437,8 +451,41 @@
             </div>
           </div>
 
+          <!-- =============================================================
+               BLOQUE DESTACADO: ESTADO DE LLAMADA 1 A 1 EN CALENDLY
+               ============================================================= -->
+          <div id="det-calendly-box" class="my-5 p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-deepGreen/30 via-surface to-canvas border border-neon/40">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div class="flex items-start gap-3.5">
+                <div id="cal-icon-box" class="w-11 h-11 rounded-xl bg-neon/15 border border-neon flex items-center justify-center shrink-0 mt-0.5 shadow-[0_0_20px_rgba(57,255,96,0.25)]">
+                  <i data-lucide="calendar-clock" class="w-5 h-5 text-neon"></i>
+                </div>
+                <div>
+                  <div class="flex flex-wrap items-center gap-2 mb-1">
+                    <span class="text-[10px] font-extrabold uppercase tracking-[0.18em] text-neon">Agenda Calendly · Mentoría 1 a 1</span>
+                    <span id="cal-status-badge" class="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-neon text-canvas">
+                      Verificando...
+                    </span>
+                    <span id="cal-match-type" class="text-[10px] font-mono text-ivory/55"></span>
+                  </div>
+                  <h3 id="cal-datetime-title" class="text-base sm:text-lg font-extrabold text-ivory">
+                    --
+                  </h3>
+                  <p id="cal-subtitle-info" class="text-xs text-ivory/70 mt-0.5">
+                    --
+                  </p>
+                </div>
+              </div>
+
+              <!-- Botones de Acción de Calendly (Entrar a videollamada o Enviar link para agendar) -->
+              <div id="cal-actions-container" class="flex flex-wrap items-center gap-2 shrink-0 no-print">
+                <!-- Se inyecta dinámicamente según si tiene cita o no -->
+              </div>
+            </div>
+          </div>
+
           <!-- 4 Pilares Resumen (ID Fiscal, Crédito, Estructura LLC, Meta Capital) -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-5">
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
             <div class="glass-subcard rounded-xl p-3.5">
               <span class="text-[11px] uppercase tracking-wider text-ivory/50 block mb-1">1. Estatus Fiscal</span>
               <strong id="det-pilar-fiscal" class="text-sm sm:text-base font-extrabold text-ivory block">--</strong>
@@ -469,7 +516,7 @@
             <a id="btn-wa-client" href="#" target="_blank" rel="noopener noreferrer"
               class="btn-primary-cta px-4 py-2.5 rounded-xl text-xs flex items-center gap-2">
               <i data-lucide="message-circle" class="w-4 h-4"></i>
-              <span>Abrir WhatsApp del Cliente con Resumen</span>
+              <span>Contactar por WhatsApp con Resumen</span>
             </a>
 
             <button type="button" onclick="copyExecutiveBrief()"
@@ -507,18 +554,13 @@
             </span>
           </div>
 
-          <!-- Explicación Ejecutiva del Diagnóstico -->
           <div class="p-4 rounded-xl bg-gradient-to-r from-deepGreen/25 via-surface to-surface border-l-4 border-neon mb-5">
             <p class="text-xs font-bold uppercase tracking-wider text-neon mb-1">Diagnóstico para Mercedes Ríos:</p>
             <p id="det-diagnostico-explicacion" class="text-sm text-ivory/90 leading-relaxed"></p>
           </div>
 
-          <!-- Lista Paso a Paso por Movimientos (Movimiento 0, 1, 1.5, 2, 3) -->
-          <div id="det-next-steps-list" class="space-y-3">
-            <!-- Generado dinámicamente según las respuestas del cliente -->
-          </div>
+          <div id="det-next-steps-list" class="space-y-3"></div>
 
-          <!-- Herramientas Recomendadas y Alertas para la Sesión -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5 pt-5 border-t border-ivory/10">
             <div class="glass-subcard rounded-xl p-4 border-l-2 border-gold">
               <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-gold mb-1.5">
@@ -597,7 +639,6 @@
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <!-- Sección 1 y 2 -->
             <div class="glass-subcard rounded-xl p-4 space-y-2.5">
               <h4 class="text-xs font-extrabold uppercase tracking-wider text-neon border-b border-ivory/10 pb-2">
                 Sección 1 & 2 · Fiscal y Crédito Personal
@@ -614,7 +655,6 @@
               </div>
             </div>
 
-            <!-- Sección 3 -->
             <div class="glass-subcard rounded-xl p-4 space-y-2.5">
               <h4 class="text-xs font-extrabold uppercase tracking-wider text-neon border-b border-ivory/10 pb-2">
                 Sección 3 · Perfil de Empresa (LLC)
@@ -630,7 +670,6 @@
               </div>
             </div>
 
-            <!-- Sección 4 -->
             <div class="glass-subcard rounded-xl p-4 space-y-2.5">
               <h4 class="text-xs font-extrabold uppercase tracking-wider text-neon border-b border-ivory/10 pb-2">
                 Sección 4 · Crédito, Capital e Inversión
@@ -649,7 +688,6 @@
               </div>
             </div>
 
-            <!-- Sección 5 y 6 -->
             <div class="glass-subcard rounded-xl p-4 space-y-2.5">
               <h4 class="text-xs font-extrabold uppercase tracking-wider text-neon border-b border-ivory/10 pb-2">
                 Sección 5 & 6 · Dudas, Digital y Compromiso
@@ -675,15 +713,13 @@
     </div>
   </main>
 
-  <!-- =====================================================================
-       MODAL DE CONFIGURACIÓN / IMPORTACIÓN MANUAL DE CSV O GOOGLE SHEETS
-       ===================================================================== -->
+  <!-- MODAL DE CONFIGURACIÓN -->
   <div id="modal-source" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4 no-print">
     <div class="glass-card rounded-2xl max-w-xl w-full p-6 border border-neon/40">
       <div class="flex items-center justify-between pb-3 mb-4 border-b border-ivory/10">
         <h3 class="text-base font-extrabold uppercase text-ivory flex items-center gap-2">
           <i data-lucide="database" class="w-4 h-4 text-neon"></i>
-          Conexión de Datos del Dashboard
+          Conexión de Datos (Google Sheets + Calendly)
         </h3>
         <button type="button" onclick="closeImportModal()" class="text-ivory/60 hover:text-ivory">
           <i data-lucide="x" class="w-5 h-5"></i>
@@ -697,14 +733,20 @@
           </label>
           <input type="text" id="cfg-csv-url"
             class="input-premium w-full px-3.5 py-2.5 rounded-xl text-xs font-mono" />
-          <p class="text-ivory/55 mt-1">
-            Conectado por defecto a la pestaña publicada de Diagnósticos 1 a 1 de Mercedes Ríos.
-          </p>
         </div>
 
         <div class="pt-2 border-t border-ivory/10">
           <label class="font-bold uppercase tracking-wider text-gold block mb-1">
-            O subir archivo CSV descargado manualmente
+            Link de Calendly (Mentoría 1 a 1)
+          </label>
+          <input type="text" id="cfg-calendly-link" readonly
+            value="https://calendly.com/d/dvx7-7cx-gs4/mentoria-1-a-1-tu-ruta-financiera"
+            class="input-premium w-full px-3.5 py-2 rounded-xl text-xs font-mono opacity-80" />
+        </div>
+
+        <div class="pt-2 border-t border-ivory/10">
+          <label class="font-bold uppercase tracking-wider text-ivory/75 block mb-1">
+            O subir archivo CSV manualmente
           </label>
           <input type="file" id="csv-file-input" accept=".csv" onchange="handleCsvFileUpload(event)"
             class="block w-full text-xs text-ivory/70 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-deepGreen file:text-ivory hover:file:bg-neon hover:file:text-canvas cursor-pointer" />
@@ -725,27 +767,28 @@
   <!-- FOOTER -->
   <footer class="relative z-10 border-t border-ivory/10 py-6 mt-12 text-center text-xs text-ivory/45 no-print">
     <div class="max-w-[1440px] mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-2">
-      <span>© 2026 <strong>LIFEOFNENA LLC</strong> · Mercedes Ríos · Tu Ruta Financiera (Dashboard 1 a 1)</span>
+      <span>© 2026 <strong>LIFEOFNENA LLC</strong> · Mercedes Ríos · Tu Ruta Financiera (Dashboard 1 a 1 + Calendly)</span>
       <span>7901 4TH St N Ste 300, Saint Petersburg, Florida, US 33702</span>
     </div>
   </footer>
 
   <!-- =====================================================================
-       MOTOR JAVASCRIPT: SINCRONIZACIÓN SHEETS + MOTOR DE SIGUIENTES PASOS
+       MOTOR JAVASCRIPT: SHEETS + API CALENDLY EN VIVO + MATCH AUTOMÁTICO
        ===================================================================== -->
   <script>
-    /**
-     * ENDPOINTS CONECTADOS AL GOOGLE SHEET DE MERCEDES RÍOS
-     */
     const DEFAULT_PUBLISHED_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSd_rzwoG38nmYgnjcPHZ6aV_FjdaluD3ouHnxlxeXF_xvjcqB6fLAgxriwaZD0b5lVMThtOrEtcDFx/pub?gid=1139893124&single=true&output=csv";
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwBEMPcgmhYL0i0D1Itm70nvEdnbl1LRI4ZocWXp0EmOWKgLZ82mGuZPtSKO6PoVgOp/exec";
     const STORAGE_KEY_SUBMISSIONS = "mr_ruta90_local_submissions";
 
+    // Configuración oficial de Calendly de Mercedes Ríos
+    const CALENDLY_BOOKING_URL = "https://calendly.com/d/dvx7-7cx-gs4/mentoria-1-a-1-tu-ruta-financiera";
+    const CALENDLY_PAT_TOKEN = "eyJraWQiOiIxY2UxZTEzNjE3ZGNmNzY2YjNjZWJjY2Y4ZGM1YmFmYThhNjVlNjg0MDIzZjdjMzJiZTgzNDliMjM4MDEzNWI0IiwidHlwIjoiUEFUIiwiYWxnIjoiRVMyNTYifQ.eyJpc3MiOiJodHRwczovL2F1dGguY2FsZW5kbHkuY29tIiwiaWF0IjoxNzkyMDc0MjU0LCJqdGkiOiIxNzNjODIyYi1kMTVlLTRlOTktYTBhNS0zNTEwYTAxY2NmMTQiLCJ1c2VyX3V1aWQiOiIxNjBiZmUxZS1hYjRmLTQwMjgtODhiYS1jNjFiNTZlYTQ2MjkiLCJzY29wZSI6ImF2YWlsYWJpbGl0eTpyZWFkIGF2YWlsYWJpbGl0eTp3cml0ZSBldmVudF90eXBlczpyZWFkIGV2ZW50X3R5cGVzOndyaXRlIGxvY2F0aW9uczpyZWFkIHJvdXRpbmdfZm9ybXM6cmVhZCBzaGFyZXM6d3JpdGUgc2NoZWR1bGVkX2V2ZW50czpyZWFkIHNjaGVkdWxlZF9ldmVudHM6d3JpdGUgc2NoZWR1bGluZ19saW5rczp3cml0ZSBncm91cHM6cmVhZCBvcmdhbml6YXRpb25zOnJlYWQgb3JnYW5pemF0aW9uczp3cml0ZSB1c2VyczpyZWFkIGNvbnRhY3RzOnJlYWQgY29udGFjdHM6d3JpdGUgbWVldGluZ19yZWNhcHM6cmVhZCBtZWV0aW5nX3JlY2Fwczp3cml0ZSBhY3Rpdml0eV9sb2c6cmVhZCBkYXRhX2NvbXBsaWFuY2U6d3JpdGUgb3V0Z29pbmdfY29tbXVuaWNhdGlvbnM6cmVhZCB3ZWJob29rczpyZWFkIHdlYmhvb2tzOndyaXRlIn0.OyMw723FQIC1_8eR9KLM_PVY1_spmBt8CYlwqa02upCWAWh7NJOA0prSC7UEkpzkN8s4G3i8U935FAODDqzw1g";
+
     let allClients = [];
+    let calendlyBookings = [];
     let filteredClients = [];
     let selectedClient = null;
 
-    // Inicializar Dashboard
     window.addEventListener("DOMContentLoaded", () => {
       lucide.createIcons();
       const savedUrl = localStorage.getItem("mr_dashboard_csv_url") || DEFAULT_PUBLISHED_CSV_URL;
@@ -754,7 +797,170 @@
     });
 
     /**
-     * PARSER CSV ROBUSTO (Soporta saltos de línea y comillas dentro de celdas)
+     * NORMALIZACIÓN INTELIGENTE PARA MATCH POR CORREO Y/O NOMBRE COMPLETO
+     */
+    function normalizeText(str) {
+      if (!str) return "";
+      return String(str)
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9\s@._-]/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
+    function namesMatchSmart(sheetName, calendlyName) {
+      const n1 = normalizeText(sheetName);
+      const n2 = normalizeText(calendlyName);
+      if (!n1 || !n2) return false;
+      if (n1 === n2 || n1.includes(n2) || n2.includes(n1)) return true;
+
+      const words1 = n1.split(" ").filter(w => w.length > 2);
+      const words2 = n2.split(" ").filter(w => w.length > 2);
+      const common = words1.filter(w => words2.includes(w));
+      return common.length >= 2 || (words1.length === 1 && words2.includes(words1[0]));
+    }
+
+    /**
+     * CONSULTAR CITAS EN VIVO DESDE LA API DE CALENDLY (V2)
+     */
+    async function fetchLiveCalendlyBookings() {
+      if (!CALENDLY_PAT_TOKEN) return [];
+      const headers = {
+        "Authorization": `Bearer ${CALENDLY_PAT_TOKEN}`,
+        "Content-Type": "application/json"
+      };
+
+      try {
+        const meRes = await fetch("https://api.calendly.com/users/me", { headers });
+        if (!meRes.ok) return [];
+        const meData = await meRes.json();
+        const orgUri = meData.resource?.current_organization;
+        if (!orgUri) return [];
+
+        // FILTRO DESDE HOY (00:00 Hora Perú/Colombia) HACIA EL FUTURO
+        const hoyPeruStr = new Intl.DateTimeFormat("en-CA", {
+          timeZone: "America/Lima",
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit"
+        }).format(new Date());
+        const inicioHoyPeruISO = new Date(`${hoyPeruStr}T00:00:00-05:00`).toISOString();
+
+        const evRes = await fetch(
+          `https://api.calendly.com/scheduled_events?organization=${encodeURIComponent(orgUri)}&count=100&sort=start_time:asc&min_start_time=${encodeURIComponent(inicioHoyPeruISO)}`,
+          { headers }
+        );
+        if (!evRes.ok) return [];
+        const evData = await evRes.json();
+        const events = evData.collection || [];
+
+        const bookings = [];
+        await Promise.all(
+          events.map(async (ev) => {
+            try {
+              const invRes = await fetch(`${ev.uri}/invitees?count=50`, { headers });
+              if (!invRes.ok) return;
+              const invData = await invRes.json();
+              const invitees = invData.collection || [];
+
+              invitees.forEach(inv => {
+                const isActive = (ev.status === "active" && inv.status === "active");
+                const joinUrl = ev.location?.join_url || ev.location?.location || "";
+                bookings.push({
+                  email: normalizeText(inv.email),
+                  rawEmail: inv.email || "",
+                  name: inv.name || "",
+                  status: isActive ? "Agendada" : "Cancelada",
+                  startTime: ev.start_time,
+                  endTime: ev.end_time,
+                  eventName: ev.name || "Mentoría 1 a 1 Tu Ruta Financiera",
+                  joinUrl: joinUrl,
+                  timezone: inv.timezone || "America/Lima",
+                  rescheduleUrl: inv.reschedule_url || inv.cancel_url || ""
+                });
+              });
+            } catch (innerErr) {}
+          })
+        );
+
+        bookings.sort((a, b) => {
+          if (a.status === "Agendada" && b.status !== "Agendada") return -1;
+          if (a.status !== "Agendada" && b.status === "Agendada") return 1;
+          return new Date(a.startTime) - new Date(b.startTime);
+        });
+
+        return bookings;
+      } catch (err) {
+        console.warn("Aviso al consultar API de Calendly en navegador:", err);
+        return [];
+      }
+    }
+
+    /**
+     * VINCULAR CITA DE CALENDLY AL CLIENTE (DESDE EL SHEET O DESDE LA API EN VIVO)
+     */
+    function matchCalendlyToClient(client) {
+      // 1. Verificar si ya viene escrito desde las columnas AJ-AN del Google Sheet
+      if (client.sheetCalendlyStatus && client.sheetCalendlyDate) {
+        client.calendly = {
+          agendado: client.sheetCalendlyStatus.toLowerCase().includes("agendada"),
+          status: client.sheetCalendlyStatus,
+          formattedDate: client.sheetCalendlyDate,
+          joinUrl: client.sheetCalendlyJoinUrl || "",
+          timezone: client.sheetCalendlyTimezone || "",
+          rescheduleUrl: client.sheetCalendlyReschedule || "",
+          matchedBy: "Sincronizado en Google Sheet"
+        };
+      }
+
+      // 2. Cruzar también contra las citas en vivo de la API de Calendly (por Correo o Nombre)
+      const clientEmail = normalizeText(client.correoElectronico);
+      const clientName = client.nombreCompleto || "";
+
+      let liveMatch = null;
+      let matchMethod = "";
+
+      if (clientEmail && calendlyBookings.length > 0) {
+        liveMatch = calendlyBookings.find(b => b.email && b.email === clientEmail);
+        if (liveMatch) matchMethod = "Match exacto por Correo";
+      }
+
+      if (!liveMatch && clientName && calendlyBookings.length > 0) {
+        liveMatch = calendlyBookings.find(b => namesMatchSmart(clientName, b.name));
+        if (liveMatch) matchMethod = `Match por Nombre (${liveMatch.name})`;
+      }
+
+      if (liveMatch) {
+        client.calendly = {
+          agendado: liveMatch.status === "Agendada",
+          status: liveMatch.status,
+          startTimeISO: liveMatch.startTime,
+          formattedDate: formatDateReadable(liveMatch.startTime),
+          joinUrl: liveMatch.joinUrl || client.sheetCalendlyJoinUrl || "",
+          timezone: liveMatch.timezone || client.sheetCalendlyTimezone || "",
+          rescheduleUrl: liveMatch.rescheduleUrl || "",
+          eventName: liveMatch.eventName,
+          matchedBy: matchMethod
+        };
+      }
+
+      if (!client.calendly) {
+        client.calendly = {
+          agendado: false,
+          status: "Pendiente de Agendar",
+          formattedDate: "Aún no registra cita en Calendly",
+          joinUrl: "",
+          timezone: "",
+          rescheduleUrl: "",
+          matchedBy: ""
+        };
+      }
+    }
+
+    /**
+     * PARSER CSV ROBUSTO
      */
     function parseCSV(text) {
       const rows = [];
@@ -804,8 +1010,7 @@
     }
 
     /**
-     * MAPEAR FILA DEL GOOGLE SHEET A OBJETO CLIENTE NORMALIZADO
-     * Compatible tanto con el esquema de 35 columnas (con Marketing) como con el de 32 columnas
+     * MAPEAR FILA DEL GOOGLE SHEET A OBJETO CLIENTE (INCLUYENDO COLUMNAS AJ-AN DE CALENDLY)
      */
     function mapSheetRowToClient(row, headers) {
       const getByHeader = (keywords, fallbackIdx) => {
@@ -815,13 +1020,13 @@
           );
           if (idx !== -1 && row[idx] !== undefined) return row[idx];
         }
-        return row[fallbackIdx] !== undefined ? row[fallbackIdx] : "";
+        return (fallbackIdx !== null && row[fallbackIdx] !== undefined) ? row[fallbackIdx] : "";
       };
 
       const hasMarketingCols = headers.some(h => h.toLowerCase().includes("mkt") || h.toLowerCase().includes("comprar"));
 
       const raw = {
-        fecha: getByHeader(["fecha"], 0),
+        fecha: getByHeader(["fecha y hora"], 0),
         idRegistro: getByHeader(["id registro", "id"], 1) || "MR-S/N",
         rutaEstimada: getByHeader(["ruta estimada"], 2),
         llamadasEstimadas: getByHeader(["llamadas estimadas"], 3),
@@ -855,10 +1060,16 @@
         autorizaRevision: getByHeader(["22.", "autoriza"], hasMarketingCols ? 31 : 28),
         disponibilidadLlamadas: getByHeader(["23.", "disponibilidad"], hasMarketingCols ? 32 : 29),
         notasAdicionales: getByHeader(["notas adicionales"], hasMarketingCols ? 33 : 30),
-        herramientasRecomendadas: getByHeader(["herramientas"], hasMarketingCols ? 34 : 31)
+        herramientasRecomendadas: getByHeader(["herramientas"], hasMarketingCols ? 34 : 31),
+
+        // Columnas Adicionales de Calendly en el Sheet (36 a 40 / AJ a AN)
+        sheetCalendlyStatus: getByHeader(["calendly: estado", "estado cita"], 35),
+        sheetCalendlyDate: getByHeader(["calendly: fecha", "hora llamada"], 36),
+        sheetCalendlyJoinUrl: getByHeader(["calendly: link", "videollamada"], 37),
+        sheetCalendlyTimezone: getByHeader(["calendly: zona"], 38),
+        sheetCalendlyReschedule: getByHeader(["calendly: reprogramar"], 39)
       };
 
-      // Si alguna fila no trae ruta calculada, la calculamos al vuelo
       const computed = evaluateClientDiagnostic(raw);
       if (!raw.rutaEstimada) raw.rutaEstimada = `${computed.ruta} (${computed.llamadas})`;
       if (!raw.llamadasEstimadas) raw.llamadasEstimadas = computed.llamadas;
@@ -868,8 +1079,7 @@
     }
 
     /**
-     * MOTOR INTELIGENTE DE DIAGNÓSTICO Y GENERADOR DE SIGUIENTES PASOS POR CLIENTE
-     * Basado en la metodología Ruta 90 de Mercedes Ríos (Movimientos 0, 1, 1.5, 2 y 3)
+     * MOTOR INTELIGENTE DE DIAGNÓSTICO Y SIGUIENTES PASOS
      */
     function evaluateClientDiagnostic(c) {
       const fiscal = String(c.estatusFiscal || "");
@@ -898,7 +1108,7 @@
         ruta = "Ruta Express";
         llamadas = "1–2 llamadas";
         badgeClass = "badge-express";
-        explicacion = "Perfil Apto para Ejecución Rápida: Cuenta con SSN/ITIN vigente, puntaje personal superior a 680 sin historial negativo, y LLC activa con EIN y cuenta bancaria empresarial. No requiere reparación ni formación desde cero: pasa directo a auditoría rápida de banco y secuencia de lenders (Movimiento 2) + definición de portafolio (Movimiento 3).";
+        explicacion = "Perfil Apto para Ejecución Rápida: Cuenta con SSN/ITIN vigente, puntaje personal superior a 680 sin historial negativo, y LLC activa con EIN y cuenta bancaria empresarial. Pasa directo a secuencia de lenders (Movimiento 2) y definición de portafolio (Movimiento 3).";
       } else if (sinIdFiscal || sinLLC || puntajeComprometido) {
         ruta = "Ruta Desde Cero";
         llamadas = "4–6 llamadas";
@@ -909,18 +1119,16 @@
             sinLLC ? "No tiene LLC formada" : null,
             puntajeComprometido ? "Crédito personal <620, nulo o con afectaciones" : null
           ].filter(Boolean).join(" + ") +
-          "). Tocar un banco hoy provocaría un rechazo inmediato. La prioridad en la llamada 1 es trazar el orden correcto: regularización fiscal/crediticia → Movimiento 1 (LLC + EIN) → Movimiento 1.5 (Activación real) → Movimiento 2.";
+          "). La prioridad en la llamada 1 es trazar el orden correcto: regularización fiscal/crediticia → Movimiento 1 (LLC + EIN) → Movimiento 1.5 (Activación real) → Movimiento 2.";
       } else {
         ruta = "Ruta Intermedia";
         llamadas = "3–4 llamadas";
         badgeClass = "badge-intermedia";
-        explicacion = "Perfil con Avance Parcial que Requiere Calibración: El cliente ya adelantó parte del camino, pero le falta completar eslabones clave antes de aplicar a crédito empresarial (por ejemplo: optimizar puntaje al rango >680, tramitar EIN, abrir la cuenta bancaria comercial o generar movimientos reales no circulares en el Movimiento 1.5).";
+        explicacion = "Perfil con Avance Parcial que Requiere Calibración: Ya adelantó parte del camino, pero necesita completar eslabones clave antes de aplicar a crédito empresarial (optimizar puntaje >680, tramitar EIN, abrir cuenta comercial o activar flujo real en el Movimiento 1.5).";
       }
 
-      // GENERACIÓN DINÁMICA DE SIGUIENTES PASOS (ACCIÓN TÁCTICA PARA MERCEDES)
       const steps = [];
 
-      // Paso Fiscal / ITIN / Taxes
       if (fiscal === "No tengo ninguno" || fiscal === "ITIN en trámite" || c.guiaItin === "Sí") {
         steps.push({
           fase: "Fase Previa · Identidad Fiscal",
@@ -941,12 +1149,11 @@
         });
       }
 
-      // Paso Crédito Personal (Garantía Solidaria)
       if (puntajeComprometido || rango.includes("620") || rango.includes("No lo sé")) {
         steps.push({
           fase: "Garantía Personal · Reparación / Optimización 120 Días",
           titulo: "Auditar los 3 Burós en Vivo con SmartCredit y subir score > 680",
-          detalle: `Puntaje reportado: "${rango || c.conocePuntaje}" | Historial negativo 2 años: "${negativo}". Conectar SmartCredit en la llamada, identificar utilización de tarjetas o colecciones y activar el Plan de Acción antes de tocar bancos empresariales.`,
+          detalle: `Puntaje reportado: "${rango || c.conocePuntaje}" | Historial negativo 2 años: "${negativo}". Conectar SmartCredit en la llamada y activar el Plan de Acción antes de tocar bancos empresariales.`,
           prioridad: "Prioridad Alta",
           color: "red"
         });
@@ -954,13 +1161,12 @@
         steps.push({
           fase: "Garantía Personal · Validación de Burós",
           titulo: "Verificar estructura de reporte personal (>680) en los 3 burós",
-          detalle: `Puntaje sólido (${rango}). Solo confirmar en SmartCredit bajo porcentaje de utilización (<10–15%) y número de consultas (inquiries) antes de aplicar a Chase/Amex.`,
+          detalle: `Puntaje sólido (${rango}). Confirmar en SmartCredit bajo porcentaje de utilización (<10–15%) y consultas antes de aplicar a bancos.`,
           prioridad: "Validado",
           color: "neon"
         });
       }
 
-      // Movimiento 1: Tu Empresa (LLC + EIN)
       if (sinLLC) {
         steps.push({
           fase: "Movimiento 1 · Tu Empresa (Semanas 2–4)",
@@ -987,14 +1193,13 @@
         });
       }
 
-      // Movimiento 1.5: Tu Activación (Cuenta Bancaria y Movimientos Reales)
       if (banco !== "Sí" || String(c.ingresoMensual).includes("Aún no genera") || String(c.aniosOperando).includes("Menos de 1") || String(c.aniosOperando).includes("Aún no opera")) {
         steps.push({
           fase: "Movimiento 1.5 · Tu Activación (Semanas 4–8)",
           titulo: banco !== "Sí"
             ? "Abrir Cuenta Bancaria Empresarial + Construir Historial Real"
             : "Activar Flujo Transaccional Real (No Circular) en Cuenta de Negocio",
-          detalle: `Cuenta bancaria actual: "${banco}" | Ingreso mensual: "${c.ingresoMensual}". Para el banco, una cuenta recién abierta o en ceros es invisible. Diseñar plan de depósitos por ventas reales documentables (prohibido transferencias circulares desde cuenta personal).`,
+          detalle: `Cuenta bancaria actual: "${banco}" | Ingreso mensual: "${c.ingresoMensual}". Diseñar plan de depósitos por ventas reales documentables (prohibido transferencias circulares desde cuenta personal).`,
           prioridad: "Movimiento 1.5 · Puente Crítico",
           color: "gold"
         });
@@ -1008,7 +1213,6 @@
         });
       }
 
-      // Movimiento 2: Tu Crédito (Acceso a Capital)
       steps.push({
         fase: "Movimiento 2 · Tu Crédito Empresarial (Mes 2–3)",
         titulo: `Secuencia de Solicitud Bancaria para Meta de ${c.capitalNecesario || "$25,000 – $50,000 USD"}`,
@@ -1017,7 +1221,6 @@
         color: "neon"
       });
 
-      // Movimiento 3: Tu Portafolio (Despliegue de Inversión)
       steps.push({
         fase: "Movimiento 3 · Tu Portafolio (Mes 3)",
         titulo: `Definir Ruta de Inversión en: ${c.destinoInversion || "Por definir con La Calculadora de Ruta"}`,
@@ -1036,7 +1239,7 @@
     }
 
     /**
-     * CARGAR DATOS DESDE EL GOOGLE SHEET PUBLICADO (CSV) + RESPALDO LOCALSTORAGE
+     * CARGAR CLIENTES DESDE GOOGLE SHEETS + CITAS EN VIVO DESDE CALENDLY
      */
     async function fetchClientsFromSources(showSpinner = false) {
       const iconRefresh = document.getElementById("icon-refresh");
@@ -1044,50 +1247,42 @@
       const syncDot = document.getElementById("sync-dot");
 
       if (showSpinner && iconRefresh) iconRefresh.classList.add("animate-spin");
-      syncLabel.textContent = "Sincronizando con Google Sheets...";
+      syncLabel.textContent = "Sincronizando Sheet + Calendly...";
 
       const csvUrl = localStorage.getItem("mr_dashboard_csv_url") || DEFAULT_PUBLISHED_CSV_URL;
       let loadedFromSheet = [];
 
-      try {
-        const response = await fetch(csvUrl + "&_cache=" + Date.now(), { cache: "no-store" });
-        if (response.ok) {
-          const csvText = await response.text();
-          const rows = parseCSV(csvText);
-          if (rows.length > 1) {
-            const headers = rows[0];
-            for (let i = 1; i < rows.length; i++) {
-              if (rows[i].length >= 5) {
-                loadedFromSheet.push(mapSheetRowToClient(rows[i], headers));
-              }
+      // Ejecutar en paralelo lectura de CSV de Google Sheets y API de Calendly
+      const [sheetResult, calEvents] = await Promise.all([
+        fetch(csvUrl + "&_cache=" + Date.now(), { cache: "no-store" })
+          .then(r => (r.ok ? r.text() : ""))
+          .catch(() => ""),
+        fetchLiveCalendlyBookings()
+      ]);
+
+      calendlyBookings = calEvents || [];
+
+      if (sheetResult) {
+        const rows = parseCSV(sheetResult);
+        if (rows.length > 1) {
+          const headers = rows[0];
+          for (let i = 1; i < rows.length; i++) {
+            if (rows[i].length >= 5) {
+              loadedFromSheet.push(mapSheetRowToClient(rows[i], headers));
             }
           }
         }
-      } catch (err) {
-        console.warn("Aviso al leer CSV remoto:", err);
       }
 
-      // Unir también cualquier diagnóstico guardado en el localStorage de este navegador que aún no esté en el CSV
-      try {
-        const localRaw = JSON.parse(localStorage.getItem(STORAGE_KEY_SUBMISSIONS) || "[]");
-        localRaw.forEach(item => {
-          const exists = loadedFromSheet.some(c =>
-            (c.idRegistro && item.idRegistro && c.idRegistro === item.idRegistro) ||
-            (c.correoElectronico && item.correoElectronico && c.correoElectronico.toLowerCase() === item.correoElectronico.toLowerCase() && c.nombreCompleto === item.nombreCompleto)
-          );
-          if (!exists && item.nombreCompleto) {
-            item.computedDiagnostic = evaluateClientDiagnostic(item);
-            loadedFromSheet.push(item);
-          }
-        });
-      } catch (e) {}
+      // Hacer match de cada cliente con su cita de Calendly
+      loadedFromSheet.forEach(client => matchCalendlyToClient(client));
 
-      // Si el Sheet solo tiene la fila de prueba o está vacío, garantizamos que se muestren los registros reales del Sheet
-      allClients = loadedFromSheet.reverse(); // Más recientes primero
+      allClients = loadedFromSheet.reverse();
 
+      const matchedCount = allClients.filter(c => c.calendly?.agendado).length;
       if (allClients.length > 0) {
         syncDot.className = "w-2 h-2 rounded-full bg-neon";
-        syncLabel.textContent = `Sincronizado (${allClients.length} expediente${allClients.length === 1 ? "" : "s"} en Sheet)`;
+        syncLabel.textContent = `${allClients.length} clientes | ${matchedCount} citas en Calendly`;
       } else {
         syncDot.className = "w-2 h-2 rounded-full bg-gold";
         syncLabel.textContent = "Sin registros aún en el Sheet";
@@ -1106,12 +1301,15 @@
      */
     function updateKPIs() {
       const total = allClients.length;
+      let agendados = 0;
       let express = 0;
       let intermedia = 0;
       let cero = 0;
       let autorizan = 0;
 
       allClients.forEach(c => {
+        if (c.calendly?.agendado) agendados++;
+
         const r = String(c.rutaEstimada || c.computedDiagnostic?.ruta || "");
         if (r.includes("Express")) express++;
         else if (r.includes("Intermedia")) intermedia++;
@@ -1122,7 +1320,11 @@
         }
       });
 
+      const pendientes = Math.max(0, total - agendados);
+
       document.getElementById("kpi-total").textContent = total;
+      document.getElementById("kpi-agendados").textContent = agendados;
+      document.getElementById("kpi-pendientes-agenda").textContent = `${pendientes} pendiente${pendientes === 1 ? "" : "s"} de agendar`;
       document.getElementById("kpi-express").textContent = express;
       document.getElementById("kpi-intermedia").textContent = intermedia;
       document.getElementById("kpi-cero").textContent = cero;
@@ -1130,11 +1332,12 @@
     }
 
     /**
-     * BUSCADOR Y FILTRADO EN TIEMPO REAL
+     * BUSCADOR Y FILTROS (POR TEXTO, RUTA Y ESTADO EN CALENDLY)
      */
     function handleSearchAndFilter() {
       const query = document.getElementById("search-input").value.trim().toLowerCase();
       const routeFilter = document.getElementById("route-filter").value;
+      const calFilter = document.getElementById("calendly-filter").value;
       const clearBtn = document.getElementById("btn-clear-search");
 
       clearBtn.classList.toggle("hidden", query.length === 0);
@@ -1150,7 +1353,11 @@
         const rutaStr = String(c.rutaEstimada || c.computedDiagnostic?.ruta || "");
         const matchesRoute = (routeFilter === "ALL") || rutaStr.includes(routeFilter);
 
-        return matchesQuery && matchesRoute;
+        let matchesCal = true;
+        if (calFilter === "AGENDADA") matchesCal = Boolean(c.calendly?.agendado);
+        if (calFilter === "PENDIENTE") matchesCal = !Boolean(c.calendly?.agendado);
+
+        return matchesQuery && matchesRoute && matchesCal;
       });
 
       renderClientListAndDropdown();
@@ -1171,13 +1378,26 @@
       handleSearchAndFilter();
     }
 
+    function toggleCalendlyFilter(statusVal) {
+      const sel = document.getElementById("calendly-filter");
+      sel.value = (sel.value === statusVal) ? "ALL" : statusVal;
+      handleSearchAndFilter();
+    }
+
+    function resetAllFilters() {
+      document.getElementById("search-input").value = "";
+      document.getElementById("route-filter").value = "ALL";
+      document.getElementById("calendly-filter").value = "ALL";
+      handleSearchAndFilter();
+    }
+
     function clearSearch() {
       document.getElementById("search-input").value = "";
       handleSearchAndFilter();
     }
 
     /**
-     * RENDERIZAR LISTA LATERAL Y SELECTOR DESPLEGABLE SUPERIOR
+     * RENDERIZAR LISTA LATERAL Y SELECTOR DESPLEGABLE (CON FECHA CALENDLY)
      */
     function renderClientListAndDropdown() {
       const listContainer = document.getElementById("client-list-container");
@@ -1199,6 +1419,7 @@
 
       filteredClients.forEach((client, idx) => {
         const diag = client.computedDiagnostic || evaluateClientDiagnostic(client);
+        const cal = client.calendly || { agendado: false };
         const isSelected = selectedClient &&
           selectedClient.idRegistro === client.idRegistro &&
           selectedClient.nombreCompleto === client.nombreCompleto;
@@ -1206,7 +1427,8 @@
         // Opción en el Dropdown superior
         const opt = document.createElement("option");
         opt.value = idx;
-        opt.textContent = `${client.nombreCompleto || "Sin nombre"} — ${diag.ruta} (${client.capitalNecesario || "S/M"})`;
+        const calTag = cal.agendado ? `📅 ${cal.formattedDate}` : "⏳ Sin agendar";
+        opt.textContent = `${client.nombreCompleto || "Sin nombre"} — ${calTag} · ${diag.ruta}`;
         if (isSelected) opt.selected = true;
         dropdown.appendChild(opt);
 
@@ -1214,6 +1436,16 @@
         let dotColor = "bg-gold";
         if (diag.ruta.includes("Express")) dotColor = "bg-neon";
         if (diag.ruta.includes("Cero")) dotColor = "bg-red-400";
+
+        const calBadgeHtml = cal.agendado
+          ? `<div class="mt-2 px-2.5 py-1 rounded-lg bg-deepGreen/30 border border-neon/40 flex items-center justify-between text-[11px]">
+               <span class="text-neon font-bold flex items-center gap-1"><i data-lucide="calendar-check" class="w-3 h-3"></i> Cita Agendada:</span>
+               <span class="text-ivory font-mono font-semibold">${cal.formattedDate}</span>
+             </div>`
+          : `<div class="mt-2 px-2.5 py-1 rounded-lg bg-white/[0.03] border border-ivory/10 flex items-center justify-between text-[11px]">
+               <span class="text-gold/90 font-semibold flex items-center gap-1"><i data-lucide="clock" class="w-3 h-3"></i> Calendly:</span>
+               <span class="text-ivory/55">Pendiente de agendar</span>
+             </div>`;
 
         const card = document.createElement("div");
         card.className = `client-item rounded-xl p-3.5 ${isSelected ? "active" : ""}`;
@@ -1227,8 +1459,9 @@
               ${diag.ruta.replace("Ruta ", "")}
             </span>
           </div>
-          <p class="text-xs text-ivory/60 truncate mb-2">${client.correoElectronico || "--"} · ${client.telefonoWhatsapp || "--"}</p>
-          <div class="flex items-center justify-between text-[11px] text-ivory/70 pt-2 border-t border-ivory/10">
+          <p class="text-xs text-ivory/60 truncate">${client.correoElectronico || "--"} · ${client.telefonoWhatsapp || "--"}</p>
+          ${calBadgeHtml}
+          <div class="flex items-center justify-between text-[11px] text-ivory/70 pt-2 mt-2 border-t border-ivory/10">
             <span>ID: <strong class="text-ivory">${client.estatusFiscal || "--"}</strong></span>
             <span>LLC: <strong class="text-ivory">${client.tieneLLC || "--"}</strong></span>
             <span class="text-neon font-bold">${client.capitalNecesario ? client.capitalNecesario.replace(" USD", "") : "--"}</span>
@@ -1236,6 +1469,8 @@
         `;
         listContainer.appendChild(card);
       });
+
+      lucide.createIcons();
     }
 
     function selectClientByIndex(idxStr) {
@@ -1246,17 +1481,18 @@
     }
 
     /**
-     * RENDERIZAR EXPEDIENTE COMPLETO DEL CLIENTE SELECCIONADO
+     * RENDERIZAR EXPEDIENTE COMPLETO + TARJETA CALENDLY DEL CLIENTE SELECCIONADO
      */
     function selectClient(client) {
       selectedClient = client;
       const diag = client.computedDiagnostic || evaluateClientDiagnostic(client);
+      const cal = client.calendly || { agendado: false, status: "Pendiente de Agendar" };
 
       renderClientListAndDropdown();
 
       // Cabecera
       document.getElementById("det-id").textContent = client.idRegistro || "MR-001";
-      document.getElementById("det-fecha").innerHTML = `<i data-lucide="calendar" class="w-3.5 h-3.5"></i> ${formatDateReadable(client.fecha)}`;
+      document.getElementById("det-fecha").innerHTML = `<i data-lucide="clock" class="w-3.5 h-3.5"></i> Diagnóstico: ${formatDateReadable(client.fecha)}`;
       document.getElementById("det-urgencia-pill").textContent = `Urgencia: ${client.urgenciaFinanciamiento || "Por definir"}`;
       document.getElementById("det-nombre").textContent = client.nombreCompleto || "Cliente";
 
@@ -1271,6 +1507,83 @@
       rutaBadge.className = `${diag.badgeClass} px-4 py-2 rounded-xl text-xs sm:text-sm font-extrabold uppercase tracking-wider flex items-center gap-2`;
       document.getElementById("det-ruta-nombre").textContent = diag.ruta;
       document.getElementById("det-llamadas-est").textContent = `Estimación: ${diag.llamadas} de acompañamiento`;
+
+      // =====================================================================
+      // RENDERIZAR BLOQUE DE AGENDA CALENDLY DEL CLIENTE
+      // =====================================================================
+      const calBox = document.getElementById("det-calendly-box");
+      const calStatusBadge = document.getElementById("cal-status-badge");
+      const calMatchType = document.getElementById("cal-match-type");
+      const calTitle = document.getElementById("cal-datetime-title");
+      const calSub = document.getElementById("cal-subtitle-info");
+      const calActions = document.getElementById("cal-actions-container");
+
+      // Link de Calendly personalizado con nombre y correo del cliente para pre-llenado automático
+      const prefilledCalendlyUrl = `${CALENDLY_BOOKING_URL}?name=${encodeURIComponent(client.nombreCompleto || "")}&email=${encodeURIComponent(client.correoElectronico || "")}`;
+      const cleanPhone = String(client.telefonoWhatsapp || "").replace(/[^\d]/g, "");
+
+      if (cal.agendado) {
+        calBox.className = "my-5 p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-deepGreen/35 via-surface to-canvas border border-neon/50 shadow-[0_0_25px_rgba(57,255,96,0.12)]";
+        calStatusBadge.className = "text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-neon text-canvas";
+        calStatusBadge.textContent = "CITA CONFIRMADA";
+        calMatchType.textContent = cal.matchedBy ? `· ${cal.matchedBy}` : "";
+        calTitle.textContent = `Llamada 1 a 1: ${cal.formattedDate}`;
+        calSub.textContent = `Zona horaria del cliente: ${cal.timezone || "Hora local"} · Evento: Mentoría 1 a 1 Tu Ruta Financiera`;
+
+        let btnsHtml = "";
+        if (cal.joinUrl && cal.joinUrl.startsWith("http")) {
+          btnsHtml += `
+            <a href="${cal.joinUrl}" target="_blank" rel="noopener noreferrer"
+              class="btn-primary-cta px-4 py-2.5 rounded-xl text-xs flex items-center gap-1.5">
+              <i data-lucide="video" class="w-4 h-4"></i>
+              <span>Unirse a la Llamada</span>
+            </a>
+          `;
+        }
+        if (cal.rescheduleUrl && cal.rescheduleUrl.startsWith("http")) {
+          btnsHtml += `
+            <a href="${cal.rescheduleUrl}" target="_blank" rel="noopener noreferrer"
+              class="btn-secondary-neon px-3.5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-1.5">
+              <i data-lucide="calendar" class="w-3.5 h-3.5 text-neon"></i>
+              <span>Gestionar Cita</span>
+            </a>
+          `;
+        }
+        calActions.innerHTML = btnsHtml;
+      } else {
+        calBox.className = "my-5 p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-gold/15 via-surface to-canvas border border-gold/40";
+        calStatusBadge.className = "text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-gold text-canvas";
+        calStatusBadge.textContent = cal.status === "Cancelada" ? "CITA CANCELADA" : "FALTA AGENDAR HORA";
+        calMatchType.textContent = "";
+        calTitle.textContent = cal.status === "Cancelada"
+          ? `Cita previa cancelada (${cal.formattedDate}) — Requiere reagendar`
+          : "Este cliente ya completó su diagnóstico pero aún no aparece con hora agendada en Calendly";
+        calSub.textContent = "Envíale su link personalizado de Calendly (ya lleva su nombre y correo precargados para hacer match automático).";
+
+        const waInviteMsg = [
+          `Hola *${client.nombreCompleto}* 👋, ya recibimos tu *Diagnóstico Pre-Llamada 1 a 1* con Mercedes Ríos.`,
+          ``,
+          `Solo te falta elegir el día y la hora de tu sesión en nuestro calendario oficial aquí (ya lleva tus datos listos):`,
+          `${prefilledCalendlyUrl}`
+        ].join("\n");
+
+        const waInviteHref = cleanPhone
+          ? `https://wa.me/${cleanPhone}?text=${encodeURIComponent(waInviteMsg)}`
+          : `https://wa.me/?text=${encodeURIComponent(waInviteMsg)}`;
+
+        calActions.innerHTML = `
+          <a href="${waInviteHref}" target="_blank" rel="noopener noreferrer"
+            class="btn-primary-cta px-4 py-2.5 rounded-xl text-xs flex items-center gap-1.5">
+            <i data-lucide="send" class="w-3.5 h-3.5"></i>
+            <span>Enviar Link de Calendly por WhatsApp</span>
+          </a>
+          <a href="${prefilledCalendlyUrl}" target="_blank" rel="noopener noreferrer"
+            class="btn-secondary-neon px-3.5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-1.5">
+            <i data-lucide="calendar-plus" class="w-3.5 h-3.5 text-neon"></i>
+            <span>Agendarle Manualmente</span>
+          </a>
+        `;
+      }
 
       // 4 Pilares
       document.getElementById("det-pilar-fiscal").textContent = client.estatusFiscal || "--";
@@ -1288,7 +1601,7 @@
       // Explicación Ejecutiva del Diagnóstico
       document.getElementById("det-diagnostico-explicacion").textContent = diag.explicacion;
 
-      // Renderizar Siguientes Pasos Sugeridos (Movimientos en orden)
+      // Renderizar Siguientes Pasos Sugeridos
       const stepsContainer = document.getElementById("det-next-steps-list");
       stepsContainer.innerHTML = "";
 
@@ -1323,7 +1636,7 @@
         stepsContainer.appendChild(stepEl);
       });
 
-      // Herramientas y Protocolo de llamada
+      // Herramientas y Protocolo
       document.getElementById("det-herramientas").textContent = client.herramientasRecomendadas || "SmartCredit (Reporte de 3 burós + Plan 120 días)";
       const autoriza = String(client.autorizaRevision || "").toLowerCase().includes("sí") || String(client.autorizaRevision || "").toLowerCase().includes("si");
       document.getElementById("det-protocolo-llamada").textContent = autoriza
@@ -1335,7 +1648,7 @@
       document.getElementById("det-mkt-freno").textContent = `"${client.queCasiFrena || "Sin respuesta registrada"}"`;
       document.getElementById("det-mkt-origen").textContent = `"${client.comoConocioMercedes || "Sin respuesta registrada"}"`;
 
-      //Las 23 Respuestas detalladas
+      // Las 23 Respuestas detalladas
       document.getElementById("ans-1").textContent = client.estatusFiscal || "--";
       document.getElementById("ans-2").textContent = client.guiaItin || "--";
       document.getElementById("ans-3").textContent = client.impuestos2Anios || "--";
@@ -1365,12 +1678,12 @@
       document.getElementById("ans-notas").textContent = client.notasAdicionales || "Sin comentarios adicionales.";
 
       // Configurar botón de WhatsApp directo al cliente
-      const cleanPhone = String(client.telefonoWhatsapp || "").replace(/[^\d]/g, "");
       const waMsg = [
         `Hola *${client.nombreCompleto}* 👋, soy del equipo de *Mercedes Ríos (Tu Ruta Financiera)*.`,
         `Ya revisamos tu Diagnóstico Pre-Llamada 1 a 1 (${client.idRegistro}):`,
         ``,
         `• *Ruta Asignada:* ${diag.ruta} (${diag.llamadas})`,
+        `• *Cita Calendly:* ${cal.agendado ? cal.formattedDate : "Pendiente de agendar (" + prefilledCalendlyUrl + ")"}`,
         `• *ID Fiscal:* ${client.estatusFiscal}`,
         `• *Estructura LLC:* ${client.tieneLLC} (${client.estadoLLC})`,
         `• *Meta de Capital:* ${client.capitalNecesario}`,
@@ -1408,24 +1721,28 @@
 
     function formatDateReadable(rawDate) {
       if (!rawDate) return "Fecha reciente";
+      if (String(rawDate).includes("Perú/Col")) return String(rawDate);
       const d = new Date(rawDate);
       if (isNaN(d.getTime())) return String(rawDate);
-      return d.toLocaleDateString("es-ES", {
+      return d.toLocaleString("es-PE", {
+        timeZone: "America/Lima",
         day: "2-digit",
         month: "short",
         year: "numeric",
         hour: "2-digit",
-        minute: "2-digit"
-      });
+        minute: "2-digit",
+        hour12: true
+      }) + " (Perú/Col)";
     }
 
     /**
-     * COPIAR RESUMEN EJECUTIVO AL PORTAPAPELES PARA MERCEDES
+     * COPIAR RESUMEN EJECUTIVO AL PORTAPAPELES (INCLUYE CITA DE CALENDLY)
      */
     function copyExecutiveBrief() {
       if (!selectedClient) return;
       const c = selectedClient;
       const diag = c.computedDiagnostic || evaluateClientDiagnostic(c);
+      const cal = c.calendly || { agendado: false, formattedDate: "Sin agendar" };
 
       const text = [
         `==================================================`,
@@ -1433,6 +1750,7 @@
         `==================================================`,
         `Cliente: ${c.nombreCompleto}`,
         `Correo: ${c.correoElectronico} | WhatsApp: ${c.telefonoWhatsapp}`,
+        `Cita Calendly: ${cal.agendado ? "CONFIRMADA — " + cal.formattedDate : "PENDIENTE DE AGENDAR"}`,
         `Ruta Diagnosticada: ${diag.ruta} (${diag.llamadas})`,
         ``,
         `--- PSICOLOGÍA Y MARKETING ---`,
@@ -1460,9 +1778,6 @@
       });
     }
 
-    /**
-     * MODAL DE CONFIGURACIÓN Y CARGA DE CSV LOCAL
-     */
     function openImportModal() {
       const m = document.getElementById("modal-source");
       m.classList.remove("hidden");
@@ -1496,7 +1811,9 @@
           const uploaded = [];
           for (let i = 1; i < rows.length; i++) {
             if (rows[i].length >= 5) {
-              uploaded.push(mapSheetRowToClient(rows[i], headers));
+              const cli = mapSheetRowToClient(rows[i], headers);
+              matchCalendlyToClient(cli);
+              uploaded.push(cli);
             }
           }
           allClients = uploaded.reverse();
