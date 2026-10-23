@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Ejecutivo 1 a 1 · Mercedes Ríos | Tu Ruta Financiera</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: DM Sans, Libre Baskerville & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..800;1,9..40,400..700&family=JetBrains+Mono:wght@400;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#060807',
+            surface: '#0D140F',
+            surfaceElevated: '#121C15',
+            neon: '#39FF60',
+            deepGreen: '#1B7A34',
+            ctaRed: '#C42828',
+            ivory: '#EFF6F0',
+            gold: '#D4AF37',
+          },
+          fontFamily: {
+            sans: ['"DM Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+            serif: ['"Libre Baskerville"', 'Georgia', 'serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --bg-canvas: #060807;
+      --bg-surface: #0D140F;
+      --neon-green: #39FF60;
+      --deep-green: #1B7A34;
+      --cta-red: #C42828;
+      --text-ivory: #EFF6F0;
+      --gold-accent: #D4AF37;
+    }
+
+    body {
+      background-color: var(--bg-canvas);
+      color: var(--text-ivory);
+      font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* Orbes de iluminación radial de la Guía de Estilo */
+    .ambient-glow-top {
+      position: fixed;
+      top: -150px;
+      left: 35%;
+      width: 800px;
+      height: 450px;
+      background: radial-gradient(circle, rgba(27, 122, 52, 0.24) 0%, rgba(6, 8, 7, 0) 70%);
+      filter: blur(110px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .ambient-glow-bottom {
+      position: fixed;
+      bottom: -200px;
+      right: -120px;
+      width: 650px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(57, 255, 96, 0.08) 0%, rgba(6, 8, 7, 0) 70%);
+      filter: blur(120px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Tarjetas High-Ticket */
+    .glass-card {
+      background: rgba(13, 20, 15, 0.82);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(57, 255, 96, 0.16);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(239, 246, 240, 0.05);
+    }
+
+    .glass-subcard {
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(239, 246, 240, 0.09);
+      transition: all 0.2s ease;
+    }
+    .glass-subcard:hover {
+      border-color: rgba(57, 255, 96, 0.3);
+      background: rgba(27, 122, 52, 0.08);
+    }
+
+    /* Inputs y Selectores */
+    .input-premium {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(27, 122, 52, 0.65);
+      color: #EFF6F0;
+      transition: all 0.2s ease-in-out;
+    }
+    .input-premium::placeholder {
+      color: rgba(239, 246, 240, 0.4);
+    }
+    .input-premium:focus {
+      outline: none;
+      border-color: #39FF60;
+      background: rgba(27, 122, 52, 0.14);
+      box-shadow: 0 0 18px rgba(57, 255, 96, 0.2);
+    }
+
+    select.input-premium option {
+      background-color: #0D140F;
+      color: #EFF6F0;
+    }
+
+    /* Items de la lista lateral de clientes */
+    .client-item {
+      border: 1px solid rgba(239, 246, 240, 0.08);
+      background: rgba(255, 255, 255, 0.02);
+      transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+    }
+    .client-item:hover {
+      border-color: rgba(57, 255, 96, 0.4);
+      background: rgba(27, 122, 52, 0.14);
+      transform: translateX(2px);
+    }
+    .client-item.active {
+      background: linear-gradient(135deg, rgba(27, 122, 52, 0.36) 0%, rgba(13, 20, 15, 0.95) 100%);
+      border-color: #39FF60;
+      box-shadow: 0 0 22px rgba(57, 255, 96, 0.16), inset 0 0 0 1px rgba(57, 255, 96, 0.25);
+    }
+
+    /* Botones */
+    .btn-primary-cta {
+      background: linear-gradient(180deg, #D93030 0%, #C42828 100%);
+      color: #FFFFFF;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      box-shadow: 0 8px 25px rgba(196, 40, 40, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+      transition: all 0.2s ease-in-out;
+    }
+    .btn-primary-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(196, 40, 40, 0.6);
+    }
+
+    .btn-secondary-neon {
+      background: rgba(27, 122, 52, 0.15);
+      border: 1px solid rgba(57, 255, 96, 0.5);
+      color: #EFF6F0;
+      transition: all 0.2s ease-in-out;
+    }
+    .btn-secondary-neon:hover {
+      background: rgba(27, 122, 52, 0.32);
+      border-color: #39FF60;
+      box-shadow: 0 0 16px rgba(57, 255, 96, 0.22);
+    }
+
+    /* Badges de Ruta */
+    .badge-express {
+      background: rgba(27, 122, 52, 0.35);
+      border: 1px solid #39FF60;
+      color: #39FF60;
+    }
+    .badge-intermedia {
+      background: rgba(212, 175, 55, 0.18);
+      border: 1px solid #D4AF37;
+      color: #FDE047;
+    }
+    .badge-cero {
+      background: rgba(196, 40, 40, 0.25);
+      border: 1px solid #F87171;
+      color: #FCA5A5;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 7px; height: 7px; }
+    ::-webkit-scrollbar-track { background: #060807; }
+    ::-webkit-scrollbar-thumb { background: #1B7A34; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #39FF60; }
+
+    /* Estilos de Impresión para exportar Ficha del Cliente en PDF */
+    @media print {
+      body { background: #060807 !important; color: #EFF6F0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .no-print { display: none !important; }
+      #client-detail-panel { width: 100% !important; max-width: 100% !important; }
+    }
+  </style>
+</head>
+<body class="relative selection:bg-neon selection:text-canvas">
+
+  <!-- Luces ambientales -->
+  <div class="ambient-glow-top"></div>
+  <div class="ambient-glow-bottom"></div>
+
+  <!-- =====================================================================
+       HEADER EJECUTIVO SUPERIOR
+       ===================================================================== -->
+  <header class="relative z-20 border-b border-neon/15 bg-canvas/85 backdrop-blur-md sticky top-0 no-print">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-4">
+      <!-- Identidad -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-deepGreen/30 border border-neon/45 flex items-center justify-center shadow-[0_0_18px_rgba(57,255,96,0.22)]">
+          <span class="font-serif font-bold text-neon text-lg tracking-tighter">MR</span>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-[11px] uppercase tracking-[0.22em] text-neon font-extrabold">Tu Ruta Financiera</span>
+            <span class="text-[10px] uppercase tracking-widest px-2 py-0.5 rounded bg-gold/15 text-gold border border-gold/35 font-bold">Command Center 1 a 1</span>
+          </div>
+          <h1 class="text-sm sm:text-base font-bold text-ivory">
+            Panel de Diagnósticos y Siguientes Pasos por Cliente · <span class="text-ivory/60 font-normal">Mercedes Ríos</span>
+          </h1>
+        </div>
+      </div>
+
+      <!-- Estado de Conexión y Controles -->
+      <div class="flex flex-wrap items-center gap-2.5">
+        <div id="sync-status-pill" class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/[0.03] border border-ivory/10 text-xs">
+          <span id="sync-dot" class="w-2 h-2 rounded-full bg-neon animate-pulse"></span>
+          <span id="sync-label" class="text-ivory/80 font-medium">Conectado a Google Sheets</span>
+        </div>
+
+        <button type="button" onclick="fetchClientsFromSources(true)"
+          class="btn-secondary-neon px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5">
+          <i data-lucide="refresh-cw" id="icon-refresh" class="w-3.5 h-3.5 text-neon"></i>
+          <span>Sincronizar Ahora</span>
+        </button>
+
+        <button type="button" onclick="openImportModal()"
+          class="px-3.5 py-2 rounded-xl text-xs font-semibold border border-ivory/15 bg-white/5 hover:border-neon/40 text-ivory/85 flex items-center gap-1.5 transition">
+          <i data-lucide="database" class="w-3.5 h-3.5 text-gold"></i>
+          <span>Fuente de Datos</span>
+        </button>
+
+        <a href="form-diagnostico-1a1.html" target="_blank"
+          class="btn-primary-cta px-4 py-2 rounded-xl text-xs flex items-center gap-1.5">
+          <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+          <span>Abrir Formulario</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- =====================================================================
+       CONTENEDOR PRINCIPAL DEL DASHBOARD
+       ===================================================================== -->
+  <main class="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 py-6">
+
+    <!-- FILA 1: KPIs GLOBALES DE LA COHORTE -->
+    <section class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5 mb-6 no-print">
+      <!-- Total Clientes -->
+      <div class="glass-card rounded-2xl p-4 flex items-center justify-between">
+        <div>
+          <span class="text-[11px] font-bold uppercase tracking-wider text-ivory/55 block">Total Evaluados</span>
+          <span id="kpi-total" class="text-2xl sm:text-3xl font-extrabold text-ivory font-mono mt-0.5 block">0</span>
+          <span class="text-[11px] text-neon font-medium">Expedientes activos</span>
+        </div>
+        <div class="w-10 h-10 rounded-xl bg-white/5 border border-ivory/10 flex items-center justify-center">
+          <i data-lucide="users" class="w-5 h-5 text-ivory/80"></i>
+        </div>
+      </div>
+
+      <!-- Ruta Express -->
+      <div onclick="setRouteFilter('Express')" class="glass-card rounded-2xl p-4 flex items-center justify-between cursor-pointer hover:border-neon transition">
+        <div>
+          <span class="text-[11px] font-bold uppercase tracking-wider text-neon block">Ruta Express</span>
+          <span id="kpi-express" class="text-2xl sm:text-3xl font-extrabold text-neon font-mono mt-0.5 block">0</span>
+          <span class="text-[11px] text-ivory/60">1–2 llamadas (Listos)</span>
+        </div>
+        <div class="w-10 h-10 rounded-xl bg-deepGreen/30 border border-neon/40 flex items-center justify-center">
+          <i data-lucide="zap" class="w-5 h-5 text-neon"></i>
+        </div>
+      </div>
+
+      <!-- Ruta Intermedia -->
+      <div onclick="setRouteFilter('Intermedia')" class="glass-card rounded-2xl p-4 flex items-center justify-between cursor-pointer hover:border-gold transition">
+        <div>
+          <span class="text-[11px] font-bold uppercase tracking-wider text-gold block">Ruta Intermedia</span>
+          <span id="kpi-intermedia" class="text-2xl sm:text-3xl font-extrabold text-gold font-mono mt-0.5 block">0</span>
+          <span class="text-[11px] text-ivory/60">3–4 llamadas (Ajuste)</span>
+        </div>
+        <div class="w-10 h-10 rounded-xl bg-gold/15 border border-gold/40 flex items-center justify-center">
+          <i data-lucide="sliders" class="w-5 h-5 text-gold"></i>
+        </div>
+      </div>
+
+      <!-- Ruta Desde Cero -->
+      <div onclick="setRouteFilter('Desde Cero')" class="glass-card rounded-2xl p-4 flex items-center justify-between cursor-pointer hover:border-red-400 transition">
+        <div>
+          <span class="text-[11px] font-bold uppercase tracking-wider text-red-400 block">Ruta Desde Cero</span>
+          <span id="kpi-cero" class="text-2xl sm:text-3xl font-extrabold text-red-400 font-mono mt-0.5 block">0</span>
+          <span class="text-[11px] text-ivory/60">4–6 llamadas (Cimientos)</span>
+        </div>
+        <div class="w-10 h-10 rounded-xl bg-ctaRed/25 border border-red-400/40 flex items-center justify-center">
+          <i data-lucide="Compass" class="w-5 h-5 text-red-400"></i>
+        </div>
+      </div>
+
+      <!-- Autorizan Revisión en Vivo -->
+      <div class="glass-card rounded-2xl p-4 flex items-center justify-between col-span-2 sm:col-span-1">
+        <div>
+          <span class="text-[11px] font-bold uppercase tracking-wider text-ivory/55 block">Reporte en Vivo</span>
+          <span id="kpi-autorizan" class="text-2xl sm:text-3xl font-extrabold text-ivory font-mono mt-0.5 block">0%</span>
+          <span class="text-[11px] text-ivory/60">Autorizan ver burós</span>
+        </div>
+        <div class="w-10 h-10 rounded-xl bg-white/5 border border-ivory/10 flex items-center justify-center">
+          <i data-lucide="shield-check" class="w-5 h-5 text-neon"></i>
+        </div>
+      </div>
+    </section>
+
+    <!-- FILA 2: BARRA DE BÚSQUEDA RÁPIDA Y SELECTOR DIRECTO DE CLIENTE -->
+    <section class="glass-card rounded-2xl p-4 sm:p-5 mb-6 no-print">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
+        <!-- Buscador por Nombre, Correo, Teléfono o ID -->
+        <div class="lg:col-span-5">
+          <label for="search-input" class="block text-[11px] font-bold uppercase tracking-wider text-neon mb-1.5">
+            1. Buscar Cliente (Nombre, Correo, WhatsApp o Estado LLC)
+          </label>
+          <div class="relative">
+            <i data-lucide="search" class="w-4 h-4 text-neon absolute left-3.5 top-3.5"></i>
+            <input type="text" id="search-input" oninput="handleSearchAndFilter()"
+              placeholder="Escribe el nombre o correo del cliente..."
+              class="input-premium w-full pl-10 pr-9 py-2.5 rounded-xl text-sm" />
+            <button type="button" id="btn-clear-search" onclick="clearSearch()" class="hidden absolute right-3 top-3 text-ivory/50 hover:text-ivory">
+              <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Selector Desplegable Directo de Cliente -->
+        <div class="lg:col-span-4">
+          <label for="client-select-dropdown" class="block text-[11px] font-bold uppercase tracking-wider text-gold mb-1.5">
+            2. Selector Directo de Expediente
+          </label>
+          <select id="client-select-dropdown" onchange="selectClientByIndex(this.value)"
+            class="input-premium w-full px-3.5 py-2.5 rounded-xl text-sm font-semibold">
+            <option value="">Cargando clientes...</option>
+          </select>
+        </div>
+
+        <!-- Filtro por Ruta -->
+        <div class="lg:col-span-3">
+          <label for="route-filter" class="block text-[11px] font-bold uppercase tracking-wider text-ivory/70 mb-1.5">
+            3. Filtrar por Ruta Asignada
+          </label>
+          <select id="route-filter" onchange="handleSearchAndFilter()"
+            class="input-premium w-full px-3.5 py-2.5 rounded-xl text-sm">
+            <option value="ALL">Todas las Rutas</option>
+            <option value="Express">🟢 Ruta Express (1–2 llamadas)</option>
+            <option value="Intermedia">🟡 Ruta Intermedia (3–4 llamadas)</option>
+            <option value="Desde Cero">🔴 Ruta Desde Cero (4–6 llamadas)</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         LAYOUT MAESTRO: LISTA LATERAL DE CLIENTES (IZQ) + EXPEDIENTE 360 (DER)
+         =================================================================== -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+      <!-- COLUMNA IZQUIERDA (4 COLS): DIRECTORIO INTERACTIVO DE CLIENTES -->
+      <aside class="lg:col-span-4 glass-card rounded-2xl p-4 sm:p-5 no-print">
+        <div class="flex items-center justify-between pb-3 mb-3 border-b border-ivory/10">
+          <div class="flex items-center gap-2">
+            <i data-lucide="folder-kanban" class="w-4 h-4 text-neon"></i>
+            <h2 class="text-xs font-extrabold uppercase tracking-wider text-ivory">
+              Clientes Registrados (<span id="filtered-count">0</span>)
+            </h2>
+          </div>
+          <span class="text-[11px] text-ivory/50">Clic para analizar</span>
+        </div>
+
+        <!-- Lista scrolleable -->
+        <div id="client-list-container" class="space-y-2.5 max-h-[760px] overflow-y-auto pr-1">
+          <!-- Renderizado dinámicamente por JS -->
+        </div>
+      </aside>
+
+      <!-- COLUMNA DERECHA (8 COLS): EXPEDIENTE INDIVIDUAL Y PLAN DE ACCIÓN -->
+      <section id="client-detail-panel" class="lg:col-span-8 space-y-6">
+
+        <!-- TARJETA 1: CABECERA DEL CLIENTE + SEMÁFORO DE RUTA + ACCIONES RÁPIDAS -->
+        <div class="glass-card rounded-2xl p-6 sm:p-7 relative overflow-hidden">
+          <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-6 border-b border-ivory/10">
+            <div>
+              <div class="flex flex-wrap items-center gap-2 mb-2">
+                <span id="det-id" class="font-mono text-xs px-2.5 py-0.5 rounded bg-white/5 border border-ivory/15 text-ivory/75">MR-000000</span>
+                <span id="det-fecha" class="text-xs text-ivory/55 flex items-center gap-1">
+                  <i data-lucide="calendar" class="w-3.5 h-3.5"></i> --
+                </span>
+                <span id="det-urgencia-pill" class="text-[11px] font-bold uppercase px-2.5 py-0.5 rounded bg-ctaRed/25 text-red-300 border border-red-400/30">
+                  Urgencia: --
+                </span>
+              </div>
+
+              <h2 id="det-nombre" class="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-ivory">
+                Selecciona un Cliente
+              </h2>
+
+              <div class="flex flex-wrap items-center gap-4 mt-2.5 text-xs sm:text-sm text-ivory/80">
+                <span class="flex items-center gap-1.5">
+                  <i data-lucide="mail" class="w-4 h-4 text-neon"></i>
+                  <a id="det-correo" href="#" class="hover:text-neon underline decoration-neon/40">--</a>
+                </span>
+                <span class="flex items-center gap-1.5">
+                  <i data-lucide="phone" class="w-4 h-4 text-neon"></i>
+                  <span id="det-whatsapp">--</span>
+                </span>
+              </div>
+            </div>
+
+            <!-- Insignia Principal de Ruta y Llamadas -->
+            <div class="flex flex-col sm:items-end shrink-0">
+              <span class="text-[10px] font-bold uppercase tracking-widest text-ivory/50 mb-1">Diagnóstico Automático</span>
+              <div id="det-ruta-badge" class="badge-express px-4 py-2 rounded-xl text-xs sm:text-sm font-extrabold uppercase tracking-wider flex items-center gap-2">
+                <i data-lucide="compass" class="w-4 h-4"></i>
+                <span id="det-ruta-nombre">Ruta Express</span>
+              </div>
+              <span id="det-llamadas-est" class="text-xs text-ivory/75 font-semibold mt-1.5">
+                Estimación: 1–2 llamadas de acompañamiento
+              </span>
+            </div>
+          </div>
+
+          <!-- 4 Pilares Resumen (ID Fiscal, Crédito, Estructura LLC, Meta Capital) -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-5">
+            <div class="glass-subcard rounded-xl p-3.5">
+              <span class="text-[11px] uppercase tracking-wider text-ivory/50 block mb-1">1. Estatus Fiscal</span>
+              <strong id="det-pilar-fiscal" class="text-sm sm:text-base font-extrabold text-ivory block">--</strong>
+              <span id="det-pilar-taxes" class="text-[11px] text-ivory/60 block mt-0.5">Taxes 2 años: --</span>
+            </div>
+
+            <div class="glass-subcard rounded-xl p-3.5">
+              <span class="text-[11px] uppercase tracking-wider text-ivory/50 block mb-1">2. Crédito Personal</span>
+              <strong id="det-pilar-credito" class="text-sm sm:text-base font-extrabold text-neon block">--</strong>
+              <span id="det-pilar-negativo" class="text-[11px] text-ivory/60 block mt-0.5">Historial 2 años: --</span>
+            </div>
+
+            <div class="glass-subcard rounded-xl p-3.5">
+              <span class="text-[11px] uppercase tracking-wider text-ivory/50 block mb-1">3. Estructura LLC</span>
+              <strong id="det-pilar-llc" class="text-sm sm:text-base font-extrabold text-ivory block">--</strong>
+              <span id="det-pilar-ein-banco" class="text-[11px] text-ivory/60 block mt-0.5">EIN: -- | Banco: --</span>
+            </div>
+
+            <div class="glass-subcard rounded-xl p-3.5">
+              <span class="text-[11px] uppercase tracking-wider text-ivory/50 block mb-1">4. Meta de Capital</span>
+              <strong id="det-pilar-capital" class="text-sm sm:text-base font-extrabold text-gold block">--</strong>
+              <span id="det-pilar-destino" class="text-[11px] text-ivory/60 block mt-0.5 truncate">Destino: --</span>
+            </div>
+          </div>
+
+          <!-- Botonera de Acción para Mercedes / Closer -->
+          <div class="flex flex-wrap items-center gap-2.5 mt-5 pt-4 border-t border-ivory/10 no-print">
+            <a id="btn-wa-client" href="#" target="_blank" rel="noopener noreferrer"
+              class="btn-primary-cta px-4 py-2.5 rounded-xl text-xs flex items-center gap-2">
+              <i data-lucide="message-circle" class="w-4 h-4"></i>
+              <span>Abrir WhatsApp del Cliente con Resumen</span>
+            </a>
+
+            <button type="button" onclick="copyExecutiveBrief()"
+              class="btn-secondary-neon px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2">
+              <i data-lucide="copy" class="w-4 h-4 text-neon"></i>
+              <span id="btn-copy-label">Copiar Ficha para Notas de Llamada</span>
+            </button>
+
+            <button type="button" onclick="window.print()"
+              class="px-3.5 py-2.5 rounded-xl text-xs font-semibold border border-ivory/15 bg-white/5 hover:border-neon/40 text-ivory/80 flex items-center gap-1.5 transition ml-auto">
+              <i data-lucide="printer" class="w-3.5 h-3.5 text-ivory/70"></i>
+              <span>Imprimir / PDF</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- ===============================================================
+             TARJETA 2: SIGUIENTES PASOS SUGERIDOS Y PLAN DE ACCIÓN RUTA 90
+             =============================================================== -->
+        <div class="glass-card rounded-2xl p-6 sm:p-7 border-neon/35">
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-4 mb-5 border-b border-ivory/10">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-neon/15 border border-neon/40 flex items-center justify-center">
+                <i data-lucide="list-checks" class="w-4 h-4 text-neon"></i>
+              </div>
+              <div>
+                <span class="text-[11px] font-bold uppercase tracking-widest text-neon block">Hoja de Ruta Personalizada</span>
+                <h3 class="text-lg sm:text-xl font-extrabold uppercase text-ivory">
+                  Siguientes Pasos Sugeridos para la Llamada 1 a 1
+                </h3>
+              </div>
+            </div>
+            <span id="det-plan-tag" class="text-xs px-3 py-1 rounded-full bg-deepGreen/30 border border-neon/30 text-neon font-bold">
+              Secuencia en Orden
+            </span>
+          </div>
+
+          <!-- Explicación Ejecutiva del Diagnóstico -->
+          <div class="p-4 rounded-xl bg-gradient-to-r from-deepGreen/25 via-surface to-surface border-l-4 border-neon mb-5">
+            <p class="text-xs font-bold uppercase tracking-wider text-neon mb-1">Diagnóstico para Mercedes Ríos:</p>
+            <p id="det-diagnostico-explicacion" class="text-sm text-ivory/90 leading-relaxed"></p>
+          </div>
+
+          <!-- Lista Paso a Paso por Movimientos (Movimiento 0, 1, 1.5, 2, 3) -->
+          <div id="det-next-steps-list" class="space-y-3">
+            <!-- Generado dinámicamente según las respuestas del cliente -->
+          </div>
+
+          <!-- Herramientas Recomendadas y Alertas para la Sesión -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5 pt-5 border-t border-ivory/10">
+            <div class="glass-subcard rounded-xl p-4 border-l-2 border-gold">
+              <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-gold mb-1.5">
+                <i data-lucide="wrench" class="w-4 h-4"></i>
+                Herramientas Asignadas al Cliente
+              </div>
+              <p id="det-herramientas" class="text-xs sm:text-sm text-ivory/85 leading-relaxed"></p>
+            </div>
+
+            <div class="glass-subcard rounded-xl p-4 border-l-2 border-neon">
+              <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-neon mb-1.5">
+                <i data-lucide="eye" class="w-4 h-4"></i>
+                Protocolo de Pantalla Compartida
+              </div>
+              <p id="det-protocolo-llamada" class="text-xs sm:text-sm text-ivory/85 leading-relaxed"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===============================================================
+             TARJETA 3: RADIOGRAFÍA DE MARKETING Y PSICOLOGÍA DE COMPRA
+             =============================================================== -->
+        <div class="glass-card rounded-2xl p-6 sm:p-7">
+          <div class="flex items-center gap-2.5 pb-4 mb-5 border-b border-ivory/10">
+            <div class="w-8 h-8 rounded-lg bg-gold/15 border border-gold/40 flex items-center justify-center">
+              <i data-lucide="sparkles" class="w-4 h-4 text-gold"></i>
+            </div>
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-widest text-gold block">Inteligencia Comercial & Marketing</span>
+              <h3 class="text-lg font-extrabold uppercase text-ivory">
+                Punto de Partida, Objeciones y Origen del Cliente
+              </h3>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="glass-subcard rounded-xl p-4">
+              <span class="text-[11px] font-bold uppercase tracking-wider text-neon block mb-1.5">
+                ¿Qué lo hizo decidir comprar?
+              </span>
+              <p id="det-mkt-compra" class="text-xs sm:text-sm text-ivory/90 leading-relaxed italic font-serif"></p>
+            </div>
+
+            <div class="glass-subcard rounded-xl p-4">
+              <span class="text-[11px] font-bold uppercase tracking-wider text-red-400 block mb-1.5">
+                ¿Qué casi lo frena? (Miedo/Objeción)
+              </span>
+              <p id="det-mkt-freno" class="text-xs sm:text-sm text-ivory/90 leading-relaxed italic font-serif"></p>
+            </div>
+
+            <div class="glass-subcard rounded-xl p-4">
+              <span class="text-[11px] font-bold uppercase tracking-wider text-gold block mb-1.5">
+                ¿Cómo conoció a Mercedes?
+              </span>
+              <p id="det-mkt-origen" class="text-xs sm:text-sm text-ivory/90 leading-relaxed italic font-serif"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===============================================================
+             TARJETA 4: TODAS LAS RESPUESTAS DEL FORMULARIO (LAS 6 SECCIONES)
+             =============================================================== -->
+        <div class="glass-card rounded-2xl p-6 sm:p-7">
+          <div class="flex items-center justify-between pb-4 mb-5 border-b border-ivory/10">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-white/5 border border-ivory/15 flex items-center justify-center">
+                <i data-lucide="file-text" class="w-4 h-4 text-ivory"></i>
+              </div>
+              <div>
+                <span class="text-[11px] font-bold uppercase tracking-widest text-ivory/60 block">Expediente Completo (23 Preguntas)</span>
+                <h3 class="text-lg font-extrabold uppercase text-ivory">
+                  Respuestas Detalladas por Sección
+                </h3>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Sección 1 y 2 -->
+            <div class="glass-subcard rounded-xl p-4 space-y-2.5">
+              <h4 class="text-xs font-extrabold uppercase tracking-wider text-neon border-b border-ivory/10 pb-2">
+                Sección 1 & 2 · Fiscal y Crédito Personal
+              </h4>
+              <div class="text-xs space-y-2">
+                <div class="flex justify-between gap-2"><span class="text-ivory/55">1. SSN o ITIN:</span><strong id="ans-1" class="text-ivory text-right">--</strong></div>
+                <div class="flex justify-between gap-2"><span class="text-ivory/55">2. ¿Desea Guía ITIN?:</span><strong id="ans-2" class="text-ivory text-right">--</strong></div>
+                <div class="flex justify-between gap-2"><span class="text-ivory/55">3. Taxes últimos 2 años:</span><strong id="ans-3" class="text-ivory text-right">--</strong></div>
+                <div class="flex justify-between gap-2"><span class="text-ivory/55">4. ¿Conoce su puntaje?:</span><strong id="ans-4" class="text-ivory text-right">--</strong></div>
+                <div class="flex justify-between gap-2"><span class="text-ivory/55">5. Rango Puntaje:</span><strong id="ans-5" class="text-neon text-right">--</strong></div>
+                <div class="flex justify-between gap-2"><span class="text-ivory/55">6. ¿Ayuda monitoreo?:</span><strong id="ans-6" class="text-ivory text-right">--</strong></div>
+                <div class="flex justify-between gap-2"><span class="text-ivory/55">7. Tarjetas/Préstamos:</span><strong id="ans-7" class="text-ivory text-right">--</strong></div>
+                <div class="flex justify-between gap-2"><span class="text-ivory/55">8. Colecciones/Tardíos (2a):</span><strong id="ans-8" class="text-ivory text-right">--</strong></div>
+              </div>
+            </div>
+
+            <!-- Sección 3 -->
+            <div class="glass-subcard rounded-xl p-4 space-y-2.5">
+              <h4 class="text-xs font-extrabold uppercase tracking-wider text-neon border-b border-ivory/10 pb-2">
+                Sección 3 · Perfil de Empresa (LLC)
+              </h4>
+              <div class="text-xs space-y-2">
+                <div class="flex justify-between gap-2"><span class="text-ivory/55">9. ¿LLC Formada?:</span><strong id="ans-9" class="text-ivory text-right">--</strong></div>
+                <div class="flex justify-between gap-2"><span class="text-ivory/55">10. Estado de la LLC:</span><strong id="ans-10" class="text-ivory text-right">--</strong></div>
+                <div class="flex justify-between gap-2"><span class="text-ivory/55">11. ¿Tiene EIN?:</span><strong id="ans-11" class="text-ivory text-right">--</strong></div>
+                <div class="flex justify-between gap-2"><span class="text-ivory/55">12. ¿Cuenta Bancaria LLC?:</span><strong id="ans-12" class="text-ivory text-right">--</strong></div>
+                <div class="flex justify-between gap-2"><span class="text-ivory/55">13. Presencia Digital:</span><strong id="ans-13" class="text-ivory text-right">--</strong></div>
+                <div class="flex justify-between gap-2"><span class="text-ivory/55">14. Años Operando:</span><strong id="ans-14" class="text-ivory text-right">--</strong></div>
+                <div class="flex justify-between gap-2"><span class="text-ivory/55">15. Ingreso Mensual:</span><strong id="ans-15" class="text-gold text-right">--</strong></div>
+              </div>
+            </div>
+
+            <!-- Sección 4 -->
+            <div class="glass-subcard rounded-xl p-4 space-y-2.5">
+              <h4 class="text-xs font-extrabold uppercase tracking-wider text-neon border-b border-ivory/10 pb-2">
+                Sección 4 · Crédito, Capital e Inversión
+              </h4>
+              <div class="text-xs space-y-2">
+                <div>
+                  <span class="text-ivory/55 block mb-1">16. Objetivos con la Asesoría:</span>
+                  <div id="ans-16" class="flex flex-wrap gap-1.5"></div>
+                </div>
+                <div class="pt-1">
+                  <span class="text-ivory/55 block mb-1">17. Destino de la Inversión:</span>
+                  <div id="ans-17" class="flex flex-wrap gap-1.5"></div>
+                </div>
+                <div class="flex justify-between gap-2 pt-1"><span class="text-ivory/55">18. Capital Necesario:</span><strong id="ans-18" class="text-neon text-right">--</strong></div>
+                <div class="flex justify-between gap-2"><span class="text-ivory/55">19. Urgencia:</span><strong id="ans-19" class="text-ivory text-right">--</strong></div>
+              </div>
+            </div>
+
+            <!-- Sección 5 y 6 -->
+            <div class="glass-subcard rounded-xl p-4 space-y-2.5">
+              <h4 class="text-xs font-extrabold uppercase tracking-wider text-neon border-b border-ivory/10 pb-2">
+                Sección 5 & 6 · Dudas, Digital y Compromiso
+              </h4>
+              <div class="text-xs space-y-2">
+                <div>
+                  <span class="text-ivory/55 block mb-1">20. Mayores Dudas o Preocupaciones:</span>
+                  <div id="ans-20" class="flex flex-wrap gap-1.5"></div>
+                </div>
+                <div class="flex justify-between gap-2 pt-1"><span class="text-ivory/55">21. Comodidad en Línea:</span><strong id="ans-21" class="text-ivory text-right">--</strong></div>
+                <div class="flex justify-between gap-2"><span class="text-ivory/55">22. ¿Autoriza ver Reporte?:</span><strong id="ans-22" class="text-neon text-right">--</strong></div>
+                <div class="flex justify-between gap-2"><span class="text-ivory/55">23. Disponibilidad 2–3 llamadas:</span><strong id="ans-23" class="text-ivory text-right">--</strong></div>
+                <div class="pt-1 border-t border-ivory/10">
+                  <span class="text-ivory/55 block mb-0.5">Notas Adicionales del Cliente:</span>
+                  <p id="ans-notas" class="text-ivory/85 italic">--</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </div>
+  </main>
+
+  <!-- =====================================================================
+       MODAL DE CONFIGURACIÓN / IMPORTACIÓN MANUAL DE CSV O GOOGLE SHEETS
+       ===================================================================== -->
+  <div id="modal-source" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4 no-print">
+    <div class="glass-card rounded-2xl max-w-xl w-full p-6 border border-neon/40">
+      <div class="flex items-center justify-between pb-3 mb-4 border-b border-ivory/10">
+        <h3 class="text-base font-extrabold uppercase text-ivory flex items-center gap-2">
+          <i data-lucide="database" class="w-4 h-4 text-neon"></i>
+          Conexión de Datos del Dashboard
+        </h3>
+        <button type="button" onclick="closeImportModal()" class="text-ivory/60 hover:text-ivory">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="space-y-4 text-xs">
+        <div>
+          <label class="font-bold uppercase tracking-wider text-neon block mb-1">
+            URL de Google Sheets Publicado (CSV en vivo)
+          </label>
+          <input type="text" id="cfg-csv-url"
+            class="input-premium w-full px-3.5 py-2.5 rounded-xl text-xs font-mono" />
+          <p class="text-ivory/55 mt-1">
+            Conectado por defecto a la pestaña publicada de Diagnósticos 1 a 1 de Mercedes Ríos.
+          </p>
+        </div>
+
+        <div class="pt-2 border-t border-ivory/10">
+          <label class="font-bold uppercase tracking-wider text-gold block mb-1">
+            O subir archivo CSV descargado manualmente
+          </label>
+          <input type="file" id="csv-file-input" accept=".csv" onchange="handleCsvFileUpload(event)"
+            class="block w-full text-xs text-ivory/70 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-deepGreen file:text-ivory hover:file:bg-neon hover:file:text-canvas cursor-pointer" />
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-2.5 mt-6 pt-3 border-t border-ivory/10">
+        <button type="button" onclick="closeImportModal()" class="px-4 py-2 rounded-xl text-xs border border-ivory/15 text-ivory/70">
+          Cerrar
+        </button>
+        <button type="button" onclick="saveCustomCsvUrl()" class="btn-primary-cta px-5 py-2 rounded-xl text-xs">
+          Guardar y Sincronizar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="relative z-10 border-t border-ivory/10 py-6 mt-12 text-center text-xs text-ivory/45 no-print">
+    <div class="max-w-[1440px] mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <span>© 2026 <strong>LIFEOFNENA LLC</strong> · Mercedes Ríos · Tu Ruta Financiera (Dashboard 1 a 1)</span>
+      <span>7901 4TH St N Ste 300, Saint Petersburg, Florida, US 33702</span>
+    </div>
+  </footer>
+
+  <!-- =====================================================================
+       MOTOR JAVASCRIPT: SINCRONIZACIÓN SHEETS + MOTOR DE SIGUIENTES PASOS
+       ===================================================================== -->
+  <script>
+    /**
+     * ENDPOINTS CONECTADOS AL GOOGLE SHEET DE MERCEDES RÍOS
+     */
+    const DEFAULT_PUBLISHED_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSd_rzwoG38nmYgnjcPHZ6aV_FjdaluD3ouHnxlxeXF_xvjcqB6fLAgxriwaZD0b5lVMThtOrEtcDFx/pub?gid=1139893124&single=true&output=csv";
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwBEMPcgmhYL0i0D1Itm70nvEdnbl1LRI4ZocWXp0EmOWKgLZ82mGuZPtSKO6PoVgOp/exec";
+    const STORAGE_KEY_SUBMISSIONS = "mr_ruta90_local_submissions";
+
+    let allClients = [];
+    let filteredClients = [];
+    let selectedClient = null;
+
+    // Inicializar Dashboard
+    window.addEventListener("DOMContentLoaded", () => {
+      lucide.createIcons();
+      const savedUrl = localStorage.getItem("mr_dashboard_csv_url") || DEFAULT_PUBLISHED_CSV_URL;
+      document.getElementById("cfg-csv-url").value = savedUrl;
+      fetchClientsFromSources(false);
+    });
+
+    /**
+     * PARSER CSV ROBUSTO (Soporta saltos de línea y comillas dentro de celdas)
+     */
+    function parseCSV(text) {
+      const rows = [];
+      let currentRow = [];
+      let currentCell = "";
+      let inQuotes = false;
+
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        const nextChar = text[i + 1];
+
+        if (inQuotes) {
+          if (char === '"' && nextChar === '"') {
+            currentCell += '"';
+            i++;
+          } else if (char === '"') {
+            inQuotes = false;
+          } else {
+            currentCell += char;
+          }
+        } else {
+          if (char === '"') {
+            inQuotes = true;
+          } else if (char === ",") {
+            currentRow.push(currentCell.trim());
+            currentCell = "";
+          } else if (char === "\n" || (char === "\r" && nextChar === "\n")) {
+            if (char === "\r") i++;
+            currentRow.push(currentCell.trim());
+            if (currentRow.some(cell => cell !== "")) {
+              rows.push(currentRow);
+            }
+            currentRow = [];
+            currentCell = "";
+          } else {
+            currentCell += char;
+          }
+        }
+      }
+      if (currentCell !== "" || currentRow.length > 0) {
+        currentRow.push(currentCell.trim());
+        if (currentRow.some(cell => cell !== "")) {
+          rows.push(currentRow);
+        }
+      }
+      return rows;
+    }
+
+    /**
+     * MAPEAR FILA DEL GOOGLE SHEET A OBJETO CLIENTE NORMALIZADO
+     * Compatible tanto con el esquema de 35 columnas (con Marketing) como con el de 32 columnas
+     */
+    function mapSheetRowToClient(row, headers) {
+      const getByHeader = (keywords, fallbackIdx) => {
+        if (headers && headers.length > 0) {
+          const idx = headers.findIndex(h =>
+            keywords.some(kw => h.toLowerCase().includes(kw.toLowerCase()))
+          );
+          if (idx !== -1 && row[idx] !== undefined) return row[idx];
+        }
+        return row[fallbackIdx] !== undefined ? row[fallbackIdx] : "";
+      };
+
+      const hasMarketingCols = headers.some(h => h.toLowerCase().includes("mkt") || h.toLowerCase().includes("comprar"));
+
+      const raw = {
+        fecha: getByHeader(["fecha"], 0),
+        idRegistro: getByHeader(["id registro", "id"], 1) || "MR-S/N",
+        rutaEstimada: getByHeader(["ruta estimada"], 2),
+        llamadasEstimadas: getByHeader(["llamadas estimadas"], 3),
+        nombreCompleto: getByHeader(["nombre completo", "nombre"], 4),
+        correoElectronico: getByHeader(["correo"], 5),
+        telefonoWhatsapp: getByHeader(["teléfono", "telefono", "whatsapp"], 6),
+        decisionCompra: hasMarketingCols ? getByHeader(["mkt 1", "decidir comprar"], 7) : "Registrado previo a bloque de marketing",
+        queCasiFrena: hasMarketingCols ? getByHeader(["mkt 2", "casi lo frena", "frena"], 8) : "No especificado",
+        comoConocioMercedes: hasMarketingCols ? getByHeader(["mkt 3", "conoció", "conocio"], 9) : "Comunidad / Evento en vivo",
+        estatusFiscal: getByHeader(["1. ssn", "ssn o itin"], hasMarketingCols ? 10 : 7),
+        guiaItin: getByHeader(["2.", "guía itin", "guia itin"], hasMarketingCols ? 11 : 8),
+        impuestos2Anios: getByHeader(["3.", "taxes"], hasMarketingCols ? 12 : 9),
+        conocePuntaje: getByHeader(["4.", "conoce puntaje"], hasMarketingCols ? 13 : 10),
+        rangoPuntaje: getByHeader(["5.", "rango puntaje"], hasMarketingCols ? 14 : 11),
+        ayudaMonitoreo: getByHeader(["6.", "monitoreo"], hasMarketingCols ? 15 : 12),
+        tarjetasActivas: getByHeader(["7.", "tarjetas"], hasMarketingCols ? 16 : 13),
+        historialNegativo: getByHeader(["8.", "colecciones", "bancarrota"], hasMarketingCols ? 17 : 14),
+        tieneLLC: getByHeader(["9.", "tiene llc"], hasMarketingCols ? 18 : 15),
+        estadoLLC: getByHeader(["10.", "estado de la llc"], hasMarketingCols ? 19 : 16),
+        tieneEIN: getByHeader(["11.", "tiene ein"], hasMarketingCols ? 20 : 17),
+        cuentaBancaria: getByHeader(["12.", "cuenta bancaria"], hasMarketingCols ? 21 : 18),
+        presenciaDigital: getByHeader(["13.", "presencia digital"], hasMarketingCols ? 22 : 19),
+        aniosOperando: getByHeader(["14.", "años operando", "anos operando"], hasMarketingCols ? 23 : 20),
+        ingresoMensual: getByHeader(["15.", "ingreso mensual"], hasMarketingCols ? 24 : 21),
+        objetivosAsesoria: getByHeader(["16.", "objetivos"], hasMarketingCols ? 25 : 22),
+        destinoInversion: getByHeader(["17.", "destino"], hasMarketingCols ? 26 : 23),
+        capitalNecesario: getByHeader(["18.", "capital"], hasMarketingCols ? 27 : 24),
+        urgenciaFinanciamiento: getByHeader(["19.", "urgencia"], hasMarketingCols ? 28 : 25),
+        dudasPrincipales: getByHeader(["20.", "dudas"], hasMarketingCols ? 29 : 26),
+        comodidadDigital: getByHeader(["21.", "comodidad"], hasMarketingCols ? 30 : 27),
+        autorizaRevision: getByHeader(["22.", "autoriza"], hasMarketingCols ? 31 : 28),
+        disponibilidadLlamadas: getByHeader(["23.", "disponibilidad"], hasMarketingCols ? 32 : 29),
+        notasAdicionales: getByHeader(["notas adicionales"], hasMarketingCols ? 33 : 30),
+        herramientasRecomendadas: getByHeader(["herramientas"], hasMarketingCols ? 34 : 31)
+      };
+
+      // Si alguna fila no trae ruta calculada, la calculamos al vuelo
+      const computed = evaluateClientDiagnostic(raw);
+      if (!raw.rutaEstimada) raw.rutaEstimada = `${computed.ruta} (${computed.llamadas})`;
+      if (!raw.llamadasEstimadas) raw.llamadasEstimadas = computed.llamadas;
+      raw.computedDiagnostic = computed;
+
+      return raw;
+    }
+
+    /**
+     * MOTOR INTELIGENTE DE DIAGNÓSTICO Y GENERADOR DE SIGUIENTES PASOS POR CLIENTE
+     * Basado en la metodología Ruta 90 de Mercedes Ríos (Movimientos 0, 1, 1.5, 2 y 3)
+     */
+    function evaluateClientDiagnostic(c) {
+      const fiscal = String(c.estatusFiscal || "");
+      const rango = String(c.rangoPuntaje || "");
+      const negativo = String(c.historialNegativo || "");
+      const llc = String(c.tieneLLC || "");
+      const ein = String(c.tieneEIN || "");
+      const banco = String(c.cuentaBancaria || "");
+
+      const tieneIdVigente = (fiscal === "SSN" || fiscal === "ITIN vigente");
+      const sinIdFiscal = (fiscal === "No tengo ninguno" || fiscal === "ITIN en trámite");
+      const puntajeAlto = (rango.includes("740") || rango.includes("680"));
+      const puntajeComprometido = (rango.includes("Menos de 620") || String(c.conocePuntaje).includes("No tengo") || negativo === "Sí");
+
+      const llcActiva = (llc === "Sí, activa");
+      const sinLLC = llc.includes("No");
+      const einListo = (ein === "Sí");
+      const cuentaLista = (banco === "Sí");
+
+      let ruta = "Ruta Intermedia";
+      let llamadas = "3–4 llamadas";
+      let badgeClass = "badge-intermedia";
+      let explicacion = "";
+
+      if (tieneIdVigente && puntajeAlto && negativo === "No" && llcActiva && einListo && cuentaLista) {
+        ruta = "Ruta Express";
+        llamadas = "1–2 llamadas";
+        badgeClass = "badge-express";
+        explicacion = "Perfil Apto para Ejecución Rápida: Cuenta con SSN/ITIN vigente, puntaje personal superior a 680 sin historial negativo, y LLC activa con EIN y cuenta bancaria empresarial. No requiere reparación ni formación desde cero: pasa directo a auditoría rápida de banco y secuencia de lenders (Movimiento 2) + definición de portafolio (Movimiento 3).";
+      } else if (sinIdFiscal || sinLLC || puntajeComprometido) {
+        ruta = "Ruta Desde Cero";
+        llamadas = "4–6 llamadas";
+        badgeClass = "badge-cero";
+        explicacion = "Perfil de Construcción de Cimientos: Presenta al menos un bloqueador estructural primario (" +
+          [
+            sinIdFiscal ? "Falta SSN/ITIN vigente" : null,
+            sinLLC ? "No tiene LLC formada" : null,
+            puntajeComprometido ? "Crédito personal <620, nulo o con afectaciones" : null
+          ].filter(Boolean).join(" + ") +
+          "). Tocar un banco hoy provocaría un rechazo inmediato. La prioridad en la llamada 1 es trazar el orden correcto: regularización fiscal/crediticia → Movimiento 1 (LLC + EIN) → Movimiento 1.5 (Activación real) → Movimiento 2.";
+      } else {
+        ruta = "Ruta Intermedia";
+        llamadas = "3–4 llamadas";
+        badgeClass = "badge-intermedia";
+        explicacion = "Perfil con Avance Parcial que Requiere Calibración: El cliente ya adelantó parte del camino, pero le falta completar eslabones clave antes de aplicar a crédito empresarial (por ejemplo: optimizar puntaje al rango >680, tramitar EIN, abrir la cuenta bancaria comercial o generar movimientos reales no circulares en el Movimiento 1.5).";
+      }
+
+      // GENERACIÓN DINÁMICA DE SIGUIENTES PASOS (ACCIÓN TÁCTICA PARA MERCEDES)
+      const steps = [];
+
+      // Paso Fiscal / ITIN / Taxes
+      if (fiscal === "No tengo ninguno" || fiscal === "ITIN en trámite" || c.guiaItin === "Sí") {
+        steps.push({
+          fase: "Fase Previa · Identidad Fiscal",
+          titulo: fiscal === "No tengo ninguno" ? "Iniciar Trámite de ITIN + Guía Oficial" : "Dar seguimiento a recepción de carta ITIN del IRS",
+          detalle: `El cliente indicó "${fiscal}". Entregar guía de tramitación/renovación de ITIN y activar monitoreo con ITIN en MyFreeScoreNow y construcción de base con Firstcard.`,
+          prioridad: "Urgente · Bloqueador 1",
+          color: "red"
+        });
+      }
+
+      if (c.impuestos2Anios === "No" || c.impuestos2Anios === "No estoy seguro") {
+        steps.push({
+          fase: "Fase Fiscal · Cumplimiento IRS",
+          titulo: "Revisión de Declaraciones de Impuestos (Taxes últimos 2 años)",
+          detalle: `Respondió "${c.impuestos2Anios}" en declaración de impuestos. Orientar sobre regularización contable para respaldar ingresos futuros ante lenders.`,
+          prioridad: "Importante",
+          color: "gold"
+        });
+      }
+
+      // Paso Crédito Personal (Garantía Solidaria)
+      if (puntajeComprometido || rango.includes("620") || rango.includes("No lo sé")) {
+        steps.push({
+          fase: "Garantía Personal · Reparación / Optimización 120 Días",
+          titulo: "Auditar los 3 Burós en Vivo con SmartCredit y subir score > 680",
+          detalle: `Puntaje reportado: "${rango || c.conocePuntaje}" | Historial negativo 2 años: "${negativo}". Conectar SmartCredit en la llamada, identificar utilización de tarjetas o colecciones y activar el Plan de Acción antes de tocar bancos empresariales.`,
+          prioridad: "Prioridad Alta",
+          color: "red"
+        });
+      } else {
+        steps.push({
+          fase: "Garantía Personal · Validación de Burós",
+          titulo: "Verificar estructura de reporte personal (>680) en los 3 burós",
+          detalle: `Puntaje sólido (${rango}). Solo confirmar en SmartCredit bajo porcentaje de utilización (<10–15%) y número de consultas (inquiries) antes de aplicar a Chase/Amex.`,
+          prioridad: "Validado",
+          color: "neon"
+        });
+      }
+
+      // Movimiento 1: Tu Empresa (LLC + EIN)
+      if (sinLLC) {
+        steps.push({
+          fase: "Movimiento 1 · Tu Empresa (Semanas 2–4)",
+          titulo: `Formar la LLC desde cero (${c.estadoLLC || "Estado por definir en llamada"}) + Tramitar EIN`,
+          detalle: "Acompañar paso a paso en la radicación estatal de la LLC, redacción de Operating Agreement bancable y solicitud de EIN ante el IRS.",
+          prioridad: "Movimiento 1",
+          color: "neon"
+        });
+      } else if (llc === "Sí, pero inactiva" || ein !== "Sí") {
+        steps.push({
+          fase: "Movimiento 1 · Auditoría Societaria (Modalidad B)",
+          titulo: `Reactivar / Auditar LLC en ${c.estadoLLC || "EE. UU."} y regularizar EIN (${ein})`,
+          detalle: "Una LLC inactiva o mal estructurada provoca rechazo automático en el Movimiento 2. Revisar Certificate of Status, Operating Agreement y carta CP575 del EIN.",
+          prioridad: "Movimiento 1 · Auditoría",
+          color: "gold"
+        });
+      } else {
+        steps.push({
+          fase: "Movimiento 1 · Auditoría Rápida de Cumplimiento",
+          titulo: `Verificar documentos de LLC activa en ${c.estadoLLC} y carta EIN`,
+          detalle: "Confirmar que dirección comercial, agente registrado y Operating Agreement coincidan al 100% para pasar el filtro de compliance bancario.",
+          prioridad: "Listo",
+          color: "neon"
+        });
+      }
+
+      // Movimiento 1.5: Tu Activación (Cuenta Bancaria y Movimientos Reales)
+      if (banco !== "Sí" || String(c.ingresoMensual).includes("Aún no genera") || String(c.aniosOperando).includes("Menos de 1") || String(c.aniosOperando).includes("Aún no opera")) {
+        steps.push({
+          fase: "Movimiento 1.5 · Tu Activación (Semanas 4–8)",
+          titulo: banco !== "Sí"
+            ? "Abrir Cuenta Bancaria Empresarial + Construir Historial Real"
+            : "Activar Flujo Transaccional Real (No Circular) en Cuenta de Negocio",
+          detalle: `Cuenta bancaria actual: "${banco}" | Ingreso mensual: "${c.ingresoMensual}". Para el banco, una cuenta recién abierta o en ceros es invisible. Diseñar plan de depósitos por ventas reales documentables (prohibido transferencias circulares desde cuenta personal).`,
+          prioridad: "Movimiento 1.5 · Puente Crítico",
+          color: "gold"
+        });
+      } else {
+        steps.push({
+          fase: "Movimiento 1.5 · Tu Activación",
+          titulo: "Validar últimos 3 estados de cuenta bancarios del negocio",
+          detalle: `Cuenta empresarial activa con flujo reportado de ${c.ingresoMensual}. Verificar saldo promedio diario y ausencia de sobregiros.`,
+          prioridad: "Validado",
+          color: "neon"
+        });
+      }
+
+      // Movimiento 2: Tu Crédito (Acceso a Capital)
+      steps.push({
+        fase: "Movimiento 2 · Tu Crédito Empresarial (Mes 2–3)",
+        titulo: `Secuencia de Solicitud Bancaria para Meta de ${c.capitalNecesario || "$25,000 – $50,000 USD"}`,
+        detalle: `Aplicar la secuencia de La Agenda Privada en el orden exacto de burós para maximizar aprobación rumbo a ${c.capitalNecesario || "su meta"} (${c.urgenciaFinanciamiento || "Ruta 90"}).`,
+        prioridad: "Movimiento 2",
+        color: "neon"
+      });
+
+      // Movimiento 3: Tu Portafolio (Despliegue de Inversión)
+      steps.push({
+        fase: "Movimiento 3 · Tu Portafolio (Mes 3)",
+        titulo: `Definir Ruta de Inversión en: ${c.destinoInversion || "Por definir con La Calculadora de Ruta"}`,
+        detalle: `Usar La Calculadora de Ruta para estructurar el despliegue del capital aprobado en ${c.destinoInversion || "Bienes Raíces (DSCR), Bolsa u Oro"} según su tolerancia al riesgo y tiempo.`,
+        prioridad: "Movimiento 3",
+        color: "gold"
+      });
+
+      return {
+        ruta,
+        llamadas,
+        badgeClass,
+        explicacion,
+        steps
+      };
+    }
+
+    /**
+     * CARGAR DATOS DESDE EL GOOGLE SHEET PUBLICADO (CSV) + RESPALDO LOCALSTORAGE
+     */
+    async function fetchClientsFromSources(showSpinner = false) {
+      const iconRefresh = document.getElementById("icon-refresh");
+      const syncLabel = document.getElementById("sync-label");
+      const syncDot = document.getElementById("sync-dot");
+
+      if (showSpinner && iconRefresh) iconRefresh.classList.add("animate-spin");
+      syncLabel.textContent = "Sincronizando con Google Sheets...";
+
+      const csvUrl = localStorage.getItem("mr_dashboard_csv_url") || DEFAULT_PUBLISHED_CSV_URL;
+      let loadedFromSheet = [];
+
+      try {
+        const response = await fetch(csvUrl + "&_cache=" + Date.now(), { cache: "no-store" });
+        if (response.ok) {
+          const csvText = await response.text();
+          const rows = parseCSV(csvText);
+          if (rows.length > 1) {
+            const headers = rows[0];
+            for (let i = 1; i < rows.length; i++) {
+              if (rows[i].length >= 5) {
+                loadedFromSheet.push(mapSheetRowToClient(rows[i], headers));
+              }
+            }
+          }
+        }
+      } catch (err) {
+        console.warn("Aviso al leer CSV remoto:", err);
+      }
+
+      // Unir también cualquier diagnóstico guardado en el localStorage de este navegador que aún no esté en el CSV
+      try {
+        const localRaw = JSON.parse(localStorage.getItem(STORAGE_KEY_SUBMISSIONS) || "[]");
+        localRaw.forEach(item => {
+          const exists = loadedFromSheet.some(c =>
+            (c.idRegistro && item.idRegistro && c.idRegistro === item.idRegistro) ||
+            (c.correoElectronico && item.correoElectronico && c.correoElectronico.toLowerCase() === item.correoElectronico.toLowerCase() && c.nombreCompleto === item.nombreCompleto)
+          );
+          if (!exists && item.nombreCompleto) {
+            item.computedDiagnostic = evaluateClientDiagnostic(item);
+            loadedFromSheet.push(item);
+          }
+        });
+      } catch (e) {}
+
+      // Si el Sheet solo tiene la fila de prueba o está vacío, garantizamos que se muestren los registros reales del Sheet
+      allClients = loadedFromSheet.reverse(); // Más recientes primero
+
+      if (allClients.length > 0) {
+        syncDot.className = "w-2 h-2 rounded-full bg-neon";
+        syncLabel.textContent = `Sincronizado (${allClients.length} expediente${allClients.length === 1 ? "" : "s"} en Sheet)`;
+      } else {
+        syncDot.className = "w-2 h-2 rounded-full bg-gold";
+        syncLabel.textContent = "Sin registros aún en el Sheet";
+      }
+
+      if (showSpinner && iconRefresh) {
+        setTimeout(() => iconRefresh.classList.remove("animate-spin"), 400);
+      }
+
+      updateKPIs();
+      handleSearchAndFilter();
+    }
+
+    /**
+     * ACTUALIZAR KPIs GLOBALES
+     */
+    function updateKPIs() {
+      const total = allClients.length;
+      let express = 0;
+      let intermedia = 0;
+      let cero = 0;
+      let autorizan = 0;
+
+      allClients.forEach(c => {
+        const r = String(c.rutaEstimada || c.computedDiagnostic?.ruta || "");
+        if (r.includes("Express")) express++;
+        else if (r.includes("Intermedia")) intermedia++;
+        else cero++;
+
+        if (String(c.autorizaRevision).toLowerCase().includes("sí") || String(c.autorizaRevision).toLowerCase().includes("si")) {
+          autorizan++;
+        }
+      });
+
+      document.getElementById("kpi-total").textContent = total;
+      document.getElementById("kpi-express").textContent = express;
+      document.getElementById("kpi-intermedia").textContent = intermedia;
+      document.getElementById("kpi-cero").textContent = cero;
+      document.getElementById("kpi-autorizan").textContent = total > 0 ? Math.round((autorizan / total) * 100) + "%" : "0%";
+    }
+
+    /**
+     * BUSCADOR Y FILTRADO EN TIEMPO REAL
+     */
+    function handleSearchAndFilter() {
+      const query = document.getElementById("search-input").value.trim().toLowerCase();
+      const routeFilter = document.getElementById("route-filter").value;
+      const clearBtn = document.getElementById("btn-clear-search");
+
+      clearBtn.classList.toggle("hidden", query.length === 0);
+
+      filteredClients = allClients.filter(c => {
+        const matchesQuery = !query ||
+          String(c.nombreCompleto || "").toLowerCase().includes(query) ||
+          String(c.correoElectronico || "").toLowerCase().includes(query) ||
+          String(c.telefonoWhatsapp || "").toLowerCase().includes(query) ||
+          String(c.idRegistro || "").toLowerCase().includes(query) ||
+          String(c.estadoLLC || "").toLowerCase().includes(query);
+
+        const rutaStr = String(c.rutaEstimada || c.computedDiagnostic?.ruta || "");
+        const matchesRoute = (routeFilter === "ALL") || rutaStr.includes(routeFilter);
+
+        return matchesQuery && matchesRoute;
+      });
+
+      renderClientListAndDropdown();
+
+      if (filteredClients.length > 0) {
+        const stillExists = selectedClient && filteredClients.some(c => c.idRegistro === selectedClient.idRegistro && c.nombreCompleto === selectedClient.nombreCompleto);
+        if (!stillExists) {
+          selectClient(filteredClients[0]);
+        } else {
+          selectClient(selectedClient);
+        }
+      }
+    }
+
+    function setRouteFilter(routeValue) {
+      const sel = document.getElementById("route-filter");
+      sel.value = (sel.value === routeValue) ? "ALL" : routeValue;
+      handleSearchAndFilter();
+    }
+
+    function clearSearch() {
+      document.getElementById("search-input").value = "";
+      handleSearchAndFilter();
+    }
+
+    /**
+     * RENDERIZAR LISTA LATERAL Y SELECTOR DESPLEGABLE SUPERIOR
+     */
+    function renderClientListAndDropdown() {
+      const listContainer = document.getElementById("client-list-container");
+      const dropdown = document.getElementById("client-select-dropdown");
+      document.getElementById("filtered-count").textContent = filteredClients.length;
+
+      listContainer.innerHTML = "";
+      dropdown.innerHTML = "";
+
+      if (filteredClients.length === 0) {
+        listContainer.innerHTML = `
+          <div class="text-center py-10 px-4 text-xs text-ivory/50">
+            No se encontraron clientes con ese criterio de búsqueda.
+          </div>
+        `;
+        dropdown.innerHTML = `<option value="">Sin coincidencias</option>`;
+        return;
+      }
+
+      filteredClients.forEach((client, idx) => {
+        const diag = client.computedDiagnostic || evaluateClientDiagnostic(client);
+        const isSelected = selectedClient &&
+          selectedClient.idRegistro === client.idRegistro &&
+          selectedClient.nombreCompleto === client.nombreCompleto;
+
+        // Opción en el Dropdown superior
+        const opt = document.createElement("option");
+        opt.value = idx;
+        opt.textContent = `${client.nombreCompleto || "Sin nombre"} — ${diag.ruta} (${client.capitalNecesario || "S/M"})`;
+        if (isSelected) opt.selected = true;
+        dropdown.appendChild(opt);
+
+        // Tarjeta en la lista lateral
+        let dotColor = "bg-gold";
+        if (diag.ruta.includes("Express")) dotColor = "bg-neon";
+        if (diag.ruta.includes("Cero")) dotColor = "bg-red-400";
+
+        const card = document.createElement("div");
+        card.className = `client-item rounded-xl p-3.5 ${isSelected ? "active" : ""}`;
+        card.onclick = () => selectClient(client);
+
+        card.innerHTML = `
+          <div class="flex items-start justify-between gap-2 mb-1">
+            <h4 class="text-sm font-extrabold text-ivory truncate">${client.nombreCompleto || "Cliente sin nombre"}</h4>
+            <span class="flex items-center gap-1.5 text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-white/5 border border-ivory/10 shrink-0">
+              <span class="w-1.5 h-1.5 rounded-full ${dotColor}"></span>
+              ${diag.ruta.replace("Ruta ", "")}
+            </span>
+          </div>
+          <p class="text-xs text-ivory/60 truncate mb-2">${client.correoElectronico || "--"} · ${client.telefonoWhatsapp || "--"}</p>
+          <div class="flex items-center justify-between text-[11px] text-ivory/70 pt-2 border-t border-ivory/10">
+            <span>ID: <strong class="text-ivory">${client.estatusFiscal || "--"}</strong></span>
+            <span>LLC: <strong class="text-ivory">${client.tieneLLC || "--"}</strong></span>
+            <span class="text-neon font-bold">${client.capitalNecesario ? client.capitalNecesario.replace(" USD", "") : "--"}</span>
+          </div>
+        `;
+        listContainer.appendChild(card);
+      });
+    }
+
+    function selectClientByIndex(idxStr) {
+      const idx = parseInt(idxStr, 10);
+      if (!isNaN(idx) && filteredClients[idx]) {
+        selectClient(filteredClients[idx]);
+      }
+    }
+
+    /**
+     * RENDERIZAR EXPEDIENTE COMPLETO DEL CLIENTE SELECCIONADO
+     */
+    function selectClient(client) {
+      selectedClient = client;
+      const diag = client.computedDiagnostic || evaluateClientDiagnostic(client);
+
+      renderClientListAndDropdown();
+
+      // Cabecera
+      document.getElementById("det-id").textContent = client.idRegistro || "MR-001";
+      document.getElementById("det-fecha").innerHTML = `<i data-lucide="calendar" class="w-3.5 h-3.5"></i> ${formatDateReadable(client.fecha)}`;
+      document.getElementById("det-urgencia-pill").textContent = `Urgencia: ${client.urgenciaFinanciamiento || "Por definir"}`;
+      document.getElementById("det-nombre").textContent = client.nombreCompleto || "Cliente";
+
+      const correoEl = document.getElementById("det-correo");
+      correoEl.textContent = client.correoElectronico || "--";
+      correoEl.href = client.correoElectronico ? `mailto:${client.correoElectronico}` : "#";
+
+      document.getElementById("det-whatsapp").textContent = client.telefonoWhatsapp || "--";
+
+      // Insignia de Ruta
+      const rutaBadge = document.getElementById("det-ruta-badge");
+      rutaBadge.className = `${diag.badgeClass} px-4 py-2 rounded-xl text-xs sm:text-sm font-extrabold uppercase tracking-wider flex items-center gap-2`;
+      document.getElementById("det-ruta-nombre").textContent = diag.ruta;
+      document.getElementById("det-llamadas-est").textContent = `Estimación: ${diag.llamadas} de acompañamiento`;
+
+      // 4 Pilares
+      document.getElementById("det-pilar-fiscal").textContent = client.estatusFiscal || "--";
+      document.getElementById("det-pilar-taxes").textContent = `Taxes 2 años: ${client.impuestos2Anios || "--"}`;
+
+      document.getElementById("det-pilar-credito").textContent = (client.rangoPuntaje || client.conocePuntaje || "--").split("(")[0].trim();
+      document.getElementById("det-pilar-negativo").textContent = `Afectaciones 2a: ${client.historialNegativo || "--"}`;
+
+      document.getElementById("det-pilar-llc").textContent = client.tieneLLC || "--";
+      document.getElementById("det-pilar-ein-banco").textContent = `EIN: ${client.tieneEIN || "--"} | Banco: ${client.cuentaBancaria || "--"}`;
+
+      document.getElementById("det-pilar-capital").textContent = client.capitalNecesario || "--";
+      document.getElementById("det-pilar-destino").textContent = `Destino: ${client.destinoInversion || "--"}`;
+
+      // Explicación Ejecutiva del Diagnóstico
+      document.getElementById("det-diagnostico-explicacion").textContent = diag.explicacion;
+
+      // Renderizar Siguientes Pasos Sugeridos (Movimientos en orden)
+      const stepsContainer = document.getElementById("det-next-steps-list");
+      stepsContainer.innerHTML = "";
+
+      diag.steps.forEach((st, index) => {
+        let borderColors = "border-neon/35 bg-deepGreen/15";
+        let pillColors = "bg-neon/15 text-neon border-neon/30";
+        if (st.color === "red") {
+          borderColors = "border-red-400/40 bg-ctaRed/15";
+          pillColors = "bg-ctaRed/30 text-red-300 border-red-400/40";
+        } else if (st.color === "gold") {
+          borderColors = "border-gold/40 bg-gold/10";
+          pillColors = "bg-gold/20 text-gold border-gold/40";
+        }
+
+        const stepEl = document.createElement("div");
+        stepEl.className = `rounded-xl p-4 border ${borderColors} flex flex-col sm:flex-row sm:items-center justify-between gap-3`;
+        stepEl.innerHTML = `
+          <div class="flex items-start gap-3.5">
+            <div class="w-7 h-7 rounded-lg bg-canvas border border-ivory/20 flex items-center justify-center font-mono text-xs font-extrabold text-neon shrink-0 mt-0.5">
+              0${index + 1}
+            </div>
+            <div>
+              <div class="flex flex-wrap items-center gap-2 mb-1">
+                <span class="text-[10px] font-bold uppercase tracking-widest text-ivory/60">${st.fase}</span>
+                <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded border ${pillColors}">${st.prioridad}</span>
+              </div>
+              <h4 class="text-sm sm:text-base font-extrabold text-ivory">${st.titulo}</h4>
+              <p class="text-xs text-ivory/80 leading-relaxed mt-1">${st.detalle}</p>
+            </div>
+          </div>
+        `;
+        stepsContainer.appendChild(stepEl);
+      });
+
+      // Herramientas y Protocolo de llamada
+      document.getElementById("det-herramientas").textContent = client.herramientasRecomendadas || "SmartCredit (Reporte de 3 burós + Plan 120 días)";
+      const autoriza = String(client.autorizaRevision || "").toLowerCase().includes("sí") || String(client.autorizaRevision || "").toLowerCase().includes("si");
+      document.getElementById("det-protocolo-llamada").textContent = autoriza
+        ? `El cliente AUTORIZÓ revisar su reporte en vivo. Nivel de comodidad digital: "${client.comodidadDigital || "Normal"}". Pedirle abrir su portal de burós al iniciar la llamada.`
+        : `El cliente indicó NO revisar reporte en vivo por ahora (Comodidad digital: "${client.comodidadDigital || "Normal"}"). Explicar primero la estructura antes de auditar burós.`;
+
+      // Bloque Marketing
+      document.getElementById("det-mkt-compra").textContent = `"${client.decisionCompra || "Sin respuesta registrada"}"`;
+      document.getElementById("det-mkt-freno").textContent = `"${client.queCasiFrena || "Sin respuesta registrada"}"`;
+      document.getElementById("det-mkt-origen").textContent = `"${client.comoConocioMercedes || "Sin respuesta registrada"}"`;
+
+      //Las 23 Respuestas detalladas
+      document.getElementById("ans-1").textContent = client.estatusFiscal || "--";
+      document.getElementById("ans-2").textContent = client.guiaItin || "--";
+      document.getElementById("ans-3").textContent = client.impuestos2Anios || "--";
+      document.getElementById("ans-4").textContent = client.conocePuntaje || "--";
+      document.getElementById("ans-5").textContent = client.rangoPuntaje || "--";
+      document.getElementById("ans-6").textContent = client.ayudaMonitoreo || "--";
+      document.getElementById("ans-7").textContent = client.tarjetasActivas || "--";
+      document.getElementById("ans-8").textContent = client.historialNegativo || "--";
+
+      document.getElementById("ans-9").textContent = client.tieneLLC || "--";
+      document.getElementById("ans-10").textContent = client.estadoLLC || "--";
+      document.getElementById("ans-11").textContent = client.tieneEIN || "--";
+      document.getElementById("ans-12").textContent = client.cuentaBancaria || "--";
+      document.getElementById("ans-13").textContent = client.presenciaDigital || "--";
+      document.getElementById("ans-14").textContent = client.aniosOperando || "--";
+      document.getElementById("ans-15").textContent = client.ingresoMensual || "--";
+
+      renderPills("ans-16", client.objetivosAsesoria);
+      renderPills("ans-17", client.destinoInversion);
+      document.getElementById("ans-18").textContent = client.capitalNecesario || "--";
+      document.getElementById("ans-19").textContent = client.urgenciaFinanciamiento || "--";
+
+      renderPills("ans-20", client.dudasPrincipales);
+      document.getElementById("ans-21").textContent = client.comodidadDigital || "--";
+      document.getElementById("ans-22").textContent = client.autorizaRevision || "--";
+      document.getElementById("ans-23").textContent = client.disponibilidadLlamadas || "--";
+      document.getElementById("ans-notas").textContent = client.notasAdicionales || "Sin comentarios adicionales.";
+
+      // Configurar botón de WhatsApp directo al cliente
+      const cleanPhone = String(client.telefonoWhatsapp || "").replace(/[^\d]/g, "");
+      const waMsg = [
+        `Hola *${client.nombreCompleto}* 👋, soy del equipo de *Mercedes Ríos (Tu Ruta Financiera)*.`,
+        `Ya revisamos tu Diagnóstico Pre-Llamada 1 a 1 (${client.idRegistro}):`,
+        ``,
+        `• *Ruta Asignada:* ${diag.ruta} (${diag.llamadas})`,
+        `• *ID Fiscal:* ${client.estatusFiscal}`,
+        `• *Estructura LLC:* ${client.tieneLLC} (${client.estadoLLC})`,
+        `• *Meta de Capital:* ${client.capitalNecesario}`,
+        ``,
+        `Recuerda tener a mano hoja, lápiz y estar en un lugar tranquilo para nuestra sesión.`
+      ].join("\n");
+
+      const waBtn = document.getElementById("btn-wa-client");
+      waBtn.href = cleanPhone
+        ? `https://wa.me/${cleanPhone}?text=${encodeURIComponent(waMsg)}`
+        : `https://wa.me/?text=${encodeURIComponent(waMsg)}`;
+
+      lucide.createIcons();
+    }
+
+    function renderPills(containerId, rawVal) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = "";
+      const items = Array.isArray(rawVal)
+        ? rawVal
+        : String(rawVal || "").split("|").map(s => s.trim()).filter(Boolean);
+
+      if (items.length === 0) {
+        container.innerHTML = `<span class="text-ivory/50">--</span>`;
+        return;
+      }
+
+      items.forEach(item => {
+        const span = document.createElement("span");
+        span.className = "text-[11px] px-2.5 py-1 rounded-lg bg-deepGreen/25 border border-neon/30 text-ivory font-medium";
+        span.textContent = item;
+        container.appendChild(span);
+      });
+    }
+
+    function formatDateReadable(rawDate) {
+      if (!rawDate) return "Fecha reciente";
+      const d = new Date(rawDate);
+      if (isNaN(d.getTime())) return String(rawDate);
+      return d.toLocaleDateString("es-ES", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+      });
+    }
+
+    /**
+     * COPIAR RESUMEN EJECUTIVO AL PORTAPAPELES PARA MERCEDES
+     */
+    function copyExecutiveBrief() {
+      if (!selectedClient) return;
+      const c = selectedClient;
+      const diag = c.computedDiagnostic || evaluateClientDiagnostic(c);
+
+      const text = [
+        `==================================================`,
+        `EXPEDIENTE 1 A 1 · MERCEDES RÍOS (${c.idRegistro})`,
+        `==================================================`,
+        `Cliente: ${c.nombreCompleto}`,
+        `Correo: ${c.correoElectronico} | WhatsApp: ${c.telefonoWhatsapp}`,
+        `Ruta Diagnosticada: ${diag.ruta} (${diag.llamadas})`,
+        ``,
+        `--- PSICOLOGÍA Y MARKETING ---`,
+        `• ¿Por qué compró?: ${c.decisionCompra}`,
+        `• ¿Qué casi lo frena?: ${c.queCasiFrena}`,
+        `• ¿Cómo conoció a Mercedes?: ${c.comoConocioMercedes}`,
+        ``,
+        `--- PILARES TÉCNICOS ---`,
+        `• ID Fiscal: ${c.estatusFiscal} | Taxes 2 años: ${c.impuestos2Anios}`,
+        `• Puntaje Personal: ${c.rangoPuntaje} | Negativos 2 años: ${c.historialNegativo}`,
+        `• LLC: ${c.tieneLLC} (${c.estadoLLC}) | EIN: ${c.tieneEIN} | Banco LLC: ${c.cuentaBancaria}`,
+        `• Meta de Capital: ${c.capitalNecesario} | Destino: ${c.destinoInversion}`,
+        `• Dudas Principales: ${c.dudasPrincipales}`,
+        ``,
+        `--- SIGUIENTES PASOS SUGERIDOS ---`,
+        ...diag.steps.map((s, idx) => `${idx + 1}. [${s.fase}] ${s.titulo} -> ${s.detalle}`)
+      ].join("\n");
+
+      navigator.clipboard.writeText(text).then(() => {
+        const label = document.getElementById("btn-copy-label");
+        label.textContent = "¡Ficha Copiada al Portapapeles!";
+        setTimeout(() => {
+          label.textContent = "Copiar Ficha para Notas de Llamada";
+        }, 2500);
+      });
+    }
+
+    /**
+     * MODAL DE CONFIGURACIÓN Y CARGA DE CSV LOCAL
+     */
+    function openImportModal() {
+      const m = document.getElementById("modal-source");
+      m.classList.remove("hidden");
+      m.classList.add("flex");
+    }
+
+    function closeImportModal() {
+      const m = document.getElementById("modal-source");
+      m.classList.add("hidden");
+      m.classList.remove("flex");
+    }
+
+    function saveCustomCsvUrl() {
+      const val = document.getElementById("cfg-csv-url").value.trim();
+      if (val) {
+        localStorage.setItem("mr_dashboard_csv_url", val);
+      }
+      closeImportModal();
+      fetchClientsFromSources(true);
+    }
+
+    function handleCsvFileUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const text = e.target.result;
+        const rows = parseCSV(text);
+        if (rows.length > 1) {
+          const headers = rows[0];
+          const uploaded = [];
+          for (let i = 1; i < rows.length; i++) {
+            if (rows[i].length >= 5) {
+              uploaded.push(mapSheetRowToClient(rows[i], headers));
+            }
+          }
+          allClients = uploaded.reverse();
+          updateKPIs();
+          handleSearchAndFilter();
+          closeImportModal();
+        }
+      };
+      reader.readAsText(file);
+    }
+  </script>
+</body>
+</html>
