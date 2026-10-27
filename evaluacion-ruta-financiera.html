@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Evaluación de Perfil | Tu Ruta Financiera · Mercedes Ríos</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-canvas: #060807;
+            --bg-surface: #0D140F;
+            --neon-green: #39FF60;
+            --deep-green: #1B7A34;
+            --cta-red: #C42828;
+            --text-ivory: #EFF6F0;
+            --gold-accent: #D4AF37;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        html { -webkit-text-size-adjust: 100%; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-canvas);
+            color: var(--text-ivory);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            min-height: 100dvh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Resplandor Ambiental Verde Esmeralda / Neón */
+        .bg-glow {
+            position: fixed;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle, rgba(27, 122, 52, 0.22) 0%, rgba(57, 255, 96, 0.05) 45%, rgba(6, 8, 7, 0) 75%);
+            filter: blur(120px);
+            z-index: -1;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        /* Barra de Progreso Superior */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.06);
+            z-index: 20;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #1B7A34, #39FF60);
+            transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 2px 12px rgba(57, 255, 96, 0.55);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 660px;
+            padding: 36px 24px;
+            padding-bottom: calc(40px + env(safe-area-inset-bottom));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex: 1;
+            position: relative;
+            z-index: 1;
+            transition: max-width 0.4s ease;
+        }
+
+        .container.calendar-mode {
+            max-width: 960px;
+            justify-content: flex-start;
+            padding-top: 28px;
+        }
+
+        /* Cabecera de Marca */
+        .brand-header {
+            text-align: center;
+            margin-bottom: 34px;
+        }
+
+        .brand-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            border-radius: 999px;
+            background: rgba(27, 122, 52, 0.2);
+            border: 1px solid rgba(57, 255, 96, 0.35);
+            font-size: 0.72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--neon-green);
+        }
+
+        .brand-subtitle {
+            margin-top: 8px;
+            font-size: 0.82rem;
+            color: rgba(239, 246, 240, 0.6);
+            font-weight: 500;
+        }
+
+        /* Contenedor Maestro de Pasos */
+        .steps-form {
+            position: relative;
+            min-height: 390px;
+        }
+
+        .step {
+            position: absolute;
+            width: 100%;
+            opacity: 0;
+            pointer-events: none;
+            visibility: hidden;
+            transform: translateY(28px) scale(0.98);
+            transition: opacity 0.38s cubic-bezier(0.25, 0.8, 0.25, 1),
+                        transform 0.38s cubic-bezier(0.25, 0.8, 0.25, 1),
+                        visibility 0.38s;
+        }
+
+        .step.active {
+            opacity: 1;
+            pointer-events: auto;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+            position: relative;
+        }
+
+        .step.exit {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-28px) scale(0.98);
+        }
+
+        .step-header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .step-number {
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: var(--neon-green);
+            text-transform: uppercase;
+            letter-spacing: 1.4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .back-btn {
+            background: transparent;
+            border: 1px solid rgba(239, 246, 240, 0.15);
+            color: rgba(239, 246, 240, 0.7);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.76rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .back-btn:hover {
+            border-color: var(--neon-green);
+            color: #fff;
+        }
+
+        h2.question-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            line-height: 1.32;
+            letter-spacing: -0.4px;
+            margin-bottom: 14px;
+            color: #ffffff;
+        }
+
+        p.question-helper {
+            font-size: 0.9rem;
+            color: rgba(239, 246, 240, 0.68);
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+
+        .warning-box {
+            margin-top: 14px;
+            margin-bottom: 24px;
+            padding: 13px 16px;
+            border-radius: 10px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.38);
+            color: #FDE68A;
+            font-size: 0.83rem;
+            line-height: 1.45;
+        }
+
+        /* Inputs de Texto Premium */
+        .input-wrapper {
+            position: relative;
+            margin-bottom: 28px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"] {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid rgba(239, 246, 240, 0.2);
+            color: #fff;
+            padding: 12px 0;
+            font-family: inherit;
+            font-size: 1.2rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+            -webkit-appearance: none;
+            appearance: none;
+            border-radius: 0;
+        }
+
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus {
+            -webkit-text-fill-color: #fff;
+            -webkit-box-shadow: 0 0 0 1000px var(--bg-canvas) inset;
+            caret-color: #fff;
+            transition: background-color 9999s ease-in-out 0s;
+        }
+
+        input:focus {
+            border-color: var(--neon-green);
+        }
+
+        /* Botones de Acción */
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        button.next-button {
+            background: linear-gradient(180deg, #239441 0%, #1B7A34 100%);
+            border: 1px solid rgba(57, 255, 96, 0.45);
+            color: #fff;
+            padding: 14px 28px;
+            font-size: 0.94rem;
+            font-weight: 800;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 6px 20px rgba(27, 122, 52, 0.35);
+        }
+
+        button.next-button:hover {
+            background: linear-gradient(180deg, #2bb04e 0%, #1B7A34 100%);
+            box-shadow: 0 8px 25px rgba(57, 255, 96, 0.3);
+            transform: translateY(-1px);
+        }
+
+        button.cta-submit-button {
+            width: 100%;
+            background: linear-gradient(180deg, #D93030 0%, #C42828 100%);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 17px 26px;
+            font-size: 0.98rem;
+            font-weight: 800;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            box-shadow: 0 10px 28px rgba(196, 40, 40, 0.45);
+            text-align: center;
+        }
+
+        button.cta-submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 34px rgba(196, 40, 40, 0.65);
+        }
+
+        button.cta-submit-button:disabled {
+            opacity: 0.65;
+            cursor: wait;
+        }
+
+        .press-enter {
+            font-size: 0.8rem;
+            color: rgba(239, 246, 240, 0.42);
+            display: none;
+        }
+
+        @media (min-width: 769px) {
+            .press-enter { display: inline; }
+        }
+
+        /* Tarjetas de Selección */
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-card {
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+            padding: 17px 18px;
+            background: rgba(13, 20, 15, 0.78);
+            border: 1px solid rgba(239, 246, 240, 0.11);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .option-card:hover {
+            border-color: rgba(57, 255, 96, 0.45);
+            background: rgba(27, 122, 52, 0.12);
+        }
+
+        .option-card:active {
+            transform: scale(0.99);
+        }
+
+        .option-card input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .card-indicator {
+            height: 19px;
+            width: 19px;
+            border: 2px solid rgba(239, 246, 240, 0.35);
+            border-radius: 50%;
+            margin-right: 14px;
+            margin-top: 2px;
+            flex-shrink: 0;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .card-text {
+            font-size: 0.95rem;
+            color: rgba(239, 246, 240, 0.86);
+            line-height: 1.45;
+        }
+
+        .option-card input[type="radio"]:checked ~ .card-indicator {
+            border-color: var(--neon-green);
+        }
+
+        .option-card input[type="radio"]:checked ~ .card-indicator::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--neon-green);
+            box-shadow: 0 0 8px var(--neon-green);
+        }
+
+        .option-card input[type="radio"]:checked ~ .card-text {
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .option-card:has(input[type="radio"]:checked) {
+            border-color: var(--neon-green);
+            background: rgba(27, 122, 52, 0.22);
+            box-shadow: 0 0 20px rgba(57, 255, 96, 0.12);
+        }
+
+        /* Campo condicional para "Otra motivación" */
+        .other-motivation-wrap {
+            display: none;
+            margin-top: 16px;
+            padding: 14px 16px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(57, 255, 96, 0.3);
+        }
+
+        .other-motivation-wrap.visible {
+            display: block;
+        }
+
+        /* Selector de País + Teléfono */
+        .phone-wrap { position: relative; margin-bottom: 18px; }
+
+        .phone-field {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid rgba(239, 246, 240, 0.2);
+            transition: border-color 0.3s ease;
+        }
+        .phone-field:focus-within { border-color: var(--neon-green); }
+
+        .country-trigger {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-family: inherit;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 12px 4px 12px 0;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .country-trigger .flag { font-size: 1.45rem; line-height: 1; }
+        .country-trigger .dial { font-weight: 700; color: var(--neon-green); }
+        .country-trigger .chevron { font-size: 0.7rem; color: #8892b0; transition: transform 0.25s ease; }
+        .country-trigger.open .chevron { transform: rotate(180deg); }
+
+        .phone-field input[type="tel"] {
+            flex: 1;
+            min-width: 0;
+            background: transparent;
+            border: none !important;
+            color: #fff;
+            padding: 12px 0;
+            font-family: inherit;
+            font-size: 1.2rem;
+            outline: none;
+        }
+
+        .country-dropdown {
+            position: absolute;
+            top: calc(100% + 10px);
+            left: 0;
+            width: 100%;
+            max-width: 380px;
+            background: #0D140F;
+            border: 1px solid rgba(57, 255, 96, 0.25);
+            border-radius: 14px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+            overflow: hidden;
+            z-index: 50;
+            opacity: 0;
+            transform: translateY(-8px);
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+        .country-dropdown.open { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+        .country-search-wrap { padding: 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+        #countrySearch {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 9px;
+            color: #fff;
+            padding: 11px 14px;
+            font-family: inherit;
+            font-size: 16px;
+            outline: none;
+        }
+        #countrySearch:focus { border-color: var(--neon-green); }
+
+        #countryList {
+            list-style: none;
+            max-height: 230px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .country-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            cursor: pointer;
+            color: #cbd5e1;
+            transition: background 0.15s ease, color 0.15s ease;
+        }
+        .country-item:hover { background: rgba(27, 122, 52, 0.28); color: #fff; }
+        .country-item .ci-flag { font-size: 1.3rem; flex-shrink: 0; }
+        .country-item .ci-name { flex: 1; font-size: 0.92rem; }
+        .country-item .ci-dial { color: var(--neon-green); font-size: 0.88rem; font-weight: 700; }
+        .country-empty { padding: 18px 16px; color: #64748b; font-size: 0.9rem; text-align: center; }
+        .country-sep { height: 1px; background: rgba(255,255,255,0.08); margin: 4px 0; }
+
+        /* Vista Embebida del Calendario GHL */
+        #calendarView {
+            display: none;
+            width: 100%;
+            animation: fadeIn 0.45s ease forwards;
+        }
+
+        #calendarView.active {
+            display: block;
+        }
+
+        .calendar-card {
+            background: rgba(13, 20, 15, 0.85);
+            border: 1px solid rgba(57, 255, 96, 0.28);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+        }
+
+        .calendar-banner {
+            text-align: center;
+            margin-bottom: 18px;
+        }
+
+        .calendar-banner h2 {
+            font-size: 1.45rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+
+        .calendar-banner p {
+            font-size: 0.9rem;
+            color: rgba(239, 246, 240, 0.72);
+        }
+
+        /* Vista Downsell para Descalificados Definitivos */
+        #downsellView {
+            display: none;
+            width: 100%;
+            text-align: center;
+            background: rgba(13, 20, 15, 0.9);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            border-radius: 16px;
+            padding: 34px 24px;
+            animation: fadeIn 0.45s ease forwards;
+        }
+
+        #downsellView.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(14px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .footer-minimal {
+            text-align: center;
+            padding: 20px 16px;
+            font-size: 0.72rem;
+            color: rgba(239, 246, 240, 0.32);
+            margin-top: auto;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="bg-glow"></div>
+
+    <div class="container" id="mainContainer">
+        <div class="brand-header">
+            <div class="brand-badge">Tu Ruta Financiera · Mercedes Ríos</div>
+            <p class="brand-subtitle">Evaluación de Admisión · Hoja de Ruta de 90 Días</p>
+        </div>
+
+        <!-- FORMULARIO DINÁMICO PASO A PASO -->
+        <form id="dynamicForm" class="steps-form">
+
+            <!-- PASO 1: NOMBRE Y APELLIDO -->
+            <div class="step active" data-step="1">
+                <div class="step-header-row">
+                    <div class="step-number">Paso 1 de 8 <span>→</span></div>
+                </div>
+                <h2 class="question-title">1. ¿Cuál es tu Nombre y Apellido? *</h2>
+                <p class="question-helper">Escribe tu nombre completo tal como aparecerá en tu invitación oficial.</p>
+                <div class="input-wrapper">
+                    <input type="text" id="nombre" required placeholder="Ej. Carlos Mendoza" autocomplete="name">
+                </div>
+                <div class="nav-controls">
+                    <button type="button" class="next-button" onclick="nextStep(1)">Continuar →</button>
+                    <span class="press-enter">presiona INTRO</span>
+                </div>
+            </div>
+
+            <!-- PASO 2: CORREO ELECTRÓNICO -->
+            <div class="step" data-step="2">
+                <div class="step-header-row">
+                    <div class="step-number">Paso 2 de 8 <span>→</span></div>
+                    <button type="button" class="back-btn" onclick="prevStep(2)">← Atrás</button>
+                </div>
+                <h2 class="question-title">2. ¿Cuál es tu Correo Electrónico principal? *</h2>
+                <p class="question-helper">Donde recibirás la invitación al calendario y el enlace a la sala de videollamada.</p>
+                <div class="input-wrapper">
+                    <input type="email" id="email" required placeholder="nombre@ejemplo.com" autocomplete="email">
+                </div>
+                <div class="nav-controls">
+                    <button type="button" class="next-button" onclick="nextStep(2)">Continuar →</button>
+                    <span class="press-enter">presiona INTRO</span>
+                </div>
+            </div>
+
+            <!-- PASO 3: WHATSAPP CON CÓDIGO DE PAÍS -->
+            <div class="step" data-step="3">
+                <div class="step-header-row">
+                    <div class="step-number">Paso 3 de 8 <span>→</span></div>
+                    <button type="button" class="back-btn" onclick="prevStep(3)">← Atrás</button>
+                </div>
+                <h2 class="question-title">3. Número de WhatsApp (con código de país) *</h2>
+                <div class="phone-wrap">
+                    <div class="phone-field">
+                        <button type="button" class="country-trigger" id="countryTrigger" aria-haspopup="listbox" aria-expanded="false">
+                            <span class="flag" id="selectedFlag">🇺🇸</span>
+                            <span class="dial" id="selectedDial">+1</span>
+                            <span class="chevron">▾</span>
+                        </button>
+                        <input type="tel" id="whatsapp" inputmode="numeric" required placeholder="305 555 0199" autocomplete="tel-national">
+                    </div>
+                    <div class="country-dropdown" id="countryDropdown" role="listbox">
+                        <div class="country-search-wrap">
+                            <input type="text" id="countrySearch" class="no-advance" placeholder="Buscar país o código (+1, +51, +52...)" autocomplete="off">
+                        </div>
+                        <ul id="countryList"></ul>
+                    </div>
+                </div>
+                <div class="warning-box">
+                    ⚠️ <strong>Importante:</strong> Por esta vía confirmaremos tu cupo. Si no es un número real de WhatsApp, el sistema anulará la cita automáticamente.
+                </div>
+                <div class="nav-controls">
+                    <button type="button" class="next-button" onclick="nextStep(3)">Continuar →</button>
+                    <span class="press-enter">presiona INTRO</span>
+                </div>
+            </div>
+
+            <!-- PASO 4: PUNTO DE PARTIDA RESPECTO A EE. UU. -->
+            <div class="step" data-step="4">
+                <div class="step-header-row">
+                    <div class="step-number">Paso 4 de 8 <span>→</span></div>
+                    <button type="button" class="back-btn" onclick="prevStep(4)">← Atrás</button>
+                </div>
+                <h2 class="question-title">4. ¿En qué punto te encuentras hoy respecto a Estados Unidos? *</h2>
+                <div class="options-list">
+                    <label class="option-card">
+                        <input type="radio" name="q_estatus_fiscal" value="Vivo en EE. UU. (tengo SSN/ITIN)" required class="auto-advance">
+                        <span class="card-indicator"></span>
+                        <span class="card-text">Vivo en EE. UU. y ya tengo SSN o ITIN vigente (o en trámite).</span>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="q_estatus_fiscal" value="Vivo fuera de EE. UU." class="auto-advance">
+                        <span class="card-indicator"></span>
+                        <span class="card-text">Vivo fuera de EE. UU. (Latam/Otro) y quiero estructurar mi empresa a distancia.</span>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="q_estatus_fiscal" value="Vivo en EE. UU. pero no tengo SSN/ITIN" class="auto-advance">
+                        <span class="card-indicator"></span>
+                        <span class="card-text">Vivo en EE. UU., pero aún no tengo SSN ni ITIN.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- PASO 5: SITUACIÓN ACTUAL CON LLC -->
+            <div class="step" data-step="5">
+                <div class="step-header-row">
+                    <div class="step-number">Paso 5 de 8 <span>→</span></div>
+                    <button type="button" class="back-btn" onclick="prevStep(5)">← Atrás</button>
+                </div>
+                <h2 class="question-title">5. ¿Cuál es tu situación actual con tu empresa (LLC) en EE. UU.? *</h2>
+                <div class="options-list">
+                    <label class="option-card">
+                        <input type="radio" name="q_situacion_llc" value="Empiezo desde cero" required class="auto-advance">
+                        <span class="card-indicator"></span>
+                        <span class="card-text">Empiezo desde cero: aún no tengo LLC y quiero formarla bien desde el primer día.</span>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="q_situacion_llc" value="Tengo LLC inactiva o mal estructurada" class="auto-advance">
+                        <span class="card-indicator"></span>
+                        <span class="card-text">Ya tengo una LLC creada, pero está inactiva, mal estructurada o los bancos no me aprueban crédito.</span>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="q_situacion_llc" value="Tengo LLC activa y operando" class="auto-advance">
+                        <span class="card-indicator"></span>
+                        <span class="card-text">Ya tengo LLC activa y operando, y busco escalar mi acceso a capital empresarial.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- PASO 6: MOTIVACIÓN PRINCIPAL EN LOS PRÓXIMOS 90 DÍAS -->
+            <div class="step" data-step="6">
+                <div class="step-header-row">
+                    <div class="step-number">Paso 6 de 8 <span>→</span></div>
+                    <button type="button" class="back-btn" onclick="prevStep(6)">← Atrás</button>
+                </div>
+                <h2 class="question-title">6. ¿Cuál es tu motivación principal para dar este paso en los próximos 90 días? *</h2>
+                <div class="options-list">
+                    <label class="option-card">
+                        <input type="radio" name="q_motivacion" value="Acceder a capital bancario al 0%" required class="motivation-radio">
+                        <span class="card-indicator"></span>
+                        <span class="card-text">Acceder a capital bancario al 0% en EE. UU. para invertir (Bienes Raíces, Bolsa u Oro) sin usar mis ahorros.</span>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="q_motivacion" value="Inyectar liquidez a mi negocio actual" class="motivation-radio">
+                        <span class="card-indicator"></span>
+                        <span class="card-text">Inyectar liquidez, inventario o capital de trabajo a mi negocio actual.</span>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="q_motivacion" value="Dejar de cometer errores y ordenarme" class="motivation-radio">
+                        <span class="card-indicator"></span>
+                        <span class="card-text">Dejar de cometer errores por mi cuenta, ordenar mis finanzas/impuestos y tener una estructura bancaria sólida.</span>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="q_motivacion" value="Otra" class="motivation-radio">
+                        <span class="card-indicator"></span>
+                        <span class="card-text">Otra motivación (Especificar brevemente).</span>
+                    </label>
+                </div>
+
+                <div class="other-motivation-wrap" id="otherMotivationWrap">
+                    <input type="text" id="otraMotivacionTexto" class="no-advance" placeholder="Escribe brevemente tu motivación principal...">
+                    <div class="nav-controls" style="margin-top: 16px;">
+                        <button type="button" class="next-button" onclick="validateStep6Other()">Continuar →</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PASO 7: FILTRO DE AUTORIDAD / TOMADOR DE DECISIÓN -->
+            <div class="step" data-step="7">
+                <div class="step-header-row">
+                    <div class="step-number">Paso 7 de 8 <span>→</span></div>
+                    <button type="button" class="back-btn" onclick="prevStep(7)">← Atrás</button>
+                </div>
+                <h2 class="question-title">7. Para estructurar tu empresa y tomar decisiones financieras, ¿quién participa en la decisión? *</h2>
+                <div class="options-list">
+                    <label class="option-card">
+                        <input type="radio" name="q_decision" value="La decisión depende 100% de mí" required class="auto-advance">
+                        <span class="card-indicator"></span>
+                        <span class="card-text">La decisión depende 100% de mí.</span>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="q_decision" value="Tomo la decisión con pareja/socio" class="auto-advance">
+                        <span class="card-indicator"></span>
+                        <span class="card-text">Tomo la decisión junto con mi pareja o socio(a) de negocio.</span>
+                    </label>
+                </div>
+                <div class="warning-box">
+                    📌 <strong>Nota importante:</strong> Si tomas decisiones financieras con tu pareja o socio(a), es requisito indispensable que ambos asistan a la videollamada, ya que no reprogramamos segundas sesiones informativas.
+                </div>
+            </div>
+
+            <!-- PASO 8: FILTRO FINANCIERO CLASIFICATORIO -->
+            <div class="step" data-step="8">
+                <div class="step-header-row">
+                    <div class="step-number">Paso 8 de 8 <span>→</span></div>
+                    <button type="button" class="back-btn" onclick="prevStep(8)">← Atrás</button>
+                </div>
+                <h2 class="question-title">8. El acompañamiento personalizado de 90 días requiere capital para tu inscripción y puesta en marcha. Si en la llamada confirmamos que tu perfil califica, ¿con qué capital dispones hoy para iniciar? *</h2>
+                <div class="options-list">
+                    <label class="option-card">
+                        <input type="radio" name="q_capital" value="$2,000 USD o más" required class="capital-radio">
+                        <span class="card-indicator"></span>
+                        <span class="card-text">Cuento con $2,000 USD o más listos para invertir en mi estructura si veo que es para mí.</span>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="q_capital" value="$1,000 a $1,999 USD" class="capital-radio">
+                        <span class="card-indicator"></span>
+                        <span class="card-text">Cuento con $1,000 a $1,999 USD para iniciar y puedo cubrir el resto en un plan de pagos.</span>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="q_capital" value="$700 a $999 USD" class="capital-radio">
+                        <span class="card-indicator"></span>
+                        <span class="card-text">Cuento con un mínimo de $700 a $999 USD hoy para reservar mi cupo o arrancar en cuotas.</span>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="q_capital" value="Menos de $700 USD" class="capital-radio">
+                        <span class="card-indicator"></span>
+                        <span class="card-text">Actualmente dispongo de menos de $700 USD / No cuento con capital para invertir en este momento.</span>
+                    </label>
+                </div>
+
+                <div class="nav-controls" style="margin-top: 26px;">
+                    <button type="button" class="cta-submit-button" id="btnStep8Action" onclick="handleStep8Continue()">
+                        VERIFICAR SI CALIFICO Y ELEGIR HORARIO →
+                    </button>
+                </div>
+            </div>
+
+            <!-- PASO 9 (PREGUNTA OCULTA DE RESCATE SI ELIGE MENOS DE $700 USD) -->
+            <div class="step" data-step="9">
+                <div class="step-header-row">
+                    <div class="step-number">Verificación de Compromiso <span>→</span></div>
+                    <button type="button" class="back-btn" onclick="prevStep(9)">← Atrás</button>
+                </div>
+                <h2 class="question-title">¿Estarías dispuesto(a) a conseguir entre $500 y $700 USD al menos para asegurar tu ingreso o compromiso si confirmamos que tu perfil aplica? *</h2>
+                <p class="question-helper">Solo habilitamos espacios de agenda privada con personas listas para tomar acción real sobre su estructura en EE. UU.</p>
+                <div class="options-list">
+                    <label class="option-card">
+                        <input type="radio" name="q_rescate" value="Sí estoy dispuesto a conseguir entre $500 y $700">
+                        <span class="card-indicator"></span>
+                        <span class="card-text">Sí, estoy dispuesto(a) a conseguir entre $500 y $700 USD para asegurar mi ingreso si el programa encaja conmigo.</span>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="q_rescate" value="No podré conseguirlo">
+                        <span class="card-indicator"></span>
+                        <span class="card-text">No, en este momento no tengo posibilidad de conseguir ese monto.</span>
+                    </label>
+                </div>
+
+                <div class="nav-controls" style="margin-top: 26px;">
+                    <button type="submit" class="cta-submit-button" id="finalSubmitBtn">
+                        VERIFICAR SI CALIFICO Y ELEGIR HORARIO →
+                    </button>
+                </div>
+            </div>
+
+        </form>
+
+        <!-- VISTA DEL CALENDARIO DE GHL EMBEBIDO (PARA PERFILES CALIFICADOS) -->
+        <div id="calendarView">
+            <div class="calendar-card">
+                <div class="calendar-banner">
+                    <h2>¡Tu perfil pre-califica! Selecciona tu Fecha y Hora</h2>
+                    <p>Elige el horario para tu sesión de evaluación. Te enviaremos la confirmación inmediata por WhatsApp.</p>
+                </div>
+                <div id="ghlCalendarContainer"></div>
+            </div>
+        </div>
+
+        <!-- VISTA DOWNSELL / RECURSO EDUCATIVO (PARA DESCALIFICADOS SIN CAPITAL) -->
+        <div id="downsellView">
+            <div class="brand-badge" style="margin-bottom: 16px;">Solicitud Registrada</div>
+            <h2 class="question-title" style="font-size: 1.45rem;">Gracias por completar tu evaluación, <span id="downsellName"></span></h2>
+            <p class="question-helper" style="max-width: 520px; margin: 12px auto 24px;">
+                En este momento nuestro programa de acompañamiento personalizado 1 a 1 requiere contar con un capital mínimo de arranque para la radicación de tu LLC y estructura bancaria en EE. UU. Te hemos enviado a tu correo y WhatsApp recursos gratuitos para que empieces a preparar tus cimientos financieros.
+            </p>
+        </div>
+    </div>
+
+    <div class="footer-minimal">
+        &copy; 2026 LIFEOFNENA LLC · Tu Ruta Financiera · Mercedes Ríos. Todos los derechos reservados.
+    </div>
+
+    <script>
+        /* =====================================================================
+           CONFIGURACIÓN DE ENDPOINTS GOHIGHLEVEL (GHL)
+           ===================================================================== */
+        const GHL_WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/cX1DErTUIk1O4YRymZcS/webhook-trigger/ea8ee2d4-83c0-4b04-a44a-7a4ce46839ff';
+        const GHL_CALENDAR_WIDGET_URL = 'https://api.leadconnectorhq.com/widget/booking/5m5j2hzwFfel7xF8Nwcx';
+        // Si tienes una URL externa para el Downsell, colócala aquí. Si la dejas vacía (''), mostrará la tarjeta de Downsell integrada.
+        const DOWNSELL_REDIRECT_URL = '';
+
+        const totalSteps = 8;
+
+        function updateProgressBar(currentStep) {
+            const clamped = Math.min(currentStep, totalSteps);
+            const percentage = ((clamped - 1) / totalSteps) * 100;
+            document.getElementById('progressBar').style.width = percentage + '%';
+        }
+
+        function showStep(fromStepNum, toStepNum) {
+            const currentStepEl = document.querySelector(`.step[data-step="${fromStepNum}"]`);
+            const nextStepEl = document.querySelector(`.step[data-step="${toStepNum}"]`);
+            if (!currentStepEl || !nextStepEl) return;
+
+            currentStepEl.classList.add('exit');
+            setTimeout(() => {
+                currentStepEl.classList.remove('active', 'exit');
+                nextStepEl.classList.add('active');
+                updateProgressBar(toStepNum);
+                const nextInput = nextStepEl.querySelector('input[type="text"], input[type="email"], input[type="tel"]');
+                if (nextInput) nextInput.focus();
+            }, 350);
+        }
+
+        function nextStep(currentStepNum) {
+            const currentStepEl = document.querySelector(`.step[data-step="${currentStepNum}"]`);
+            const input = currentStepEl.querySelector('input:not(.no-advance)');
+
+            if (input && !input.checkValidity()) {
+                input.reportValidity();
+                return;
+            }
+
+            if (currentStepNum === 3) {
+                const rawDigits = document.getElementById('whatsapp').value.replace(/\D/g, '');
+                if (rawDigits.length < 7) {
+                    alert('Por favor ingresa un número de WhatsApp válido.');
+                    document.getElementById('whatsapp').focus();
+                    return;
+                }
+            }
+
+            showStep(currentStepNum, currentStepNum + 1);
+        }
+
+        function prevStep(currentStepNum) {
+            const targetStep = currentStepNum === 9 ? 8 : currentStepNum - 1;
+            showStep(currentStepNum, targetStep);
+        }
+
+        // Navegación con tecla Enter en campos de texto
+        document.querySelectorAll('.step input:not(.no-advance)').forEach(input => {
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && this.type !== 'radio') {
+                    e.preventDefault();
+                    const stepNum = parseInt(this.closest('.step').getAttribute('data-step'));
+                    if (stepNum <= 3) nextStep(stepNum);
+                }
+            });
+        });
+
+        // Auto-avance en preguntas de opción única simples (Pasos 4, 5 y 7)
+        document.querySelectorAll('.auto-advance').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const stepNum = parseInt(this.closest('.step').getAttribute('data-step'));
+                setTimeout(() => {
+                    showStep(stepNum, stepNum + 1);
+                }, 320);
+            });
+        });
+
+        // Lógica del Paso 6 (Motivación + Opción abierta "Otra")
+        document.querySelectorAll('.motivation-radio').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const otherWrap = document.getElementById('otherMotivationWrap');
+                const otherInput = document.getElementById('otraMotivacionTexto');
+                if (this.value === 'Otra') {
+                    otherWrap.classList.add('visible');
+                    setTimeout(() => otherInput.focus(), 100);
+                } else {
+                    otherWrap.classList.remove('visible');
+                    setTimeout(() => showStep(6, 7), 320);
+                }
+            });
+        });
+
+        function validateStep6Other() {
+            const txt = document.getElementById('otraMotivacionTexto').value.trim();
+            if (!txt) {
+                alert('Por favor escribe brevemente tu motivación principal.');
+                document.getElementById('otraMotivacionTexto').focus();
+                return;
+            }
+            showStep(6, 7);
+        }
+
+        // Lógica del Paso 8 (Si marca "Menos de $700 USD" abre Paso 9 Oculto; si no, envía directo)
+        function handleStep8Continue() {
+            const selectedCapital = document.querySelector('input[name="q_capital"]:checked');
+            if (!selectedCapital) {
+                alert('Por favor selecciona una opción para continuar.');
+                return;
+            }
+
+            if (selectedCapital.value === 'Menos de $700 USD') {
+                showStep(8, 9);
+            } else {
+                submitEvaluationAndRoute();
+            }
+        }
+
+        document.getElementById('dynamicForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const selectedRescate = document.querySelector('input[name="q_rescate"]:checked');
+            if (!selectedRescate) {
+                alert('Por favor selecciona una opción para continuar.');
+                return;
+            }
+            submitEvaluationAndRoute();
+        });
+
+        /* =====================================================================
+           SELECTOR DE PAÍS CON BANDERAS (PRIORIDAD EE. UU. Y LATAM)
+           ===================================================================== */
+        const COUNTRIES = [
+            { n: 'Estados Unidos', iso: 'US', d: '+1' },
+            { n: 'Perú', iso: 'PE', d: '+51' },
+            { n: 'México', iso: 'MX', d: '+52' },
+            { n: 'Colombia', iso: 'CO', d: '+57' },
+            { n: 'Puerto Rico', iso: 'PR', d: '+1' },
+            { n: 'República Dominicana', iso: 'DO', d: '+1' },
+            { n: 'Ecuador', iso: 'EC', d: '+593' },
+            { n: 'Chile', iso: 'CL', d: '+56' },
+            { n: 'Argentina', iso: 'AR', d: '+54' },
+            { n: 'España', iso: 'ES', d: '+34' },
+            { n: 'Bolivia', iso: 'BO', d: '+591' },
+            { n: 'Brasil', iso: 'BR', d: '+55' },
+            { n: 'Canadá', iso: 'CA', d: '+1' },
+            { n: 'Costa Rica', iso: 'CR', d: '+506' },
+            { n: 'El Salvador', iso: 'SV', d: '+503' },
+            { n: 'Guatemala', iso: 'GT', d: '+502' },
+            { n: 'Honduras', iso: 'HN', d: '+504' },
+            { n: 'Nicaragua', iso: 'NI', d: '+505' },
+            { n: 'Panamá', iso: 'PA', d: '+507' },
+            { n: 'Paraguay', iso: 'PY', d: '+595' },
+            { n: 'Uruguay', iso: 'UY', d: '+598' },
+            { n: 'Venezuela', iso: 'VE', d: '+58' }
+        ];
+        const PRIORITY = ['US', 'MX', 'CO', 'PE', 'EC', 'CL', 'AR', 'DO'];
+
+        const ctTrigger = document.getElementById('countryTrigger');
+        const ctDropdown = document.getElementById('countryDropdown');
+        const ctList = document.getElementById('countryList');
+        const ctSearch = document.getElementById('countrySearch');
+        const selFlag = document.getElementById('selectedFlag');
+        const selDial = document.getElementById('selectedDial');
+        const phoneInput = document.getElementById('whatsapp');
+
+        function flagEmoji(iso) {
+            return iso.toUpperCase().replace(/./g, c => String.fromCodePoint(127397 + c.charCodeAt(0)));
+        }
+
+        function appendCountryItems(arr) {
+            arr.forEach(c => {
+                const li = document.createElement('li');
+                li.className = 'country-item';
+                li.setAttribute('role', 'option');
+                li.dataset.iso = c.iso;
+                li.innerHTML = '<span class="ci-flag">' + flagEmoji(c.iso) + '</span>' +
+                               '<span class="ci-name">' + c.n + '</span>' +
+                               '<span class="ci-dial">' + c.d + '</span>';
+                li.addEventListener('click', () => selectCountry(c));
+                ctList.appendChild(li);
+            });
+        }
+
+        function renderCountryList(filter) {
+            const q = (filter || '').trim().toLowerCase();
+            ctList.innerHTML = '';
+            if (!q) {
+                const pri = PRIORITY.map(iso => COUNTRIES.find(c => c.iso === iso)).filter(Boolean);
+                const rest = COUNTRIES.filter(c => !PRIORITY.includes(c.iso))
+                                      .sort((a, b) => a.n.localeCompare(b.n, 'es'));
+                appendCountryItems(pri);
+                const sep = document.createElement('div');
+                sep.className = 'country-sep';
+                ctList.appendChild(sep);
+                appendCountryItems(rest);
+            } else {
+                const matches = COUNTRIES.filter(c =>
+                    c.n.toLowerCase().includes(q) || c.d.includes(q) || c.iso.toLowerCase() === q
+                );
+                if (matches.length === 0) {
+                    const e = document.createElement('div');
+                    e.className = 'country-empty';
+                    e.textContent = 'Sin resultados';
+                    ctList.appendChild(e);
+                } else {
+                    appendCountryItems(matches);
+                }
+            }
+        }
+
+        function setCountry(c) {
+            selFlag.textContent = flagEmoji(c.iso);
+            selDial.textContent = c.d;
+        }
+        function selectCountry(c) {
+            setCountry(c);
+            closeDropdown();
+            phoneInput.focus();
+        }
+        function openDropdown() {
+            ctDropdown.classList.add('open');
+            ctTrigger.classList.add('open');
+            ctTrigger.setAttribute('aria-expanded', 'true');
+            ctSearch.value = '';
+            renderCountryList('');
+            setTimeout(() => ctSearch.focus(), 50);
+        }
+        function closeDropdown() {
+            ctDropdown.classList.remove('open');
+            ctTrigger.classList.remove('open');
+            ctTrigger.setAttribute('aria-expanded', 'false');
+        }
+
+        ctTrigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            ctDropdown.classList.contains('open') ? closeDropdown() : openDropdown();
+        });
+        ctSearch.addEventListener('input', () => renderCountryList(ctSearch.value));
+        document.addEventListener('click', (e) => {
+            if (ctDropdown.classList.contains('open') &&
+                !ctDropdown.contains(e.target) && !ctTrigger.contains(e.target)) {
+                closeDropdown();
+            }
+        });
+
+        /* =====================================================================
+           CLASIFICACIÓN, ENVÍO A WEBHOOK GHL Y CARGA DE CALENDARIO
+           ===================================================================== */
+        function getCookie(name) {
+            const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+            return match ? match[2] : '';
+        }
+
+        function submitEvaluationAndRoute() {
+            const btn8 = document.getElementById('btnStep8Action');
+            const btn9 = document.getElementById('finalSubmitBtn');
+            if (btn8) { btn8.innerText = 'Verificando perfil...'; btn8.disabled = true; }
+            if (btn9) { btn9.innerText = 'Verificando perfil...'; btn9.disabled = true; }
+            document.getElementById('progressBar').style.width = '100%';
+
+            const urlSearchParams = new URLSearchParams(window.location.search);
+
+            // Separar Nombre y Apellido para GHL
+            const fullName = document.getElementById('nombre').value.trim();
+            const nameParts = fullName.split(/\s+/);
+            const firstName = nameParts[0] || '';
+            const lastName = nameParts.length > 1 ? nameParts.slice(1).join(' ') : '';
+
+            // Formatear Teléfono E.164
+            const dialCode = document.getElementById('selectedDial').textContent.trim();
+            const nationalNumber = document.getElementById('whatsapp').value.replace(/\D/g, '');
+            const fullPhone = dialCode + nationalNumber;
+
+            // Respuestas de las preguntas
+            const estatusFiscal = document.querySelector('input[name="q_estatus_fiscal"]:checked')?.value || '';
+            const situacionLlc = document.querySelector('input[name="q_situacion_llc"]:checked')?.value || '';
+            let motivacion = document.querySelector('input[name="q_motivacion"]:checked')?.value || '';
+            const motivacionDetalle = document.getElementById('otraMotivacionTexto').value.trim();
+            if (motivacion === 'Otra' && motivacionDetalle) {
+                motivacion = 'Otra: ' + motivacionDetalle;
+            }
+            const tomadorDecision = document.querySelector('input[name="q_decision"]:checked')?.value || '';
+            const capitalDisponible = document.querySelector('input[name="q_capital"]:checked')?.value || '';
+            const rescateCapital = document.querySelector('input[name="q_rescate"]:checked')?.value || 'No aplica (Calificó directo)';
+
+            // Matriz de Clasificación y Reglas de Enrutamiento
+            let tagClasificacion = 'lead:calificado';
+            let esCalificado = 'SI';
+            let estrategiaCloser = '';
+
+            if (capitalDisponible === '$2,000 USD o más') {
+                tagClasificacion = 'lead:vip-2k';
+                esCalificado = 'SI';
+                estrategiaCloser = 'Lead Ideal: Presentar Opción A (Pago Único $2,000 USD) anclando bonos de acción rápida.';
+            } else if (capitalDisponible === '$1,000 a $1,999 USD') {
+                tagClasificacion = 'lead:calificado-1k';
+                esCalificado = 'SI';
+                estrategiaCloser = 'Calificado Medio: Intentar Pago Único con tarjeta; si el límite es real, cerrar con Opción B (2 cuotas de $1,000 USD).';
+            } else if (capitalDisponible === '$700 a $999 USD') {
+                tagClasificacion = 'lead:calificado-700';
+                esCalificado = 'SI';
+                estrategiaCloser = 'Calificado Base: Presentar valor completo y bajar directo a Opción C (3 cuotas de $700 USD) o Reserva de $700.';
+            } else if (capitalDisponible === 'Menos de $700 USD') {
+                if (rescateCapital === 'Sí estoy dispuesto a conseguir entre $500 y $700') {
+                    tagClasificacion = 'lead:rescate-500-700';
+                    esCalificado = 'SI';
+                    estrategiaCloser = 'Lead Rescatado ($500-$700): Confirmó disposición a conseguir capital de reserva/compromiso.';
+                } else {
+                    tagClasificacion = 'lead:descalificado-sin-capital';
+                    esCalificado = 'NO';
+                    estrategiaCloser = 'Descalificado sin capital: Enviar a secuencia de Downsell / Recurso gratuito.';
+                }
+            }
+
+            const ghlPayload = {
+                first_name: firstName,
+                last_name: lastName,
+                full_name: fullName,
+                email: document.getElementById('email').value.trim(),
+                phone: fullPhone,
+                estatus_fiscal_actual: estatusFiscal,
+                situacion_de_llc: situacionLlc,
+                motivacion_principal: motivacion,
+                tomador_de_decision: tomadorDecision,
+                capital_disponible: capitalDisponible,
+                rescate_de_capital: rescateCapital,
+                es_calificado: esCalificado,
+                tag_clasificacion: tagClasificacion,
+                estrategia_closer: estrategiaCloser,
+                canal_de_captacion_inicial: 'VSL Evergreen',
+                fbclid: urlSearchParams.get('fbclid') || '',
+                utm_source: urlSearchParams.get('utm_source') || '',
+                utm_medium: urlSearchParams.get('utm_medium') || '',
+                utm_campaign: urlSearchParams.get('utm_campaign') || '',
+                utm_content: urlSearchParams.get('utm_content') || '',
+                utm_term: urlSearchParams.get('utm_term') || '',
+                _fbp: getCookie('_fbp'),
+                _fbc: getCookie('_fbc')
+            };
+
+            fetch(GHL_WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(ghlPayload)
+            })
+            .then(() => {
+                enrutarSegunCalificacion(ghlPayload);
+            })
+            .catch(err => {
+                console.error('Aviso sincronización GHL:', err);
+                enrutarSegunCalificacion(ghlPayload);
+            });
+        }
+
+        function enrutarSegunCalificacion(payload) {
+            document.getElementById('dynamicForm').style.display = 'none';
+
+            if (payload.es_calificado === 'SI') {
+                // Mostrar el Calendario de GHL embebido con pre-llenado automático (Sticky Contact)
+                const mainContainer = document.getElementById('mainContainer');
+                mainContainer.classList.add('calendar-mode');
+
+                const bookingParams = new URLSearchParams({
+                    first_name: payload.first_name,
+                    last_name: payload.last_name,
+                    name: payload.full_name,
+                    email: payload.email,
+                    phone: payload.phone
+                });
+
+                // Actualizar la URL de la ventana para que form_embed.js de GHL también lea los parámetros
+                try {
+                    window.history.replaceState(null, '', '?' + bookingParams.toString());
+                } catch (e) {}
+
+                const calendarContainer = document.getElementById('ghlCalendarContainer');
+                const iframe = document.createElement('iframe');
+                iframe.src = `${GHL_CALENDAR_WIDGET_URL}?${bookingParams.toString()}`;
+                iframe.setAttribute('allow', 'payment');
+                iframe.style.width = '100%';
+                iframe.style.minHeight = '720px';
+                iframe.style.border = 'none';
+                iframe.style.overflow = 'hidden';
+                iframe.scrolling = 'no';
+                iframe.id = '5m5j2hzwFfel7xF8Nwcx_' + Date.now();
+
+                calendarContainer.appendChild(iframe);
+
+                const embedScript = document.createElement('script');
+                embedScript.src = 'https://link.msgsndr.com/js/form_embed.js';
+                embedScript.type = 'text/javascript';
+                calendarContainer.appendChild(embedScript);
+
+                document.getElementById('calendarView').classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                // Descalificado: Redirigir a URL de Downsell o mostrar vista de Downsell
+                if (DOWNSELL_REDIRECT_URL) {
+                    window.location.href = DOWNSELL_REDIRECT_URL;
+                } else {
+                    document.getElementById('downsellName').textContent = payload.first_name || '';
+                    document.getElementById('downsellView').classList.add('active');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            }
+        }
+
+        updateProgressBar(1);
+    </script>
+</body>
+</html>
