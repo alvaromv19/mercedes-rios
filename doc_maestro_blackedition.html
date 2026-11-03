@@ -1,0 +1,927 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Documento Maestro Black Edition</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap">
+<style>
+:root{
+  --paper:#FAF7F0; --surface:#FFFFFF; --ink:#13342A; --body:#23332C;
+  --muted:#5C6C63; --gold:#A8762A; --gold-soft:#F2E6CE; --rule:#DED7C8;
+  --band:#13342A; --band-ink:#FAF7F0; color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#0E201A; --surface:#15291F; --ink:#F0EADD; --body:#D8E0D8;
+    --muted:#95A79C; --gold:#D9A64A; --gold-soft:#2A2113; --rule:#2C4237;
+    --band:#1E3A2E; --band-ink:#F5EFE2; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0E201A; --surface:#15291F; --ink:#F0EADD; --body:#D8E0D8;
+  --muted:#95A79C; --gold:#D9A64A; --gold-soft:#2A2113; --rule:#2C4237;
+  --band:#1E3A2E; --band-ink:#F5EFE2; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--body);
+  font-family:'DM Sans',system-ui,-apple-system,Segoe UI,sans-serif;
+  font-size:16.5px;line-height:1.62;padding:0 20px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:0}
+@media (min-width:1040px){.wrap{grid-template-columns:208px minmax(0,1fr);gap:56px;align-items:start}}
+.rail{display:none}
+@media (min-width:1040px){
+  .rail{display:block;position:sticky;top:0;padding:140px 0 40px}
+  .rail ol{list-style:none;margin:0;padding:0 0 0 14px;display:flex;flex-direction:column;gap:7px;border-left:1px solid var(--rule)}
+  .rail a{display:block;color:var(--muted);text-decoration:none;font-size:13px;line-height:1.35;padding:2px 0}
+  .rail a:hover,.rail a:focus-visible{color:var(--gold)}
+  .rail .num{font-variant-numeric:tabular-nums;color:var(--gold);margin-right:7px;font-weight:500}
+}
+header.top{padding:76px 0 0}
+.brand{font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);font-weight:500;margin:0 0 6px}
+.brand b{color:var(--ink);font-weight:700}
+h1{font-family:'Libre Baskerville',Georgia,serif;font-weight:700;
+  font-size:clamp(40px,7vw,62px);line-height:1.04;letter-spacing:-.015em;color:var(--ink);margin:16px 0 0;text-wrap:balance}
+h1 em{display:block;font-style:normal;color:var(--gold)}
+.dek{font-family:'Libre Baskerville',Georgia,serif;font-style:italic;
+  font-size:clamp(17px,2.4vw,21px);line-height:1.5;color:var(--muted);max-width:40ch;margin:22px 0 0}
+.meta{margin:40px 0 0;padding:22px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:20px 28px}
+.meta div{min-width:0}
+.meta dt{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:500;margin:0 0 3px}
+.meta dd{margin:0;font-size:14.5px;color:var(--ink);font-weight:500}
+section{padding:56px 0 0;scroll-margin-top:24px}
+h2{font-family:'Libre Baskerville',Georgia,serif;font-weight:700;
+  font-size:clamp(26px,3.6vw,34px);line-height:1.18;color:var(--ink);
+  margin:0 0 26px;padding-bottom:12px;border-bottom:2px solid var(--ink);
+  text-wrap:balance;display:flex;gap:14px;align-items:baseline}
+h2 .n{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;color:var(--gold);
+  font-variant-numeric:tabular-nums;flex:none;letter-spacing:.06em}
+h3{font-family:'Libre Baskerville',Georgia,serif;font-weight:700;font-size:21px;line-height:1.3;
+  color:var(--ink);margin:34px 0 10px;text-wrap:balance}
+h4{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:700;margin:26px 0 8px}
+p{margin:0 0 14px;max-width:68ch}
+.lede{font-size:17.5px;color:var(--muted);max-width:62ch;font-style:italic;
+  font-family:'Libre Baskerville',Georgia,serif;line-height:1.55;margin-bottom:24px}
+.piece{background:var(--surface);border:1px solid var(--rule);border-radius:3px;padding:26px 26px 22px;margin:0 0 16px}
+.piece > h3{margin-top:0}
+.piece p:last-child{margin-bottom:0}
+.price{display:inline-block;font-weight:700;color:var(--gold);font-size:14px;
+  letter-spacing:.03em;font-variant-numeric:tabular-nums;margin:2px 0 14px}
+.ficha{margin:14px 0 0;padding:14px 16px;background:var(--paper);
+  border-left:2px solid var(--ink);border-radius:0 3px 3px 0;display:flex;flex-direction:column;gap:7px}
+.ficha p{margin:0;font-size:14.5px;line-height:1.5;max-width:none}
+.ficha b{display:block;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--gold);font-weight:700;margin-bottom:2px}
+.window{display:inline-block;font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  font-weight:700;color:var(--gold);background:var(--gold-soft);padding:4px 10px;border-radius:2px;margin:0 0 12px}
+.step{border-left:2px solid var(--gold);padding:2px 0 2px 18px;margin:0 0 20px}
+.step:last-child{margin-bottom:0}
+.step .lbl{font-family:'Libre Baskerville',Georgia,serif;font-weight:700;font-size:17px;
+  color:var(--ink);display:block;margin-bottom:5px}
+.step .lbl span{font-family:'DM Sans',sans-serif;font-size:13px;color:var(--gold);font-weight:700;
+  font-variant-numeric:tabular-nums;margin-left:8px}
+.step p{margin:0;font-size:15.5px}
+ul.plain{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:11px}
+ul.plain li{display:flex;gap:11px;font-size:16px;align-items:baseline;min-width:0}
+ul.plain li::before{content:"";flex:none;width:5px;height:5px;border-radius:50%;background:var(--gold);transform:translateY(-3px)}
+.flag{margin:0 0 18px;padding:14px 16px;border:1px solid var(--rule);border-left:3px solid var(--gold);
+  background:var(--gold-soft);border-radius:4px;font-size:15px;line-height:1.6;color:var(--body)}
+.flag p{max-width:none;margin:0 0 10px}
+.flag p:last-child{margin:0}
+.flag strong,.flag b{color:var(--ink)}
+.flag.alert{border-left-color:#B23B2E}
+blockquote{margin:0 0 18px;padding:0 0 0 20px;border-left:2px solid var(--gold);
+  font-family:'Libre Baskerville',Georgia,serif;font-style:italic;
+  font-size:17.5px;line-height:1.52;color:var(--ink);max-width:62ch}
+.scroll{overflow-x:auto;margin:0 0 18px;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;min-width:480px;font-size:15px}
+caption{text-align:left;font-size:12px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--muted);font-weight:700;padding-bottom:9px}
+th{background:var(--band);color:var(--band-ink);text-align:left;font-weight:700;
+  font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;padding:11px 14px}
+td{padding:12px 14px;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--body)}
+tbody tr:nth-child(even) td{background:var(--surface)}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:700;color:var(--ink)}
+td.pct{font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--gold);font-weight:700}
+.total{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 16px;
+  background:var(--band);color:var(--band-ink);padding:18px 22px;border-radius:3px;margin:0 0 26px}
+.total span{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;opacity:.82}
+.total strong{font-family:'Libre Baskerville',Georgia,serif;font-size:32px;color:var(--gold);
+  font-variant-numeric:tabular-nums;line-height:1}
+.ab{display:grid;gap:18px;grid-template-columns:1fr;margin-bottom:8px}
+@media (min-width:760px){.ab{grid-template-columns:1fr 1fr;gap:26px}}
+.ab > div{min-width:0}
+.q{background:var(--gold-soft);border-left:3px solid var(--gold);padding:13px 16px;margin:0 0 14px;border-radius:0 3px 3px 0}
+.q p{margin:0 0 8px;max-width:none;font-family:'Libre Baskerville',Georgia,serif;
+  font-size:15.5px;line-height:1.6;color:var(--ink);font-style:italic}
+.q p:last-child{margin:0}
+.q .who{font-family:'DM Sans',sans-serif;font-style:normal;font-size:12.5px;color:var(--muted);letter-spacing:.02em}
+footer{margin-top:72px;padding:24px 0 60px;border-top:1px solid var(--rule);font-size:12.5px;color:var(--muted)}
+a{color:var(--gold)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.eq-t{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin:26px 0 10px}
+.equipo{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:0 28px}
+.equipo li{display:flex;justify-content:space-between;align-items:baseline;gap:14px;
+  padding:9px 0;border-bottom:1px solid var(--rule);min-width:0}
+.equipo li b{font-weight:700;white-space:nowrap}
+.equipo li span{color:var(--muted);font-size:14px;text-align:right;min-width:0}
+.new{display:inline-block;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;
+  color:var(--paper);background:var(--gold);padding:2px 7px;border-radius:2px;vertical-align:middle;margin-left:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<nav class="rail" aria-label="Secciones">
+  <ol>
+    <li><a href="#oferta"><span class="num">01</span>La oferta</a></li>
+    <li><a href="#entregables"><span class="num">02</span>Entregables</a></li>
+    <li><a href="#bonos"><span class="num">03</span>Bonos</a></li>
+    <li><a href="#rapida"><span class="num">04</span>Acción rápida</a></li>
+    <li><a href="#stack"><span class="num">05</span>El stack</a></li>
+    <li><a href="#garantias"><span class="num">06</span>Garantía y escasez</a></li>
+    <li><a href="#avatar"><span class="num">07</span>El avatar</a></li>
+    <li><a href="#compradores"><span class="num">08</span>Los compradores</a></li>
+    <li><a href="#promesas"><span class="num">09</span>Las promesas</a></li>
+    <li><a href="#bigidea"><span class="num">10</span>La Gran Idea</a></li>
+    <li><a href="#mecanismos"><span class="num">11</span>Mecanismos</a></li>
+    <li><a href="#objeciones"><span class="num">12</span>Objeciones</a></li>
+    <li><a href="#cambios"><span class="num">13</span>Qué cambió</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<header class="top">
+  <p class="brand"><b>BYOND CREATIVE STUDIO</b> &nbsp;·&nbsp; Metodología Sell Your Knowledge</p>
+  <h1>Documento Maestro<em>La Empresa Invisible · Black Edition</em></h1>
+  <p class="dek" style="margin-bottom:6px">Tu empresa en Estados Unidos y el crédito para ponerla a trabajar, sin usar tus ahorros.</p>
+  <p class="dek">La oferta, el avatar corregido con datos de compradores reales, la Gran Idea, los mecanismos y el mapa de objeciones.</p>
+  <dl class="meta">
+    <div><dt>Cliente</dt><dd>Mercedes Ríos · @lifeofnena</dd></div>
+    <div><dt>Producto</dt><dd>Ruta 90 · Money Credit</dd></div>
+    <div><dt>Evento</dt><dd>Viernes 27 de noviembre · 7:00 PM COL</dd></div>
+    <div><dt>Ventana</dt><dd>Carrito y agenda hasta el 4 de diciembre</dd></div>
+    <div><dt>Precio</dt><dd>$2,500 en la ventana · $3,000 de lista</dd></div>
+    <div><dt>Meta</dt><dd>$59,000 en ventas firmadas · 24 ventas</dd></div>
+    <div><dt>Base de datos</dt><dd>883 formularios · 63 llamadas · 12 compradores</dd></div>
+    <div><dt>Referencia 16 oct</dt><dd>100 en vivo · 90 de retención · 13 ventas</dd></div>
+    <div><dt>Meta de sala</dt><dd>250 a 300 conectados el 27</dd></div>
+    <div><dt>Versión</dt><dd>29 de octubre de 2026</dd></div>
+  </dl>
+
+  <h3 class="eq-t">Equipo</h3>
+  <ul class="equipo">
+    <li><b>Mercedes Ríos</b><span>Experta · cara del lanzamiento</span></li>
+    <li><b>Eduar</b><span>Lanzador</span></li>
+    <li><b>Álvaro</b><span>Estratega de lanzamiento</span></li>
+    <li><b>Nicole</b><span>Setter</span></li>
+    <li><b>Diego</b><span>Copywriter</span></li>
+    <li><b>Patricia</b><span>Closer</span></li>
+    <li><b>Lourdes</b><span>Closer</span></li>
+    <li><b>Por contratar</b><span>Closers adicionales · solo comisión</span></li>
+  </ul>
+</header>
+
+<!-- 1 -->
+<section id="oferta">
+  <h2><span class="n">01</span>La oferta</h2>
+  <div class="scroll">
+    <table>
+      <thead><tr><th scope="col">Elemento</th><th scope="col">Definición</th></tr></thead>
+      <tbody>
+        <tr><td>Nombre del producto</td><td><strong>Ruta 90</strong> (Money Credit)</td></tr>
+        <tr><td>Nombre del evento</td><td><strong>La Empresa Invisible · Black Edition</strong><br><em>Tu empresa en Estados Unidos y el crédito para ponerla a trabajar, sin usar tus ahorros</em><br><span style="font-size:14px;color:var(--muted)">El nombre es el mismo término que el calentamiento instala durante 30 días, así que el evento cobra esa inversión en vez de empezar de cero. La línea de abajo es fija y va siempre pegada al nombre: dice el problema, para quién es y cómo se resuelve, y es la que le avisa a quien aún no tiene empresa que el evento también es para él. Donde solo quepa una cosa (título de anuncio, asunto de mensaje), va la línea y el nombre queda para la portada. «La puerta que ya estaba abierta» es la frase del evento: va en historias y apertura, no en el nombre.</span></td></tr>
+        <tr><td>Duración</td><td>90 días de acompañamiento + Ruta Black por 12 meses</td></tr>
+        <tr><td>Valor del stack</td><td class="num">$13,737</td></tr>
+        <tr><td>Precio de lista</td><td class="num">$3,000 — real, vigente desde el 5 de diciembre</td></tr>
+        <tr><td>Precio en la ventana</td><td class="num">$2,500 — del 27 de noviembre al 4 de diciembre</td></tr>
+        <tr><td>Cuotas</td><td>Sí. En octubre, 6 de 13 compradores pagaron fraccionado. El pago inicial mínimo lo define Mercedes antes de la primera llamada</td></tr>
+        <tr><td>Cupos y fila</td><td><strong>No se dice un número de cupos.</strong> Se dice el orden: las sesiones uno a uno se atienden en el orden en que van entrando. Todo lo demás —Academia, Ruta Black— lo tiene desde el día uno</td></tr>
+        <tr><td>Entrada</td><td>Diagnóstico → llamada con closer. No hay checkout. El precio no se dice en el evento</td></tr>
+        <tr><td>Garantías</td><td>Una, fusionada. Reembolso sobre lo que Mercedes controla; acompañamiento sin fecha sobre lo que decide un banco</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="flag"><p><b>Por qué $2.500 y no más.</b> En octubre el ticket promedio realizado fue de $1.762. A $2.500 basta con cerrar <b>22,3%</b> en llamada para igualar lo que se sacaba por llamada en octubre (31,7% × $1.762 = $559). Todo lo que se cierre por encima de 22,3% es ganancia neta del cambio de precio. Hay que medirlo en las primeras 15 a 20 llamadas: si baja de ahí, se abren cuotas o downsell, no se baja el precio de lista.</p></div>
+</section>
+
+<!-- 2 -->
+<section id="entregables">
+  <h2><span class="n">02</span>Entregables principales</h2>
+
+  <div class="piece">
+    <h3>Ruta 90</h3>
+    <p class="lede" style="margin-bottom:6px">El proceso completo ejecutado contigo, paso por paso. 90 días de acompañamiento.</p>
+    <p class="price">Valorado en $9,488</p>
+
+    <div class="step">
+      <span class="lbl">Movimiento 1 · Tu Empresa <span>$1,997</span></span>
+      <p><strong>Si no tienes empresa:</strong> formamos tu LLC y sacamos tu EIN contigo, paso a paso. <strong>Incluye el trámite del ITIN</strong> para quien no lo tenga, y definimos juntos en qué estado te conviene formarla.</p>
+      <p><strong>Si ya la tienes:</strong> auditamos la que tienes —estado, EIN, operating agreement, estructura— y arreglamos lo que la tiene dormida ante un banco.</p>
+      <p style="font-size:14.5px;color:var(--muted);margin-top:10px">El ITIN y el estado hay que decirlos en voz alta: 2 de 12 compradores entraron sin SSN ni ITIN, y Antonny escribió textual <i>"Illinois que es donde vivo… no sé si hay otras opciones mejores"</i>. Quien se autodescarta por papeles nunca llega a un formulario.</p>
+    </div>
+    <div class="step">
+      <span class="lbl">Movimiento 1.5 · Tu Activación <span>$1,497</span></span>
+      <p><strong>El puente entre tener empresa y poder pedir.</strong> Una empresa recién formada, con EIN y una cuenta en ceros, es invisible para un banco. Abrimos tu cuenta de negocio como corresponde y construimos el historial que el analista necesita ver antes de que tú solicites nada.</p>
+      <p><strong>Si ya facturas:</strong> llevamos a la cuenta del negocio lo que hoy cobras por otro lado, bien hecho y documentado.</p>
+      <p><strong>Si todavía no facturas:</strong> hacemos que tu empresa tenga su primera venta real.</p>
+    </div>
+    <div class="step">
+      <span class="lbl">Movimiento 2 · Tu Crédito <span>$3,997</span></span>
+      <p><strong>La llave que abre el capital.</strong> Activamos tu crédito empresarial: dinero que no sale de tus ahorros ni depende de tu historial personal. El monto depende de tu perfil y de los bancos que apliquen.</p>
+      <p><strong>Aquí van sus bancos y proveedores, y el orden exacto en que se tocan.</strong> No es una lista de nombres que se entrega aparte: es con quién se aplica y en qué secuencia, decidido sobre tu perfil. Era La Agenda Privada, y estaba mal puesta como bono: si Mercedes activa tu crédito contigo, te dice con quién sí y con quién no. Es el núcleo, no un extra.</p>
+      <p>Y si tu crédito personal está en ceros o golpeado, eso también se trabaja adentro: monitoreo de los tres burós y plan de construcción. No es requisito del proceso, pero suma.</p>
+    </div>
+    <div class="step">
+      <span class="lbl">Movimiento 3 · Tu Portafolio <span>$1,997</span></span>
+      <p><strong>Es una decisión que se toma entre los dos</strong>, según lo que la persona necesita y quiere. No es un módulo: Mercedes se sienta a definir la ruta y acompaña el primer paso. Bienes raíces, bolsa u oro, según perfil de riesgo y tiempo.</p>
+    </div>
+  </div>
+
+  <div class="flag">
+    <p><b>El Movimiento 3 va primero en la narrativa, aunque sea el último del método.</b> Nadie se levanta queriendo una LLC: se levantan queriendo comprar una propiedad. 8 de 12 compradores apuntan a bienes raíces y 6 a bolsa. En el evento y en el contenido se entra por el destino, y los tres movimientos aparecen como lo que hay que atravesar para llegar.</p>
+    <p><b>Y el límite que no se cruza al subirle peso:</b> Mercedes ayuda a definir <b>la ruta</b> según tiempo y tolerancia al riesgo, no recomienda qué comprar. Mientras más se parezca a asesoría de inversión personalizada, más se acerca a terreno regulado en Estados Unidos. El disclaimer se mantiene donde está.</p>
+  </div>
+
+  <div class="flag">
+    <p><b>Nota para las closers sobre el crédito personal.</b> La frase "no depende de tu historial personal" se queda: el proceso corre sin eso. Pero el propio formulario de Mercedes etiqueta el rango 680–739 como <i>"Califica Ruta Express"</i>, así que el puntaje sí cambia la velocidad y las puertas que se abren. No estirar la frase al resultado: nadie con 580 debe esperar los mismos tiempos que alguien con 740.</p>
+  </div>
+
+  <div class="piece">
+    <h3>La sesión de casos — solo Ruta 90 <span class="new">Nuevo</span></h3>
+    <p class="lede" style="margin-bottom:6px">Sesión semanal cerrada donde Mercedes revisa los casos del grupo. No entra nadie más.</p>
+    <p>Va dentro de Ruta 90, no es un bono aparte. Cada semana se toman casos reales del grupo —una empresa que no pasa, una cuenta que el banco no ve, una decisión de a qué banco tocar— y se resuelven delante de todos. Lo que le pasa a uno le va a pasar a otros tres.</p>
+    <div class="ficha">
+      <p><b>Por qué existe</b>Separa lo que paga el cliente de Ruta 90 de lo que recibe el de Ruta Black. Sin esta sesión, el que pagó $2.500 recibía su acompañamiento principal en la misma sala que alguien que paga $47 al mes — y al lado de gente que le dijo que no a la oferta.</p>
+      <p><b>Y es lo que hace viables los 24</b>Una hora de grupo resuelve lo que suelto se iría en llamadas uno a uno repetidas. El uno a uno queda para lo que de verdad es personal.</p>
+      <p><b>Qué necesita para funcionar</b>Día y hora propios, que no choquen con el jueves de Ruta Black. Y que Mercedes llegue con casos preparados, no a improvisar.</p>
+    </div>
+  </div>
+
+  <div class="flag alert">
+    <p><b>Corrección sobre el Movimiento 1 — 29 de octubre.</b> La versión anterior justificaba el desdoble del Movimiento 1 así: <i>"38% salieron Última Milla, el perfil de quien ya tiene empresa formada"</i>, y concluía que a cuatro de cada diez les sobraba el primer tercio.</p>
+    <p><b>Los compradores dicen otra cosa.</b> De los 12 diagnósticos 1 a 1, <b>10 no tenían LLC</b> y 11 quedaron clasificados como "Ruta Desde Cero". La etiqueta "Última Milla" del diagnóstico V2 no predice quién compra.</p>
+    <p><b>Qué hacer con eso:</b> el desdoble se queda, porque 2 de 12 sí llegaron con empresa activa y la rama de auditoría les sirve. Lo que cambia es el <b>peso narrativo</b>: el público que paga es el que todavía no tiene la empresa, así que la rama principal es formar, no auditar.</p>
+  </div>
+
+  <div class="flag">
+    <p><b>Pendiente que bloquea el Movimiento 1.5.</b> Mercedes tiene que decir cuántos meses de actividad y qué tipo de depósitos le piden los lenders con los que trabaja. Sin eso, el movimiento es un título sin contenido, y es la pregunta que más le van a hacer el 27.</p>
+    <p><b>La regla que no se rompe:</b> el movimiento tiene que ser <b>real</b> — una venta de verdad, a alguien de verdad, documentable. Movimiento fabricado para aparentar solvencia ante un banco es terreno en el que no se mete a nadie con el nombre de Mercedes en un contrato firmado.</p>
+    <p><b>Por qué se desdobló en dos ramas (29 oct).</b> La versión anterior decía que el movimiento tenía que venir "del negocio que la persona ya tiene". Pero de los 12 compradores, <b>8 no tienen negocio operando y 9 no generan ingresos</b>. Para dos tercios de la base no había de dónde sacarlo, y es el movimiento que existe justamente para que no les nieguen el crédito. Por eso entró la rama de generar la primera venta, que antes vivía suelta en el bono El Movimiento 0.</p>
+  </div>
+
+  <div class="piece">
+    <h3>La Calculadora de Ruta</h3>
+    <p class="price">Valorada en $497</p>
+    <p>Te muestra qué puede hacer tu capital en cada ruta y con qué nivel de riesgo, antes de mover un peso tuyo. Metes tu punto de partida y ves, lado a lado, cómo se comporta el mismo capital en bienes raíces, en bolsa o en oro.</p>
+    <div class="ficha"><p><b>Dato nuevo que la respalda</b>5 de los 12 compradores marcaron "no sé si invertir en bolsa o bienes raíces con crédito empresarial" como una de sus mayores dudas. La calculadora responde exactamente eso.</p></div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section id="bonos">
+  <h2><span class="n">03</span>Bonos</h2>
+
+  <div class="piece">
+    <h3>Bono 1 · Academia Ruta Financiera</h3>
+    <p class="price">Valorado en $997</p>
+    <p>El entrenamiento completo, grabado y listo para ver a tu ritmo. Cómo se crea una LLC, cómo se saca y se construye crédito en Estados Unidos, y las rutas de inversión una por una. Disponible desde el día uno, para que las sesiones en vivo no se vayan en explicar lo básico.</p>
+    <div class="ficha">
+      <p><b>Acceso — resuelto el 29 de octubre</b><b style="display:inline;color:var(--ink)">De por vida para los fundadores. Un año para quien entre después del 4 de diciembre.</b> Un año ya es más que los 90 días, así que vale como bono para todos, y de por vida es el primer beneficio concreto del grupo fundador.</p>
+      <p><b>Por qué va como bono</b>Mercedes ya lo tiene grabado. No hay producción nueva, solo ordenarlo y montarlo.</p>
+      <p><b>Y resuelve algo más</b>Es lo que la persona tiene en la mano desde el día uno mientras su uno a uno arranca según el orden de llegada. Si se venciera a los 90 días, el que entró de último se queda sin nada justo cuando más desconectado está.</p>
+    </div>
+  </div>
+
+  <div class="piece">
+    <h3>Bono 2 · Claridad Fiscal <span class="new">Nuevo</span></h3>
+    <p class="price">Valorado en $497</p>
+    <blockquote>Abrir tu empresa sin saber qué cambia en tus impuestos es el miedo que nadie dice en voz alta.</blockquote>
+    <p>Masterclass con un contador especializado en LLC de extranjeros, grabada y disponible para siempre. Qué cambia y qué no cambia en tus impuestos cuando abres una LLC, qué te toca presentar y cuándo, y en qué momento necesitas un profesional. Más la lista de contactos verificados que usa Mercedes: contador y abogado de inmigración.</p>
+    <div class="ficha">
+      <p><b>De dónde sale</b>De los 12 diagnósticos 1 a 1 de compradores, <b>6 marcaron "me preocupa el tema de impuestos o migratorio"</b>. Es la preocupación número uno y no estaba en ninguna parte del guion de octubre.</p>
+      <p><b>Por qué va como bono y no en el núcleo</b>Porque hoy no existe dentro del entregable. Es un tercero con credencial, en vivo, con fecha. No es repetir algo que ya estaba.</p>
+      <p><b>El límite que no se cruza</b>Mercedes conecta, no asesora. Ella no es contadora ni abogada de inmigración, y dar asesoría migratoria sin licencia en Estados Unidos es justo el fraude que más ha golpeado a esta comunidad. El bono es traer al profesional, no responder ella.</p>
+      <p><b>Qué necesita para funcionar</b>Que Mercedes consiga al contador y que la masterclass esté grabada antes del 27.</p>
+    </div>
+  </div>
+
+  <div class="flag">
+    <p><b>Dónde se anuncia Claridad Fiscal.</b> No en la ráfaga de bonos del bloque de oferta, sino <b>en el momento en que se toca la objeción</b>. Algo como: <i>"Y sé que varios están pensando en los impuestos y en si esto les toca su situación migratoria. Por eso adentro hay una masterclass con un contador que trabaja justo con esto."</i> Ahí vale el doble.</p>
+    <p><b>Y antes de eso, gratis:</b> tres minutos en el evento que digan qué sí y qué no implica abrir una LLC. La tranquilidad va antes de la venta; la ejecución va adentro. Si todo el bloque queda detrás del pago, el que tiene miedo no compra para resolverlo — se queda con el miedo y no compra.</p>
+  </div>
+
+  <div class="flag alert">
+    <p><b>El Movimiento 0 sale de la oferta — 29 de octubre.</b> Era un bono de $997 que enseñaba a sacar dinero rápido con plataformas y trabajos de pago inmediato.</p>
+    <p><b>Por qué sale.</b> El 73% de la base llega diciendo que quiere un ingreso que no dependa de su trabajo o que está cansada del sueldo. Un comprador lo escribió así: <i>"me gustaría crear ingresos y salirme de mis trabajos físicos tan agotadores"</i>. Vendemos dejar de cambiar tiempo por dinero y el bono enseñaba a cambiar tiempo por dinero. El encuadre de "es un puente" ayudaba, pero no lo borraba. Y resolvía un problema que casi no tienen: solo 2 de 12 mencionaron el dinero como freno.</p>
+    <p><b>Dónde quedó lo útil.</b> Su parte valiosa —hacer que entre plata real a la empresa— pasó al núcleo, como la segunda rama del Movimiento 1.5. Ahí deja de contradecir la promesa y se vuelve lo que hace funcionar el movimiento más frágil del programa.</p>
+  </div>
+</section>
+
+<!-- 4 -->
+<section id="rapida">
+  <h2><span class="n">04</span>Bonos de acción rápida</h2>
+  <p class="lede">Tres, con ventanas escalonadas: la de mayor valor cierra primero.</p>
+
+  <div class="piece">
+    <p class="window">Solo hasta el domingo 29 de noviembre, 11:59 PM</p>
+    <h3 style="margin-top:0">El Analizador de Propiedades <span class="new">Nuevo</span></h3>
+    <p class="price">Valorado en $997</p>
+    <p><strong>La hoja con la que Mercedes revisa si una propiedad vale la pena antes de ofertar, lista para llenar con tu caso.</strong> Más la grabación de ella llenándola con una propiedad real, diciendo en voz alta por qué ese número sí y ese otro no.</p>
+    <div class="ficha">
+      <p><b>Por qué este y no otro</b>Apunta al deseo dominante, no a un miedo secundario: <b>8 de 12 compradores quieren bienes raíces</b> y 5 de 12 marcaron "no sé si invertir en bolsa o bienes raíces". Y cumple la regla del nicho de dinero: la persona ve la situación futura. Una hoja donde mete una propiedad concreta la hace imaginarse dueña; un bono de proceso solo la hace imaginarse preguntando.</p>
+      <p><b>En qué se diferencia de la Calculadora</b>La Calculadora responde "¿en qué ruta pongo mi capital?". El Analizador responde la pregunta siguiente: "¿esta propiedad concreta sirve?". Hay que decirlo así en el guion para que no se pisen.</p>
+      <p><b>Por qué la ventana es de fecha y no de cantidad</b>Una hoja no se acaba: copiarla cuesta cero, y el comprador número 6 lo sabe. Como los 24 van a estar juntos en Ruta Black, "unos la tienen y otros no" no tiene respuesta honesta. Con fecha, nadie queda afuera por ser el sexto: queda afuera quien llegó después del 29, que es verificable y nadie discute. Mantiene la regla de que el de mayor valor cierra primero: Analizador el domingo 29, Agenda Privada el lunes 30.</p>
+      <p><b>Qué reemplaza</b>Sale El Acelerador —línea directa de WhatsApp con Mercedes para los 5 primeros, $997—. Era un bono difícil de entregar y, si vendía bien, el comprador 6 lo iba a querer: negárselo le quitaba valor a la oferta en el peor momento. Lo que el Acelerador resolvía —la duda que se queda sin respuesta— hoy ya está cubierto por el espacio de Preguntas de Ruta Black, abierto cualquier día, y por la sesión de casos semanal. No queda hueco.</p>
+      <p><b>El valor se sostiene por la grabación</b>$997 por una hoja sola, al lado de la Calculadora de $497, no se sostiene. Con Mercedes mostrando una operación real sí: es lo único que nadie más puede dar, se graba una vez y se entrega para siempre. De paso da los números reales de una operación suya sin que tenga que mostrar todo su patrimonio.</p>
+      <p><b>Qué necesita para funcionar</b>Que los criterios de Mercedes para evaluar una propiedad estén escritos, no en su cabeza. Mismo riesgo que tiene la lista de bancos. Si no existen, el bono no existe.</p>
+      <p><b>El riesgo a vigilar</b>Los 8 de 12 son muestra chica y el lead magnet trae otro perfil. A quien quiere su propio negocio y no bienes raíces, este bono no le mueve nada; el Acelerador servía para cualquier ruta. Si en las primeras llamadas aparece gente que no va a bienes raíces, hay que medir si el bono les pesa.</p>
+    </div>
+  </div>
+
+  <div class="piece">
+    <p class="window">Solo los 5 primeros</p>
+    <h3 style="margin-top:0">El Acelerador — vía express <span class="new">Vuelve</span></h3>
+    <p class="price">Valorado en $697 <span style="color:var(--muted);font-size:14px">— falta el costo real</span></p>
+    <p><strong>Todo por la vía express, por cuenta nuestra: tu LLC, tu EIN y tu ITIN.</strong> Son recargos que se pagan aparte y que tú no vas a pagar. En vez de esperar semanas, arrancas de una.</p>
+    <div class="ficha">
+      <p><b>Por qué vuelve</b>Sale La Agenda Privada, que no pasaba la prueba del bono: si Mercedes activa tu crédito contigo, los bancos y el orden te los dice de todos modos. Era núcleo disfrazado de extra, y ya quedó dentro del Movimiento 2.</p>
+      <p><b>A quién le habla</b>A los que tienen prisa, que son mayoría entre los compradores: <b>6 de 12 dijeron "lo antes posible"</b> y 4 "en 3 meses". A esos, ganar semanas sí les mueve algo. Es tangible y se puede verificar, que con esta audiencia juega a favor.</p>
+      <p><b>Por qué aquí sí van cupos, y son honestos</b>Cada express sale de su bolsillo: 5 personas son unos $3.500 que ustedes pagan de verdad. Ese tope existe, a diferencia del de una hoja de cálculo, que se copia gratis. Esa es la línea: cupos cuando lo que se acaba es real, fecha cuando no. Ojo con una cosa: con tope de 5, este bono se agota en los primeros minutos del carrito, así que en la práctica cierra antes que el Analizador aunque valga menos. Los dos premian cosas distintas —ser el más rápido con plata, o entrar temprano con material— y conviene decirlo así en vivo.</p>
+      <p><b>Cómo se dice para que pese</b>No "valorado en $697", sino lo que se ahorra: <i>"los recargos express de tu empresa, tu EIN y tu ITIN los pagamos nosotros; eso lo ibas a pagar de tu bolsillo"</i>. Un costo evitado y verificable persuade más que un número en una lista, sobre todo con esta gente.</p>
+      <p><b>La objeción que tiene en contra</b>El propio Maestro lo había descartado con un argumento que sigue en pie: <i>"$200 no aceleran a nadie en una decisión de $2.500"</i>. Y es un upgrade de algo que ya está en el núcleo —la formación con la tasa del estado ya va incluida—, así que se parece a lo que se le criticó a la Agenda. Lo que lo salva es que el núcleo promete formar tu empresa, no formarla rápido, y que tiene un costo real que alguien tiene que pagar.</p>
+      <p><b>Solo se puede contar el recargo, no el trámite</b>Cuidado aquí. El Movimiento 1 ya incluye la formación, la tasa del estado, el agente registrado y el trámite del ITIN, y las closers dicen textual <i>"no pagas nada aparte después"</i>. Entonces lo que este bono regala es <b>el recargo por hacerlo express</b>, no el trámite, que ya estaba pagado. Si se cuenta el costo completo de los trámites, se está cobrando dos veces lo mismo dentro del mismo stack, y eso lo nota cualquiera que lea con calma.</p>
+      <p><b>El techo del número es el costo verificable</b>Los $697 son una estimación mientras Mercedes dé la cifra real de los tres recargos juntos. La regla: el valor declarado no puede pasar de lo que la persona pagaría de verdad, porque esto se busca en Google en treinta segundos. Si suman más, se sube; si suman menos, se baja. Con $697 el stack vuelve a $13,737 y la proporción a 5,5 a 1.</p>
+      <p><b>Qué hay que definir</b>Cuánto cuesta cada recargo —LLC en el estado, EIN y ITIN— y si de verdad los tres se pueden acelerar. El ITIN es el dudoso: no tiene vía express oficial, se agiliza con un agente certificado. Si alguno no se puede acelerar, sale del texto del bono antes del 27.</p>
+    </div>
+  </div>
+
+  <div class="piece">
+    <p class="window">Para quien aplica dentro de la ventana</p>
+    <h3 style="margin-top:0">Membresía Ruta Black — 12 meses</h3>
+    <p class="price">Valorado en $564 &nbsp;·&nbsp; 12 meses × $47 de precio público</p>
+    <p class="lede" style="margin-bottom:6px">Aprendes a invertir en bienes raíces y en bolsa desde donde estés, aunque todavía no tengas empresa, crédito ni ITIN.</p>
+    <p>Reunión en vivo con Mercedes los jueves a las 7 PM Colombia, con expertos invitados. Todas las clases quedan grabadas en la biblioteca y hay un espacio de Preguntas para dejar la duda cualquier día de la semana.</p>
+    <div class="ficha">
+      <p><b>La promesa</b>Aprendes cómo se invierte en bienes raíces y en bolsa desde donde estés, aunque todavía no tengas empresa, crédito ni ITIN, y aprendes el proceso para crear lo que te falta. Cada jueves en vivo con Mercedes y un lugar para preguntar cualquier día.</p>
+      <p><b>La transformación</b>De «me gustaría invertir pero no sé si puedo ni por dónde empezar» a «sé cómo funciona cada vía, cuál va con mi situación, qué me falta y cómo se consigue».</p>
+      <p><b>La frontera con Ruta 90</b>Ruta Black enseña. Ruta 90 lo arma para tu caso (empresa, activación, crédito y portafolio). Es educación, no asesoría: nunca «te digo dónde invertir», siempre «aprendes cómo funciona». Esta promesa no usa «sin usar tus ahorros»: esa línea es del evento y de Ruta 90.</p>
+      <p><b>Por confirmar con Mercedes</b>Qué puede hacer concretamente alguien sin ITIN en bienes raíces y en bolsa, y quién responde Preguntas y en cuánto tiempo.</p>
+      <p><b>Qué es y qué no es</b>Formación y comunidad, no el acompañamiento del programa. Enseña cómo funciona cada vía de inversión y el proceso para crear lo que falta; no revisa tu caso personal. Eso vive en la sesión de casos y en el uno a uno de Ruta 90. Ruta Black la comparten los compradores con los miembros de $47 al mes, y por eso tiene su propia promesa y no carga la de la oferta.</p>
+      <p><b>Sigue siendo el downsell</b>Se vende por mensajes en los grupos a quien no entró a Ruta 90. Eso no cambia: es ingreso recurrente de gente que ya tienes.</p>
+      <p><b>Qué necesita para funcionar</b>Que la reunión semanal y los expertos invitados existan desde la semana 1.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section id="stack">
+  <h2><span class="n">05</span>El stack de valor</h2>
+  <p class="lede">Así se recita en vivo: una pieza, qué resuelve, y el valor. El orden importa — primero el problema, después el nombre, al final el número.</p>
+
+  <div class="scroll">
+    <table>
+      <thead><tr><th scope="col">#</th><th scope="col">Pieza</th><th scope="col">Valor</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1</td><td>Ruta 90 — el proceso completo ejecutado contigo <span style="color:var(--muted)">(Tu Empresa $1,997 · Tu Activación $1,497 · Tu Crédito $3,997 · Tu Portafolio $1,997)</span>, con la sesión de casos adentro</td><td class="num">$9,488</td></tr>
+        <tr><td class="num">2</td><td>Academia Ruta Financiera — el entrenamiento completo grabado, de por vida</td><td class="num">$997</td></tr>
+        <tr><td class="num">3</td><td>El Analizador de Propiedades — la hoja con la que Mercedes evalúa una propiedad, más su grabación llenándola</td><td class="num">$997</td></tr>
+        <tr><td class="num">4</td><td>El Acelerador — LLC, EIN e ITIN por la vía express, por cuenta nuestra</td><td class="num">$697</td></tr>
+        <tr><td class="num">5</td><td>Membresía Ruta Black — 12 meses en la comunidad activa</td><td class="num">$564</td></tr>
+        <tr><td class="num">6</td><td>La Calculadora de Ruta</td><td class="num">$497</td></tr>
+        <tr><td class="num">7</td><td>Claridad Fiscal — masterclass con contador especializado + contactos verificados</td><td class="num">$497</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="total">
+    <span>Valor total si lo compraras por separado</span>
+    <strong>$13,737</strong>
+  </div>
+
+  <div class="flag">
+    <p><b>El stack quedó menos inflado, no más.</b> Subió 14% mientras el precio pasó de los $1.500 reales de octubre a $2.500. La proporción entre stack y precio bajó de 8 a 1 hasta 5,5 a 1. Con una audiencia cuyo freno número uno es el miedo a la estafa, eso juega a favor: un stack más creíble vende más que uno más grande.</p>
+  </div>
+
+  <h3>El anclaje que falta: contra el capital, no contra la competencia</h3>
+  <div class="flag">
+    <p><b>Hallazgo del 29 de octubre.</b> En el diagnóstico 1 a 1, los compradores dijeron cuánto capital buscan: <b>2 piden más de $100.000, 3 entre $50.000 y $100.000, 3 entre $25.000 y $50.000, 3 entre $10.000 y $25.000</b>. Ocho de doce buscan entre veinticinco mil y más de cien mil dólares.</p>
+    <p><b>El programa cuesta entre el 2% y el 10% de lo que quieren desbloquear.</b> Esa proporción no aparece en ninguna parte del guion, que ancla solo contra lo que cobran otras empresas.</p>
+    <p><b>Cómo se usa:</b> en la llamada, la pregunta "¿cuánto capital necesitas?" va <b>antes</b> de hablar de precio. Si la persona dice cincuenta mil, el precio deja de discutirse solo. Se dice sin prometer aprobación: el marco es la proporción, no una garantía de monto.</p>
+  </div>
+
+  <h3>El anclaje contra el mercado</h3>
+  <div class="scroll">
+    <table>
+      <thead><tr><th scope="col">Empresa</th><th scope="col">Lo que cobra</th></tr></thead>
+      <tbody>
+        <tr><td>Fund &amp; Grow</td><td class="num">$3,997 + $50/mes auto-inscrito</td></tr>
+        <tr><td>Matrix Mastery Group</td><td class="num">$5,000 – $12,000</td></tr>
+        <tr><td>Credit Suite</td><td class="num">9.9% del crédito obtenido</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Las tres cobran eso solo por el acceso al crédito — el Movimiento 2 de tres. Todo en inglés, ninguna define la ruta de inversión, y varias exigen un historial de crédito que esta audiencia no tiene.</p>
+
+  <h3>El anclaje en la lógica de la vida real</h3>
+  <blockquote>"Si un semestre de universidad cuesta miles de dólares y necesitas años para empezar a recuperarlo… ¿cuánto debería costar tener tu empresa y tu crédito funcionando en 90 días?"</blockquote>
+
+  <h3>La línea de cierre sobre el costo incluido</h3>
+  <div class="flag">
+    <p><b>Para las closers, justo después de decir el precio.</b> El costo de formación de la LLC —$220 por cliente— ya lo absorbe el programa. Hoy no lo cuenta nadie, y es gratis convertirlo en argumento:</p>
+    <p><i>"El precio es dos mil quinientos y ahí va todo. La formación de tu empresa, la tasa del estado, el agente registrado: no pagas nada aparte después. Lo que ves es lo que es."</i></p>
+    <p>Contesta la pregunta que esta audiencia tiene en la cabeza y no hace en voz alta: <i>"¿y qué más me van a cobrar?"</i>. Y se apoya en el anclaje que ya existe: Fund &amp; Grow cobra $3.997 <b>más $50 al mes que te inscriben automáticamente</b>.</p>
+    <p><b>Lo que no se hace:</b> cobrarle ese costo a quien no sea de los primeros. Serían 19 personas que pagan $2.500 y después se enteran de que faltan $220. Ahorra $4.180 y pone en riesgo lo único que te separa de los vendehumos.</p>
+  </div>
+
+  <h3>El cierre del bloque</h3>
+  <blockquote>"Yo sé en qué situación estás. Por eso no te voy a cobrar lo que esto vale. Si cobrara lo que cuesta cada pieza por separado, la mayoría de las personas que más lo necesitan quedarían afuera. Y las que quedan afuera son justo las que yo era hace unos años."</blockquote>
+  <p>El precio no se dice en el evento. La línea de cierre es "cuesta mucho menos de lo que acabas de ver — bastante menos". El número llega en la llamada.</p>
+</section>
+
+<!-- 6 -->
+<section id="garantias">
+  <h2><span class="n">06</span>Garantía y escasez</h2>
+  <p class="lede">Una sola garantía. No promete dinero: la única variable garantizada es la estructura entregada, que es lo único que Mercedes controla.</p>
+
+  <div class="flag alert">
+    <p><b>Lo más importante que cambió.</b> El freno número uno de los compradores <b>no fue el precio</b>. De 12, solo 2 mencionaron el dinero. Cuatro dijeron que lo que casi los frena fue el miedo a que fuera una estafa o a repetir cursos que no funcionaron.</p>
+    <p><b>Consecuencia:</b> la garantía, el contrato en español y el "si no es tu momento te lo decimos" no pueden seguir apareciendo en el slide 33 de 42. Hay que subirlos. Son el argumento principal, no el cierre.</p>
+  </div>
+
+  <div class="q">
+    <p>"Me frena mucho el tema de invertir dinero ya que he pagado muchos cursos, muchas cosas, aproximadamente entre curso y todo unos $7.000 más o menos, las cuales son piramidal y Ponzi."</p>
+    <p class="who">Edward, comprador</p>
+  </div>
+  <div class="q">
+    <p>"El miedo a no tener resultados, ya que compré otras academias y no tuve mucho éxito."</p>
+    <p class="who">Erika, compradora</p>
+  </div>
+
+  <div class="piece">
+    <h3 style="margin-top:0">De resultado, firmada por contrato</h3>
+    <h4>Versión hablada</h4>
+    <blockquote>"Si a los 90 días no tienes tu empresa formada y tu ruta definida, tú eliges: o sigo trabajando contigo sin costo hasta que las tengas, o te devuelvo el 100%. Decides tú, no yo."</blockquote>
+    <blockquote>"Y con el crédito no me voy. Cuando un banco dice que no, eso no es el final del proceso: es parte del proceso. Sigo contigo, sin costo y sin fecha de salida, hasta que salga."</blockquote>
+    <blockquote style="margin-bottom:0">"Y esto no te lo prometo en un video. <strong>Te lo firmo.</strong> Recibes el contrato en español, lo lees completo, y solo entonces pagas."</blockquote>
+  </div>
+
+  <div class="piece">
+    <h4 style="margin-top:0">Versión de slide</h4>
+    <p style="font-weight:700;color:var(--ink);letter-spacing:.04em;margin-bottom:8px">90 DÍAS. FIRMADO.</p>
+    <p>Tu empresa y tu ruta: o las tienes, o te devuelvo tu dinero.</p>
+    <p>Tu crédito: sigo contigo hasta que salga. Sin costo y sin fecha límite.</p>
+    <p style="color:var(--muted);font-style:italic;margin-bottom:0">No te lo prometo — te lo firmo. En español.</p>
+  </div>
+
+  <p>La línea que tiene que quedar grabada es <strong>"no te lo prometo, te lo firmo"</strong>. Hace dos trabajos a la vez: refuerza el resultado y mata la sospecha de estafa. Y el "en español" no es un detalle administrativo: es la diferencia que esta audiencia reconoce aunque no sepa nombrarla.</p>
+
+  <p>Que el comprador elija no es sumar garantías: <strong>ceder la decisión es en sí misma la señal de confianza.</strong> "Yo te acompaño" es prometer. "Tú escoges" es apostar, y solo lo hace quien está seguro de que la mayoría va a querer seguir.</p>
+
+  <p>El contrato dice <strong>"o", no "y"</strong>: la garantía se dispara si falta cualquiera de las dos cosas. Y separa los dos remedios igual que la versión hablada — reembolso para empresa y ruta, acompañamiento sin fecha para el crédito. El crédito no lo decide Mercedes, lo decide un analista de un banco.</p>
+
+  <p><strong>"Hacer tu parte"</strong> queda escrito en el contrato, no solo dicho en vivo. <strong>"Y solo entonces pagas"</strong> define el orden de la llamada: contrato primero, pago después.</p>
+
+  <h3>Escasez — una sola, y es verdad</h3>
+
+  <p class="lede" style="margin-bottom:16px">No se dice un número de cupos. La urgencia la carga la <strong>ventana de precio</strong>; el deseo lo carga el <strong>"conmigo"</strong>.</p>
+
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Qué hace el trabajo</th><th>Qué dice</th><th>Por qué funciona</th></tr></thead>
+      <tbody>
+        <tr><td><b>La urgencia</b></td><td>$2.500 del 27 de noviembre al 4 de diciembre. Del 5 en adelante, $3.000</td><td>Es cierto y verificable. No hay que defenderlo, solo cumplirlo</td></tr>
+        <tr><td><b>El deseo</b></td><td>Mercedes hace el proceso contigo. No es un curso ni videos</td><td>Es el diferencial real contra todo el mercado, y no necesita ningún número</td></tr>
+        <tr><td><b>La fila</b></td><td>Las sesiones uno a uno se atienden <b>en el orden en que van entrando</b></td><td>Es cierto por definición y no necesita número. El que entra hoy arranca antes que el que entra el martes</td></tr>
+        <tr><td><b>La autoridad</b></td><td>Hay evaluación, y si no es tu momento te lo decimos</td><td>Cualquiera dice que tiene pocos cupos. Casi nadie rechaza compradores</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="flag">
+    <p><b>La fila es real y conviene resaltarla.</b> Lo grupal escala —Academia, Ruta Black, reuniones semanales— pero <b>el uno a uno de Mercedes no</b>. Cada cliente lleva entre 3 y 6 sesiones personales según su ruta estimada; 24 clientes son entre 96 y 144 llamadas en 90 días. Ese cuello existe de verdad.</p>
+    <p><b>Por eso se dice el orden, no un tope.</b> Nadie queda afuera y nadie espera sin recibir nada: desde el día uno tiene la Academia y las reuniones. Lo que define el orden de llegada es cuándo arrancan <b>sus sesiones con Mercedes</b>.</p>
+    <p><b>El orden de llegada se cumple para todos.</b> Ningún bono permite saltarse la fila —eso contradecía la promesa del núcleo, que es que Mercedes hace el proceso contigo—. Los bonos de acción rápida premian entrar temprano con material, no con turno.</p>
+  </div>
+
+  <h4>Versión hablada — la fila</h4>
+  <blockquote>"Se atiende en el orden en que van entrando. El que entra hoy arranca sus sesiones conmigo antes que el que entra el martes. No es un truco: es que yo veo los casos uno por uno y hay un orden."</blockquote>
+
+  <h4>Versión hablada — la autoridad</h4>
+  <blockquote>"Aquí no hay un botón para pagar. Hay una evaluación y una llamada con mi equipo. Si vemos que este no es tu momento, te lo vamos a decir. Prefiero perder una venta que meterte en algo que no puedas sostener."</blockquote>
+
+  <div class="flag alert">
+    <p><b>Por qué se quita el número de cupos.</b> En octubre se dijeron "10 cupos" y se vendieron 13. La meta ahora son 24 ventas y <b>sí hay capacidad para atenderlos</b>, porque la formación continua en grupo vive en Ruta Black. Entonces el tope no existe, y decir un tope que no existe no es omitir un detalle de logística: es afirmar algo falso.</p>
+    <p><b>Y esta se descubre sola.</b> Los 24 van a estar juntos en Ruta Black, viéndose las caras en la misma reunión semanal. Si Mercedes dijo "diez y no abro más", lo saben en la primera sesión.</p>
+    <p><b>En esta audiencia pesa el doble.</b> Son las personas que escribieron de su puño y letra que su freno número uno es que esto sea otra estafa: Edward dejó $7.000 en pirámides, Erika compró academias que no funcionaron. Lo único que separa a Mercedes de eso es que no infla nada. Una escasez que se desarma en la primera reunión les confirma justo lo que temían, y adentro de la comunidad que tiene que retenerlos un año.</p>
+  </div>
+
+  <h4>Versión hablada — el deseo</h4>
+  <blockquote>"No te voy a dejar con un curso. Los noventa días los hacemos juntos: tu empresa, tu perfil, tus bancos, tu ruta. Yo veo tu caso, no un caso general. Y cuando terminen esos noventa días no te quedas solo: sigues un año entero en Ruta Black, donde aprendes a invertir y nos reunimos cada semana."</blockquote>
+
+  <h4>Versión hablada — la urgencia</h4>
+  <blockquote style="margin-bottom:0">"Y el precio sí tiene fecha: esto abre hoy y cierra el jueves 4 de diciembre. Del 5 en adelante el programa vale tres mil dólares, que es lo que vale. Lo que estás viendo hoy es el precio de la ventana, y la ventana se cierra."</blockquote>
+
+  <div class="flag">
+    <p><b>Lo que esta decisión te ahorra.</b> Sin fila no hay que definir desde cuándo cuentan los 90 días, ni qué recibe quien espera su turno, ni armar un calendario de tandas. Todo el mundo arranca cuando entra. Son tres problemas operativos que desaparecen solos.</p>
+    <p><b>Si más adelante hace falta un tope,</b> el único que se sostiene es el de lo que de verdad es limitado: <i>"las sesiones uno a uno conmigo son diez al mes; todo lo demás lo tienes desde el día uno, entres cuando entres"</i>. Eso es cierto, aísla lo premium, y resuelve sin explicar nada qué recibe el que entra tarde.</p>
+  </div>
+</section>
+
+<!-- 7 -->
+<section id="avatar">
+  <h2><span class="n">07</span>El avatar</h2>
+  <p class="lede">883 respuestas entre los tres formularios: 514 del diagnóstico V2 (373 completas), 314 del V1 y 55 del lead magnet.</p>
+
+  <h3>Los cuatro grupos del diagnóstico</h3>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Grupo</th><th>Personas</th><th>%</th><th>Quién es</th></tr></thead>
+      <tbody>
+        <tr><td><b>Última Milla</b></td><td class="num">152</td><td class="pct">38%</td><td>La etiqueta dice que ya tiene la empresa. Ver la advertencia abajo.</td></tr>
+        <tr><td><b>Camino Empezado</b></td><td class="num">95</td><td class="pct">24%</td><td>Investigó, dio algún paso, no terminó.</td></tr>
+        <tr><td><b>Arranque Limpio</b></td><td class="num">66</td><td class="pct">16%</td><td>Desde cero. Es el 78% de lo que trae el lead magnet.</td></tr>
+        <tr><td><b>Camino con Curva</b></td><td class="num">60</td><td class="pct">15%</td><td>Intentó, le fue mal o se trabó.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="flag alert"><p><b>Las etiquetas del diagnóstico no predicen quién compra.</b> El V2 dice que el 38% es Última Milla, pero de los 12 compradores reales 10 no tenían LLC. Usar estas etiquetas para segmentar contenido es razonable; usarlas para decidir a quién llamar primero, no. El filtro que sí separa está en la sección 08.</p></div>
+
+  <h3>Lo que dice la base, pregunta por pregunta</h3>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Pregunta</th><th>Respuesta dominante</th><th>%</th></tr></thead>
+      <tbody>
+        <tr><td>¿Dónde vive?</td><td>En Estados Unidos</td><td class="pct">77%</td></tr>
+        <tr><td>¿Qué lo trajo?</td><td>Quiero un ingreso que no dependa de mi trabajo</td><td class="pct">49%</td></tr>
+        <tr><td>¿Por qué ahora?</td><td>Me cansé de seguir igual</td><td class="pct">37%</td></tr>
+        <tr><td>¿Por qué ahora? (segunda)</td><td>Vi tu contenido y entendí que sí se puede</td><td class="pct">34%</td></tr>
+        <tr><td>¿Tiene empresa en EE.UU.?</td><td>No, todavía no</td><td class="pct">60%</td></tr>
+        <tr><td>¿Qué tan lejos ha llegado?</td><td>Solo lo he pensado</td><td class="pct">40%</td></tr>
+        <tr><td>¿Cuánto ha invertido?</td><td>Nada todavía</td><td class="pct">49%</td></tr>
+        <tr><td>¿Crédito a su nombre?</td><td>Sí, tarjetas o préstamos a mi nombre</td><td class="pct">52%</td></tr>
+        <tr><td>¿Crédito al límite o negado?</td><td>Al límite (22%) o negado (4%)</td><td class="pct">26%</td></tr>
+        <tr><td>¿Quién decide?</td><td>La tomo yo</td><td class="pct">75%</td></tr>
+        <tr><td>¿Mayor bloqueo?</td><td>No tengo claridad de qué hacer primero</td><td class="pct">39%</td></tr>
+        <tr><td>¿Qué ha intentado?</td><td>Ninguna todavía, este sería mi primer paso</td><td class="pct">45%</td></tr>
+        <tr><td>¿Qué siente al invertir?</td><td>Miedo a perderlo</td><td class="pct">38%</td></tr>
+        <tr><td>¿Tecnología?</td><td>Prefiero que alguien me lo explique primero</td><td class="pct">50%</td></tr>
+        <tr><td>¿Tiempo?</td><td>Podría sacar tiempo si me organizo</td><td class="pct">64%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="flag"><p><b>El bloqueo no es la plata.</b> 39% dice que su freno es no saber qué hacer primero; el dinero aparece en 26%. La oferta no compite contra el precio, compite contra la confusión. El contenido que ordena pasos mueve más que el que motiva.</p></div>
+
+  <h3>Su idioma, textual</h3>
+  <p>Del campo abierto del formulario y de las notas de las closers. Esta es la lengua en la que hay que escribirle:</p>
+  <div class="q">
+    <p>"No avanzo, siento que estoy estancada."</p>
+    <p>"Yo tengo la LLC hace 4 años y me hace falta crédito."</p>
+    <p>"Tengo mi LLC 6 años y una marca, he tocado puertas, tengo plan de negocio."</p>
+    <p>"Me gustaría crear ingresos y salirme de mis trabajos físicos tan agotadores."</p>
+    <p>"Estoy cansada de depender del sistema."</p>
+    <p>"Quiero estructurar bien mi compañía para estar listo para un préstamo."</p>
+    <p>"Quiero crear patrimonio."</p>
+  </div>
+  <p>Casi nadie dice "quiero invertir". Dicen <strong>estancada, me hace falta, he tocado puertas, salirme de, cansada de depender</strong>. El idioma del avatar es de <strong>trabas</strong>, no de oportunidades. Y aparece <strong>patrimonio</strong>, que casi no está en el guion.</p>
+
+  <div class="ab">
+    <div>
+      <h3 style="margin-top:0">Punto A — dónde está hoy</h3>
+      <p>Trabaja y le alcanza para los recibos, no para más. Puede que ya haya dado el primer paso —sacar la LLC, abrir una cuenta— sin que nadie le explicara el orden. Abre el celular con miedo a ver el saldo. Ha intentado antes y se quedó a medias.</p>
+      <p><strong>Y debajo hay un miedo que no dice en voz alta.</strong> No es perder los $2.500. Es poner el dinero, hacer todo lo que le digan, y seguir en el mismo punto — porque entonces ya no quedaría a quién echarle la culpa.</p>
+      <blockquote style="margin-top:18px">La frase que desarma ese miedo, y va al principio y no al final: <strong>lo que te pasó antes no dice nada sobre ti, dice que el orden estaba mal.</strong></blockquote>
+    </div>
+    <div>
+      <h3 style="margin-top:0">Punto B — a los 90 días</h3>
+      <h4>Lo tangible</h4>
+      <ul class="plain" style="margin-bottom:22px">
+        <li>Su LLC formada</li>
+        <li>Su EIN</li>
+        <li>Su línea de crédito empresarial activa</li>
+        <li>Su ruta de inversión definida y arrancada</li>
+      </ul>
+      <h4>Lo interno</h4>
+      <p>Dejó de calcular. Sabe cuál es su siguiente paso y no tiene que preguntarle a nadie.</p>
+      <blockquote style="margin-top:22px">La transformación no es "ganar X al mes". Es pasar de no saber por dónde empezar, a tener una estructura funcionando y una ruta clara.</blockquote>
+    </div>
+  </div>
+
+  <div class="flag"><p><b>Pendiente del avatar.</b> Los formularios no preguntan <b>edad</b>, <b>a qué se dedica</b> ni <b>de dónde nos conoció</b>. Son tres preguntas que valdría la pena agregar esta semana: cierran los tres huecos grandes, y la tercera además resuelve el problema de no saber qué canal trae las ventas.</p></div>
+</section>
+
+<!-- 8 -->
+<section id="compradores">
+  <h2><span class="n">08</span>Los compradores</h2>
+  <p class="lede">12 diagnósticos 1 a 1 de personas que pagaron. Valen más que los 883 formularios de gente que no pagó — con la reserva de que son 12.</p>
+
+  <h3>El filtro que sí separa a un comprador</h3>
+  <p>No es tener la empresa. Es <strong>tener los papeles en regla y prisa</strong>:</p>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Variable</th><th>Cómo se reparte entre los 12</th></tr></thead>
+      <tbody>
+        <tr><td><b>Empresa formada</b></td><td>10 <b>no</b> tienen LLC · 2 la tienen activa</td></tr>
+        <tr><td><b>Documentos</b></td><td>6 SSN · 3 ITIN vigente · 1 ITIN en trámite · 2 sin nada</td></tr>
+        <tr><td><b>Taxes al día</b></td><td>9 sí · 2 no · 1 no está seguro</td></tr>
+        <tr><td><b>Conoce su puntaje</b></td><td>7 lo revisa regularmente · 3 sin crédito · 2 no lo conoce</td></tr>
+        <tr><td><b>Urgencia</b></td><td>6 lo antes posible · 4 en 3 meses · 2 sin prisa</td></tr>
+        <tr><td><b>Negocio operando</b></td><td>8 aún no opera · 4 sí</td></tr>
+        <tr><td><b>Tecnología</b></td><td>9 cómodos · 3 necesitan ayuda paso a paso</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Dos de los doce compraron <strong>sin SSN ni ITIN</strong>. La barrera de los papeles frena menos de lo que parece — y los que se autodescartan pensando "sin papeles no puedo" nunca llegan a ningún formulario, así que no están contados. <strong>Hay que decir en voz alta que el ITIN va incluido en el proceso.</strong></p>
+
+  <h3>Qué casi los frena</h3>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Freno</th><th>Personas</th></tr></thead>
+      <tbody>
+        <tr><td><b>Miedo a la estafa o a repetir cursos que no funcionaron</b></td><td class="num">4</td></tr>
+        <tr><td>No encontrar a la persona correcta que lo guiara</td><td class="num">2</td></tr>
+        <tr><td>El dinero o el presupuesto</td><td class="num">2</td></tr>
+        <tr><td>Miedo a no calificar por no tener historial</td><td class="num">1</td></tr>
+        <tr><td>La falta de testimonios</td><td class="num">1</td></tr>
+        <tr><td>Nada</td><td class="num">2</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Y una de las dos que mencionó el dinero, Stefany, <strong>pidió prestado para poder entrar</strong>.</p>
+
+  <h3>El testimonio que falta, dicho por un comprador</h3>
+  <div class="q">
+    <p>"La falta de testimonios de personas que ya lo han logrado."</p>
+    <p class="who">Jarvin, sobre qué casi lo frena</p>
+  </div>
+  <div class="flag"><p><b>Es el activo más valioso del 27 y no existía en octubre.</b> Las 13 personas que entraron van a llevar unas seis semanas de proceso. Varias deberían tener LLC formada, EIN y cuenta abierta. Hay que pedir permiso y material <b>esta semana</b>, no la del evento. Si alguna acepta entrar diez minutos en vivo, es la pieza más fuerte de todo el lanzamiento.</p></div>
+
+  <h3>Los fundadores</h3>
+  <p class="lede" style="margin-bottom:14px">Es palabra pública: se dice en el evento y en la llamada. No lleva número de cupos.</p>
+
+  <div class="q" style="margin-bottom:18px">
+    <p style="font-style:normal"><strong>Fundador es quien entra en esta ventana.</strong> Del 5 de diciembre en adelante se entra como cliente normal.</p>
+  </div>
+
+  <h4>Qué da ser fundador</h4>
+  <ul class="plain" style="margin-bottom:18px">
+    <li><strong>Academia de por vida</strong>, contra un año para quien entre después.</li>
+    <li><strong>Ruta Black al precio de fundador</strong> cuando se acabe el año incluido, mientras los demás pagan el precio de entonces.</li>
+  </ul>
+
+  <div class="flag">
+    <p><b>Por qué conviene que sea pública.</b> "Entras como fundador" atrae más que "el precio sube el 5". Y la fecha del 4 de diciembre pasa a tener <b>dos consecuencias reales</b>: pierdes el precio y pierdes el acceso de por vida. Dos pérdidas, una sola fecha, nada inventado.</p>
+    <p><b>Incluye a los 13 de octubre.</b> El grupo fundador es todo el que entró desde el primer lanzamiento hasta el 4 de diciembre. Si alguno de los primeros pregunta en Ruta Black y resulta que los de noviembre sí son fundadores y ellos no, es un problema fácil de evitar ahora e imposible de arreglar después.</p>
+    <p><b>Hay que poder marcarlo en Stan</b> antes de vender. Si no se distingue quién es fundador, el beneficio no existe en la práctica y en enero nadie sabrá a quién cortarle qué.</p>
+    <p><b>Para qué sirve tenerla.</b> Esta tanda es la que va a dar los testimonios del próximo lanzamiento, igual que las 13 de octubre están dando los del 27. Si se trata como lo que es desde el primer día, en febrero hay material; si no, toca reconstruirlo cuando ya no se puede.</p>
+    <p><b>Lo que hay que montar ahora, no después:</b> pedir el permiso para documentar dentro del onboarding, guardar el punto de partida de cada persona en la primera llamada, y registrar los hitos cuando pasan —LLC formada, EIN, cuenta abierta, primera aprobación—. Es gratis hacerlo en el momento y caro reconstruirlo meses después.</p>
+    <p><b>De dónde sale la urgencia de esto.</b> De los 12 diagnósticos de compradores, uno dijo que lo que casi lo frena fue <i>"la falta de testimonios de personas que ya lo han logrado"</i>. Es el hueco que esta tanda cierra para la siguiente.</p>
+  </div>
+
+  <h3>Lo que compran es a Mercedes</h3>
+  <div class="q">
+    <p>"La información y franqueza de Mercedes fue la principal."</p>
+    <p class="who">Oscar</p>
+  </div>
+  <div class="q">
+    <p>"Me generó mucha confianza, no desde ahorita; ya yo tengo tiempo siguiéndola, aproximadamente un año, esperando este momento."</p>
+    <p class="who">Edward</p>
+  </div>
+  <div class="q">
+    <p>"Más que fe, tengo mucha convicción de la información que posees. Me proyecto porque voy de la mano con una persona que además de saber lo que hace, es madre, se ha reinventado muchas veces, conoce el sistema de los latinos, migración, circunstancias."</p>
+    <p class="who">Stefany</p>
+  </div>
+  <div class="flag">
+    <p><b>Dos consecuencias.</b> La primera: Edward llevaba <b>un año esperando el momento</b> y Stefany la sigue desde hace dos. Una parte del dinero del 27 va a venir de gente que lleva mucho tiempo mirando. A esos no hay que explicarles el método: hay que darles el disparador y la fecha.</p>
+    <p>La segunda: Stefany no compró por el crédito. Compró porque Mercedes <b>es madre, migrante y se ha reinventado</b>. Nada de eso está en el guion. Las historias de personalidad del calentamiento no son relleno.</p>
+  </div>
+
+  <h3>A dónde quieren llevar el dinero</h3>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Destino</th><th>Menciones de 12</th></tr></thead>
+      <tbody>
+        <tr><td><b>Bienes raíces</b></td><td class="num">8</td></tr>
+        <tr><td>Bolsa / Trading</td><td class="num">6</td></tr>
+        <tr><td>Comprar equipo o inventario</td><td class="num">3</td></tr>
+        <tr><td>Aún no lo defino</td><td class="num">3</td></tr>
+        <tr><td>Capital de trabajo del negocio actual</td><td class="num">2</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Cierra el círculo con la auditoría de los 50 reels: los de bienes raíces y apalancamiento son los que más comentarios traen, y es donde los compradores quieren poner el dinero. Es el mismo deseo.</p>
+
+  <h3>Por dónde llegaron</h3>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Canal</th><th>Personas de 12</th></tr></thead>
+      <tbody>
+        <tr><td>Instagram (4 dicen reel específicamente)</td><td class="num">8</td></tr>
+        <tr><td>TikTok</td><td class="num">2</td></tr>
+        <tr><td>"Redes sociales", sin especificar</td><td class="num">2</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>TikTok trajo el 17% de los compradores y no está en el tablero. Y hay señal de intención y de pauta: Antonny llegó <em>buscando</em> contenido para abrir una LLC, Juan por <em>una publicidad</em>.</p>
+
+  <div class="flag alert"><p><b>Pendiente por confirmar con Mercedes.</b> De los 13 compradores, nueve tienen nombre de hombre. El guion de octubre está escrito entero en femenino: "bienvenidas", "latinas", "ustedes". Es una lectura por el nombre, no un dato confirmado. Si se sostiene, el guion está cerrándole la puerta a más de la mitad de quien paga.</p></div>
+</section>
+
+<!-- 9 -->
+<section id="promesas">
+  <h2><span class="n">09</span>Las dos promesas</h2>
+
+  <h3>Promesa del evento</h3>
+  <blockquote>En noventa minutos vas a entender por qué tu empresa puede existir y seguir siendo invisible para un banco, cómo se arregla eso, y cuál de las cuatro rutas de inversión es la tuya. Sin tocar tus ahorros ni depender de tu historial personal.</blockquote>
+  <p><strong>Variante que ataca el miedo:</strong> "¿Te da miedo invertir y perder lo tuyo? Aprende a invertir con dinero que no es tuyo."</p>
+
+  <h3>Promesa del producto</h3>
+  <blockquote>En 90 días vas a tener tu empresa en Estados Unidos formada, tu crédito empresarial activado y tu ruta de inversión definida, acompañado paso a paso por Mercedes. Si no completamos ese proceso contigo, ella sigue trabajando contigo hasta que lo tengas.</blockquote>
+  <p>Ninguna de las dos promete cuánto vas a ganar. Ni una cifra, ni un plazo de ingresos, ni un rendimiento esperado. Se habla de lo que el sistema te permite <strong>tener</strong>, nunca de lo que vas a <strong>ganar</strong>.</p>
+
+  <div class="flag"><p><b>Esta regla no es timidez, es el activo.</b> "Si alguien te promete seis cifras, corre" es lo que separa a Mercedes de los vendehumos en un nicho saturado de ellos. Y los compradores lo confirmaron: lo que casi los frena fue el miedo a la estafa. Si el título o la promesa prometen plata, se cae todo lo demás.</p></div>
+</section>
+
+<!-- 10 -->
+<section id="bigidea">
+  <h2><span class="n">10</span>La Gran Idea</h2>
+
+  <div class="q" style="margin-bottom:22px">
+    <p style="font-style:normal;font-weight:700">Existe una puerta en el sistema financiero de Estados Unidos que está abierta para cualquier latino —viva donde viva, tenga los papeles que tenga, sin historial de crédito gringo y sin tocar un dólar de sus ahorros. Casi nadie de los nuestros sabe que existe. Y los que entran por ahí no son más inteligentes que tú: solo supieron el orden.</p>
+  </div>
+
+  <h3>Por qué esta idea y no otra</h3>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Lo que pide una Gran Idea</th><th>Cómo lo cumple</th></tr></thead>
+      <tbody>
+        <tr><td><b>Novedad</b></td><td>No es "invierte" ni "saca tu LLC", que es lo que dicen todos. Es una puerta que la gente no sabía que estaba abierta para ella.</td></tr>
+        <tr><td><b>Emoción con urgencia</b></td><td>La transformación es dejar de ser invisible para el sistema. Y la puerta se cruza en 90 días, no en años.</td></tr>
+        <tr><td><b>Intelectualmente interesante</b></td><td>"¿Cuál puerta? ¿Por qué no la conozco? ¿Por qué nadie me lo dijo?"</td></tr>
+        <tr><td><b>Fácil y para cualquiera</b></td><td>Sin papeles, sin historial, sin ahorros. Se quitan las tres barreras que la gente cree que la dejan afuera.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>El gancho de actualidad</h3>
+  <p>Los negocios de latinos en Estados Unidos crecen al <strong>7.7% anual</strong>, contra <strong>0.46%</strong> del resto de las empresas del país. Dieciséis veces más rápido.</p>
+  <p style="font-size:13.5px;color:var(--muted)">Brookings Institution, <em>Charting the surge in Latino or Hispanic-owned businesses in the US</em>, abril 2025.</p>
+  <div class="flag"><p><b>Verificar antes de publicar.</b> Si la Gran Idea se para sobre este dato, alguien va a pedir la fuente. Hay que tener el link a mano. Si no se puede verificar, se usa el título de la opción 2 en vez del de la 1.</p></div>
+
+  <h3>El villano</h3>
+  <blockquote>"Primero junta dinero, después invierte."</blockquote>
+  <p>Por eso la mayoría nunca empieza: está esperando un capital que nunca llega.</p>
+
+  <h3>El giro</h3>
+  <p style="font-size:19px;color:var(--ink);font-weight:500">El orden real es al revés. No necesitas capital para empezar; necesitas estructura para acceder al capital.</p>
+
+  <h3>Los títulos del evento</h3>
+
+  <div class="piece">
+    <h4 style="margin-top:0">Opción 1 · ángulo de noticias — recomendada para el evento</h4>
+    <p style="color:var(--muted);font-size:14.5px">ATENCIÓN: un estudio de Brookings lo confirmó — los negocios latinos en Estados Unidos crecen 16 veces más rápido que el resto del país.</p>
+    <p style="font-family:'Libre Baskerville',Georgia,serif;font-weight:700;font-size:21px;color:var(--ink)">"Y casi ninguno de nosotros sabe por cuál puerta están entrando"</p>
+    <p style="margin-bottom:0">El viernes 27 te muestro el camino entero: la empresa, el crédito y la ruta. Noventa minutos, con tus propios números.</p>
+  </div>
+
+  <div class="piece">
+    <h4 style="margin-top:0">Opción 2 · novedad</h4>
+    <p style="color:var(--muted);font-size:14.5px">Por primera vez explicado en español, de principio a fin...</p>
+    <p style="font-family:'Libre Baskerville',Georgia,serif;font-weight:700;font-size:21px;color:var(--ink)">"El paso invisible entre tener tu empresa en Estados Unidos y que un banco por fin te diga que sí"</p>
+    <p style="margin-bottom:0">Sin historial de crédito gringo. Sin visa ni residencia. Sin tocar tus ahorros.</p>
+  </div>
+
+  <div class="piece">
+    <h4 style="margin-top:0">Opción 3 · para anuncios y reels cortos — recomendada</h4>
+    <p style="color:var(--muted);font-size:14.5px">Tienes tu LLC y el banco te sigue diciendo que no.</p>
+    <p style="font-family:'Libre Baskerville',Georgia,serif;font-weight:700;font-size:21px;color:var(--ink)">"Tu empresa existe. Pero para el banco todavía no."</p>
+    <p style="margin-bottom:0">Te explico qué le falta y cómo se arregla. Viernes 27, 7 PM.</p>
+  </div>
+
+  <div class="flag"><p><b>Ojo con el "90% no lo conoce".</b> El número hay que sustentarlo o no decirlo. Tres formas de dar la misma sensación con cosas que sí se sostienen: la experiencia propia de Mercedes ("lo busqué en español y no lo encontré, lo aprendí a punta de que me negaran"), los datos del propio diagnóstico, y el estudio de Brookings. En un nicho donde la ventaja de Mercedes es no inflar nada, un dato inventado cuesta más de lo que suma.</p></div>
+</section>
+
+<!-- 11 -->
+<section id="mecanismos">
+  <h2><span class="n">11</span>Los mecanismos únicos</h2>
+
+  <h3>El sistema de 3 movimientos</h3>
+  <p class="lede" style="margin-bottom:16px">Los tres movimientos del evento son los tres pasos de Ruta 90. Lo que se enseña gratis y lo que se vende tienen la misma arquitectura — por eso la oferta no se siente como un cambio de tema.</p>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>#</th><th>Movimiento</th><th>Qué resuelve</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1</td><td>La estructura → Tu Empresa</td><td>Tu empresa en EE.UU. Es lo que te convierte en sujeto de crédito.</td></tr>
+        <tr><td class="num">2</td><td>El acceso → Tu Crédito</td><td>El crédito empresarial. Dinero que no sale de tus ahorros ni depende de tu historial personal. Aquí vive la respuesta al miedo a perder lo propio.</td></tr>
+        <tr><td class="num">3</td><td>El despliegue → Tu Portafolio</td><td>Dónde pones ese dinero según tu perfil: bienes raíces, bolsa, oro.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>La empresa invisible — el mecanismo propio</h3>
+  <p>Vive dentro del Movimiento 2 y es la pieza más valiosa de todo el método:</p>
+  <blockquote>"Tú formas tu empresa. Sacas tu EIN. Abres la cuenta del negocio. Y te sientes lista para pedir. Pero para el banco, esa empresa todavía no existe."</blockquote>
+  <p>Tiene tres cosas que no tiene ninguna otra parte de la oferta: le pasa a cuatro de cada diez del diagnóstico, no está explicado en español en ningún lado, y <strong>explica el fracaso sin culpar a la persona</strong>. No te negaron por tonta: te negaron porque te faltaba un paso que nadie te dijo que existía.</p>
+  <div class="flag"><p><b>Es la columna vertebral del calentamiento de 30 días.</b> La apuesta es que el 27, cuando Mercedes diga "la empresa invisible", media sala ya sepa de qué habla y ya se haya reconocido ahí. Un término propio instalado hace la mitad del trabajo de venta antes de que empiece el evento. El límite del contenido gratuito: el <b>qué</b> y el <b>por qué</b> son contenido; el <b>cómo</b> es el producto.</p></div>
+
+  <h3>El mecanismo de entrada</h3>
+  <p>El diagnóstico de las 4 rutas — Última Milla, Camino Empezado, Arranque Limpio y Camino con Curva. Es lead magnet, ejercicio en vivo del evento y primer entregable del programa, todo a la vez.</p>
+  <div class="flag"><p><b>Queda un solo diagnóstico — 2 de noviembre.</b> Hasta ahora corrían tres formularios con tres juegos de rutas distintos: el V1 (Rápida, Activa, Cimiento, Paciente — 314 respuestas, del 12 sep al 26 oct, <b>sin teléfono</b>), un segundo V2 con otras preguntas (Base Construida entre sus rutas, 56 respuestas, muerto desde el 20 oct) y el diagnóstico vigente, que se queda. Ese tiene 601 respuestas desde el 6 de octubre y 440 completas: el 92% del tráfico ya pasa por ahí.</p>
+  <p><b>Lo que costó no haberlo hecho antes.</b> De los 13 compradores de octubre solo 9 se pueden ubicar en un formulario: 6 en el diagnóstico vigente, 3 en el segundo V2, 3 probables en el V1 —y solo uno de esos tres es afirmable, porque el V1 no guarda teléfono— y 1 sin rastro en ninguno. Después de un lanzamiento entero no se puede decir con certeza qué ruta compra.</p>
+  <p><b>Lo que hay que agregar antes del 27, y no está.</b> Un campo de origen en el diagnóstico (historia, reel, anuncio, grupo) y que las closers anoten la ruta de cada persona en la hoja de llamadas. Son 24 ventas: con eso en diciembre hay tasa por ruta de verdad. Las preguntas del formulario no se tocan ahora —tiene 601 respuestas de historia y está en vivo—; el arreglo del puntaje va después del evento.</p></div>
+  <div class="flag"><p><b>La etiqueta Última Milla engaña, y es la que peor convierte.</b> Se asigna solo por tener empresa: los 81 de esa ruta tienen una, y los 49 que la tienen hace más de 6 meses son todos Última Milla sin importar nada más. Es el 36% de los completos y en octubre dio 2 ventas sobre 90 completos, <b>2,2%</b>, la tasa más baja de las cuatro. Camino Empezado dio 3 sobre 55, <b>5,5%</b>. Son números de 2 y 3 ventas, así que marcan dirección y no verdad, pero alcanzan para una decisión: <b>no tratar a Última Milla como el grupo premium en el guion del 27</b>, porque mete en el mismo balde al que está listo y al que tiene una LLC dormida.</p></div>
+
+  <div class="flag"><p><b>Desajuste a corregir.</b> El lead magnet trae <b>78% de Arranque Limpio</b>, que es el perfil con menos efectivo disponible: el 60% tiene menos de $500, y ese tramo cierra <b>8,7%</b> contra <b>39,3%</b> de los que tienen $500 o más. O cambia el lead magnet, o el contenido de los 30 días tiene que mover a esa gente antes de la llamada.</p></div>
+
+  <h3>El diferencial frente al mercado</h3>
+  <p>Las empresas estadounidenses que hacen esto cobran entre $3.997 y $12.000 — y solo te consiguen el dinero. Ninguna te dice qué hacer con él, ninguna te acompaña en español, y varias exigen un historial de crédito que esta audiencia no tiene.</p>
+</section>
+
+<!-- 12 -->
+<section id="objeciones">
+  <h2><span class="n">12</span>Dolores y objeciones</h2>
+  <div class="scroll">
+    <table style="min-width:620px">
+      <thead><tr><th>Objeción</th><th>Dato</th><th>Cómo se rompe</th></tr></thead>
+      <tbody>
+        <tr><td><b>"¿Y si es otra estafa?"</b></td><td class="pct">4 de 12</td><td><b>El freno número uno de los compradores.</b> La garantía firmada, el contrato en español que se lee antes de pagar, la llamada de filtro y "si alguien te promete seis cifras, corre". Va temprano, no en el cierre</td></tr>
+        <tr><td><b>"¿Esto me afecta en impuestos o migración?"</b></td><td class="pct">6 de 12</td><td>Bloque gratis de tres minutos en el evento + bono Claridad Fiscal. Mercedes conecta con un contador, no asesora ella</td></tr>
+        <tr><td>"No sé qué hacer primero"</td><td class="pct">39%</td><td>El sistema de 3 movimientos + el diagnóstico de rutas. El primer entregable es claridad, no información</td></tr>
+        <tr><td>"Me da miedo perder mi dinero"</td><td class="pct">38%</td><td>El mecanismo completo: no estás arriesgando lo tuyo porque no es tu dinero</td></tr>
+        <tr><td>"Me falta dinero"</td><td class="pct">26%</td><td>Mismo mecanismo + cuotas. En octubre 6 de 13 pagaron fraccionado y una pidió prestado para entrar</td></tr>
+        <tr><td>"Prefiero que me lo expliquen"</td><td class="pct">50%</td><td>Ruta 90 es acompañamiento, no curso. "No lo dejaste por incapaz, no tenías a nadie al lado"</td></tr>
+        <tr><td>"No tengo tiempo"</td><td class="pct">15%</td><td>El 64% dijo que puede organizarse. El tiempo no es el cuello de botella, la claridad sí</td></tr>
+        <tr><td>"Ya lo intenté y no funcionó"</td><td class="pct">25%</td><td>"Lo que te pasó antes no dice nada sobre ti, dice que el orden estaba mal"</td></tr>
+        <tr><td><b>"No tengo papeles"</b></td><td class="pct">2 de 12 compraron sin SSN ni ITIN</td><td>Decirlo explícito: el ITIN se tramita y va incluido en el Movimiento 1. Los que se autodescartan nunca llegan a un formulario</td></tr>
+        <tr><td>"No vivo en Estados Unidos"</td><td class="pct">23%</td><td>La LLC no exige residencia. 4 de 13 compradores están fuera: Perú, Honduras, Ecuador, Argentina</td></tr>
+        <tr><td>"No tengo testimonios de que esto funcione"</td><td class="pct">1 de 12</td><td><b>Ya no aplica.</b> El 27 hay 13 personas con seis semanas de proceso</td></tr>
+        <tr><td>"El crédito es malo"</td><td>Creencia</td><td>Hay dos tipos: uno paga cosas que pierden valor, otro compra cosas que producen</td></tr>
+        <tr><td>"Un ingreso extra es otro trabajo"</td><td>Creencia</td><td>Tu tiempo tiene techo. Un activo no</td></tr>
+        <tr><td>"Es demasiado para mí ahora"</td><td class="pct">26%</td><td>Lo bloquean claridad, dinero y tiempo a la vez. Es el que más duda y necesita línea propia en la slide de empatía</td></tr>
+        <tr><td>"Dijiste sin invertir, ¿y el precio?"</td><td>Implícita</td><td>Mercedes lo nombra primero: el capital de inversión no sale de tus ahorros; aprender a hacerlo sí tiene un costo</td></tr>
+        <tr><td>"Mejor lo veo grabado"</td><td>Implícita</td><td>El ejercicio de las cuatro rutas es en vivo, las preguntas las responde ella, y una alumna del primer grupo cuenta en qué punto va</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 13 -->
+<section id="cambios">
+  <h2><span class="n">13</span>Qué cambió desde octubre</h2>
+
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Qué</th><th>Antes</th><th>Ahora</th></tr></thead>
+      <tbody>
+        <tr><td>Evento</td><td>Tu Ruta Financiera · 16 oct</td><td>La Empresa Invisible · Black Edition · 27 nov</td></tr>
+        <tr><td>Precio</td><td>$1,500 (precio de prueba)</td><td>$2,500 en ventana · $3,000 de lista</td></tr>
+        <tr><td>Ventana</td><td>3 días de aplicaciones</td><td>Carrito y agenda hasta el 4 de diciembre</td></tr>
+        <tr><td>Stack</td><td>$12,040</td><td>$13,737. Entra Claridad Fiscal; sale El Movimiento 0; entra el Analizador de Propiedades ($997); La Agenda Privada sale de los bonos y queda dentro del Movimiento 2, y su lugar lo toma El Acelerador en su versión de octubre, la vía express ($697); suben Activación y Portafolio</td></tr>
+        <tr><td>El Movimiento 0</td><td>Bono de $997</td><td>Sale. Su parte útil pasa al núcleo como la segunda rama del Movimiento 1.5</td></tr>
+        <tr><td>Bonos de acción rápida</td><td>Radicación express, $200</td><td>El Analizador de Propiedades $997 (cierra el 29) y la misma vía express, ahora para LLC, EIN e ITIN, a $697 (solo los 5 primeros)</td></tr>
+        <tr><td>Academia</td><td>Sin definir</td><td>De por vida para fundadores, un año para los demás</td></tr>
+        <tr><td>Fundador</td><td>No existía</td><td>Palabra pública: quien entra en la ventana. Incluye a los 13 de octubre</td></tr>
+        <tr><td>Escasez</td><td>10 cupos en total</td><td>Sin número. Cuatro palancas ciertas: ventana de precio, el "conmigo", el orden de llegada del uno a uno, y que se rechaza a quien no está en su momento</td></tr>
+        <tr><td>Avatar principal</td><td>Última Milla (ya tiene LLC)</td><td>Desde Cero con papeles en regla y prisa</td></tr>
+        <tr><td>Objeción número uno</td><td>"No sé qué hacer primero"</td><td>"¿Y si es otra estafa?" — y la de impuestos/migración, que no estaba</td></tr>
+        <tr><td>Anclaje de precio</td><td>Contra la competencia</td><td>Contra el capital que buscan: $25k–$100k</td></tr>
+        <tr><td>Testimonios</td><td>No había</td><td>13 alumnos con seis semanas de proceso al 27</td></tr>
+        <tr><td>Base de datos</td><td>216 respuestas</td><td>883 formularios + 63 llamadas + 12 diagnósticos de compradores</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Pendientes que bloquean</h3>
+  <ul class="plain">
+    <li><strong>Permiso y material de los 13 alumnos</strong> del primer grupo, y quién acepta salir en vivo el 27. Esta semana.</li>
+    <li><strong>El contador para Claridad Fiscal</strong> y la grabación de la masterclass.</li>
+    <li><strong>El dato de la activación:</strong> cuántos meses de movimiento y qué depósitos piden los lenders.</li>
+    <li><strong>Día y hora de la sesión de casos</strong> de Ruta 90, que no choque con el jueves de Ruta Black.</li>
+    <li><strong>Los criterios escritos de Mercedes para evaluar una propiedad</strong> y la grabación llenando el Analizador con un caso real, antes del 27.</li>
+    <li><strong>Cuánto cuesta cada recargo express</strong> —LLC, EIN e ITIN— y si los tres se pueden acelerar de verdad. De eso depende el valor del Acelerador y qué se promete en voz alta.</li>
+    <li><strong>La lista de bancos y proveedores escrita y en orden</strong> —ya no es bono, pero ahora es parte del Movimiento 2, así que sigue siendo necesaria.</li>
+    <li><strong>Marcar fundadores en Stan</strong> antes de vender, para poder distinguir quién tiene Academia de por vida.</li>
+    <li><strong>El contador de Claridad Fiscal</strong> y la grabación de la masterclass.</li>
+    <li><strong>El permiso de documentación en el onboarding</strong> de la tanda de fundadores, y dónde se guardan los hitos de cada persona.</li>
+    <li><strong>Qué da ser fundador</strong> —precio congelado de Ruta Black, Academia de por vida, o lo que se decida— aunque sea solo para uso interno y para la retención.</li>
+    <li><strong>Cuántos hay en el grupo 3 de WhatsApp</strong> y cuántos entran por día, para proyectar la asistencia en vivo del 27.</li>
+    <li><strong>El pago inicial mínimo</strong> que pueden aceptar las closers.</li>
+    <li><strong>El género del guion:</strong> confirmar con Mercedes si abrirlo.</li>
+    <li><strong>El link del estudio de Brookings.</strong></li>
+    <li><strong>Tres campos nuevos en el diagnóstico:</strong> edad, ocupación y de dónde nos conoció.</li>
+  </ul>
+</section>
+
+<footer>
+  Byond Creative Studio · Metodología Sell Your Knowledge · Preparado para Mercedes Ríos · 29 de octubre de 2026
+</footer>
+
+</main>
+</div>
+</body>
+</html>
