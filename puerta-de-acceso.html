@@ -117,6 +117,15 @@ h1 em{font-style:normal;color:var(--neon)}
   border-radius:18px;padding:24px 22px 26px;
   box-shadow:0 0 0 1px rgba(61,220,151,.06), 0 18px 50px -24px rgba(61,220,151,.35);
 }
+.previo{
+  background:var(--card-2);border:1px solid var(--line);border-left:3px solid var(--neon);
+  border-radius:12px;padding:16px 17px;margin:0 0 22px
+}
+.previo .p-eye{display:block;font-size:10.5px;font-weight:800;letter-spacing:.17em;text-transform:uppercase;color:var(--neon);margin-bottom:7px}
+.previo .p-h{font-family:var(--display);font-weight:700;font-size:22px;line-height:1.15;color:var(--ivory);margin:0 0 9px}
+.previo .p-t{font-size:14.5px;line-height:1.55;color:var(--mute);margin:0}
+.previo .p-d{font-size:13px;line-height:1.5;color:var(--gold);margin:10px 0 0;padding-top:10px;border-top:1px solid var(--line)}
+.previo .p-f{font-size:13.5px;line-height:1.5;color:var(--ivory);margin:11px 0 0;font-weight:600}
 .eyebrow{
   font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;
   font-weight:800;color:var(--neon);
@@ -449,6 +458,7 @@ footer .marca{color:var(--mute);font-size:13px;font-weight:700;text-align:center
 
     <div class="nota-clase">
       <p><b>La clase es la misma para todos. Lo que cambia es desde dónde la ves tú.</b> Por eso te pido el diagnóstico antes: para que llegues el 27 sabiendo cuál de las tres llaves es la tuya, y no a ver si te suena.</p>
+      <p>Son noventa minutos en vivo, y el ejercicio de las rutas lo hacemos ahí mismo, con Mercedes contestando. Esa parte no queda grabada.</p>
     </div>
   </section>
 
@@ -532,6 +542,15 @@ footer .marca{color:var(--mute);font-size:13px;font-weight:700;text-align:center
     { id:'empresa', q:'¿Tienes ya una empresa registrada en Estados Unidos?',
       ayuda:'Si todavía no, estás donde empezaron todos los que hoy la tienen.',
       ops:[['no','No, todavía no'],['nueva','Sí, hace menos de 6 meses'],['vieja','Sí, hace más de 6 meses']] },
+
+    { id:'uso', q:'¿Y la has usado?',
+      si: function(){ return R.empresa === 'nueva' || R.empresa === 'vieja'; },
+      ayuda:'Tenerla registrada y tenerla moviéndose no es lo mismo para un banco. Por eso lo pregunto.',
+      ops:[
+        ['quieta','La tengo quieta','Está registrada y ahí quedó'],
+        ['algo','Algo he movido','Abrí cuenta, algún pago suelto'],
+        ['activa','Sí, la estoy moviendo','Entra y sale dinero de verdad']
+      ]},
 
     { id:'credito', q:'¿Tienes crédito a tu nombre?',
       ayuda:'Tarjetas o préstamos donde vives hoy. El crédito de la empresa no depende de tu historial — lo pregunto para saber desde dónde empiezas.',
@@ -665,6 +684,28 @@ footer .marca{color:var(--mute);font-size:13px;font-weight:700;text-align:center
     if (foco) foco.focus();
   }
 
+  function aplica(p){ return !p.si || p.si(); }
+  function avanzar(){
+    var j = i + 1;
+    while (j < PASOS.length && !aplica(PASOS[j])) j++;
+    i = j; guardar('en curso'); pintar();
+  }
+  function retroceder(){
+    var j = i - 1;
+    while (j > 0 && !aplica(PASOS[j])) j--;
+    i = j; pintar();
+  }
+  function totalPasos(){
+    var n = 0;
+    for (var k = 0; k < PASOS.length - 1; k++) if (aplica(PASOS[k])) n++;
+    return n;
+  }
+  function hechos(){
+    var n = 0;
+    for (var k = 0; k < i && k < PASOS.length; k++) if (aplica(PASOS[k])) n++;
+    return n;
+  }
+
   function pintar(){
     var p = PASOS[i];
     elErr.hidden = true;
@@ -673,10 +714,8 @@ footer .marca{color:var(--mute);font-size:13px;font-weight:700;text-align:center
     elAvance.hidden = false;
     elAtras.hidden = (i === 0);
 
-    // el teléfono no cuenta como pregunta: son seis preguntas y un último paso
-    var total = PASOS.length - 1;
-    var hecho = Math.min(i, total);
-    elBarra.style.width = Math.round(hecho / PASOS.length * 100) + '%';
+    // el teléfono no cuenta como pregunta. El total cambia si aplica la de uso.
+    elBarra.style.width = Math.round(hechos() / (totalPasos() + 1) * 100) + '%';
 
     var caja = h('div','paso');
     var e = eco(); if (e) caja.appendChild(e);
@@ -692,7 +731,7 @@ footer .marca{color:var(--mute);font-size:13px;font-weight:700;text-align:center
       b.addEventListener('click', function(){
         var v = inp.value.trim();
         if (!v) return falla('Escribe tu nombre para poder hablarte por él.', inp);
-        R[p.id] = v; i++; guardar('en curso'); pintar();
+        R[p.id] = v; avanzar();
       });
       inp.addEventListener('keydown', function(e){ if (e.key === 'Enter') b.click(); });
       caja.appendChild(b);
@@ -702,6 +741,15 @@ footer .marca{color:var(--mute);font-size:13px;font-weight:700;text-align:center
     }
 
     if (p.tipo === 'tel'){
+      var R0 = RUTAS[ruta()];
+      var prev = h('div','previo');
+      prev.appendChild(h('span','p-eye','Tu punto de partida'));
+      prev.appendChild(h('h3','p-h', R0.nombre + (R0.detalle ? ' · ' + R0.detalle : '')));
+      prev.appendChild(h('p','p-t', R0.anticipo));
+      if (R0.dato) prev.appendChild(h('p','p-d', R0.dato));
+      prev.appendChild(h('p','p-f','Ya sé cuál es tu primera llave y qué te va a frenar. Eso va completo por WhatsApp, escrito para tu caso.'));
+      caja.insertBefore(prev, caja.querySelector('.q'));
+
       var fila = h('div','fila-tel');
       var sel = h('select','select'); sel.id = 'c-paistel'; sel.setAttribute('aria-label','Indicativo del país');
       var o0 = document.createElement('option');
@@ -739,7 +787,7 @@ footer .marca{color:var(--mute);font-size:13px;font-weight:700;text-align:center
         ops.querySelectorAll('.op').forEach(function(x){ x.classList.remove('elegida'); });
         b.classList.add('elegida');
         R[p.id] = o[0];
-        setTimeout(function(){ i++; guardar('en curso'); pintar(); }, reduce ? 0 : 170);
+        setTimeout(avanzar, reduce ? 0 : 170);
       });
       ops.appendChild(b);
     });
@@ -748,13 +796,13 @@ footer .marca{color:var(--mute);font-size:13px;font-weight:700;text-align:center
   }
 
   elAtras.addEventListener('click', function(){
-    if (i > 0){ i--; pintar(); }
+    if (i > 0) retroceder();
   });
 
   // --- la ruta, con la misma lógica del diagnóstico actual
   function ruta(){
     if (R.empresa === 'nueva') return 'milla_nueva';
-    if (R.empresa === 'vieja') return 'milla';
+    if (R.empresa === 'vieja') return (R.uso === 'quieta') ? 'dormida' : 'milla';
     if (R.credito === 'negado' || R.credito === 'limite') return 'curva';
     if (R.avance === 'empece' || R.avance === 'medias') return 'base';
     if (R.credito === 'activo' && R.pais === 'usa') return 'base';
@@ -771,35 +819,42 @@ footer .marca{color:var(--mute);font-size:13px;font-weight:700;text-align:center
 
   var RUTAS = {
     limpio: { nombre:"Arranque Limpio", pdf:"Tu-ruta-arranque-limpio.pdf",
-      partida:"Tu punto de partida es Arranque Limpio: no tienes empresa todavía y no arrastras un crédito dañado. Parece que estás atrás y es al revés. No hay nada mal hecho que primero toque deshacer.\n\nLo que vas a construir se levanta desde la empresa, no desde tu nombre. Por eso no tener crédito propio no te resta nada acá.",
+      anticipo:"Empiezas sin empresa y sin un crédito dañado que primero haya que arreglar. Eso es una ventaja, aunque ahora no lo parezca.", partida:"Tu punto de partida es Arranque Limpio: no tienes empresa todavía y no arrastras un crédito dañado. Parece que estás atrás y es al revés. No hay nada mal hecho que primero toque deshacer.\n\nLo que vas a construir se levanta desde la empresa, no desde tu nombre. Por eso no tener crédito propio no te resta nada acá.",
       llave:"Formar la empresa en el estado correcto",
       llaveD:"No el más barato, ni el que todo el mundo nombra. El que te deja pedir crédito después sin que te frenen. Esa decisión se toma una sola vez, y tomarla mal se paga en meses.",
       freno:"Elegir el estado o el tipo de empresa por lo barato, o por lo que todo el mundo dice. Eso se paga después y toca deshacerlo.",
       cierre:"El viernes 27 muestro las tres llaves en orden y desde cero, que es justo donde estás." },
 
     base: { nombre:"Camino Empezado", pdf:"Tu-ruta-camino-empezado.pdf",
-      partida:"Tu punto de partida es Camino Empezado. Ya tienes piso: o moviste trámites, o manejas crédito a tu nombre y sabes cómo funciona el sistema por dentro. Eso te ahorra la parte que a otros les cuesta entender.\n\nLo tuyo no es empezar. Es terminar de separar lo tuyo de lo de la empresa.",
+      anticipo:"Ya tienes piso: moviste trámites o manejas crédito a tu nombre. No empiezas de cero, empiezas de donde quedaste.", partida:"Tu punto de partida es Camino Empezado. Ya tienes piso: o moviste trámites, o manejas crédito a tu nombre y sabes cómo funciona el sistema por dentro. Eso te ahorra la parte que a otros les cuesta entender.\n\nLo tuyo no es empezar. Es terminar de separar lo tuyo de lo de la empresa.",
       llave:"Montar la estructura que separa tu nombre del de tu empresa",
       llaveD:"Mientras todo esté a tu nombre, tu techo es tu historial personal. Por bueno que sea, se acaba. Separarlo es lo que levanta ese techo.",
       freno:"Dejarlo otra vez a medias, o seguir moviendo todo a tu nombre. Mientras no se separe, el techo sigue siendo el mismo.",
       cierre:"El viernes 27 no vas a ver nada desde cero. Vas a ver dónde encaja lo que ya tienes, qué le falta para que empiece a servirte y en qué orden va lo que sigue." },
 
     curva: { nombre:"Camino con Curva", pdf:"Tu-ruta-camino-con-curva.pdf",
-      partida:"Tu punto de partida es Camino con Curva. O te dijeron que no, o tienes el crédito propio copado. En los dos casos pasa lo mismo: tu nombre ya no te da más espacio.\n\nY eso no se arregla insistiendo por el mismo lado. Cada solicitud nueva a tu nombre deja otro registro en contra.",
+      anticipo:"Te dijeron que no, o tienes el crédito propio copado. Tu nombre ya no te da más espacio, y por ahí no es.", dato:"No es cosa tuya: solo el 21% de los emprendedores latinos recibe el financiamiento completo que pidió. Entre los blancos es el 40%.", partida:"Tu punto de partida es Camino con Curva. O te dijeron que no, o tienes el crédito propio copado. En los dos casos pasa lo mismo: tu nombre ya no te da más espacio.\n\nY eso no se arregla insistiendo por el mismo lado. Cada solicitud nueva a tu nombre deja otro registro en contra.",
       llave:"Dejar de pedir a tu nombre y construir por el lado de la empresa",
       llaveD:"El crédito empresarial no se mira con la misma lupa que el tuyo. Por eso gente con tu mismo historial sí consigue aprobaciones, pidiendo por donde va.",
       freno:"Volver a pedir por el mismo lado. Cada no nuevo queda registrado y te cierra más la puerta.",
       cierre:"El viernes 27 abro explicando por qué se niegan las solicitudes y en qué orden hay que tocar cada puerta. Esa es justo tu parte, y es con la que empiezo." },
 
+    dormida: { nombre:"Empresa Dormida", pdf:"Tu-ruta-empresa-dormida.pdf",
+      anticipo:"Tienes la empresa desde hace rato, pero quieta. Para un banco, una empresa sin movimiento es casi lo mismo que no tenerla.", dato:"No es cosa tuya: solo el 21% de los emprendedores latinos recibe el financiamiento completo que pidió. Entre los blancos es el 40%.", partida:"Tu punto de partida es Empresa Dormida. Tienes la empresa desde hace rato, pero quieta. Y acá está lo que casi nadie te dice: para un banco, una empresa registrada sin movimiento es casi lo mismo que no tener empresa.\n\nNo es que lo hayas hecho mal. Es que nadie te dijo que registrarla era el principio, no el final.",
+      llave:"Despertar la empresa para que el banco la vea",
+      llaveD:"Una empresa se ve viva por lo que reporta: proveedores que informan, pagos a tiempo, movimiento constante. Sin eso, la antigüedad sola no sirve de nada. La buena noticia es que esos años ya los tienes, solo falta ponerles contenido.",
+      freno:"Pedir crédito con la empresa quieta. Te van a decir que no, y ese no queda registrado.",
+      cierre:"El viernes 27 empiezo por ahí, por qué una empresa puede existir y aun así ser invisible para un banco. Esa es exactamente tu parte." },
+
     milla_nueva: { nombre:"Última Milla", detalle:"Empresa de menos de 6 meses", pdf:"Tu-ruta-ultima-milla-empresa-nueva.pdf",
-      partida:"Tu punto de partida es Última Milla. Ya tienes la empresa, que es la parte que a casi todos les toma meses. Tu pregunta ya no es cómo empezar.\n\nPero la tuya tiene menos de seis meses, y eso cambia lo que sigue: a una empresa nueva no le prestan lo mismo que a una con antigüedad. Todavía no tiene con qué.",
+      anticipo:"Ya tienes la empresa, pero tiene menos de seis meses. A una empresa nueva todavía no le prestan lo mismo.", dato:"No es cosa tuya: solo el 21% de los emprendedores latinos recibe el financiamiento completo que pidió. Entre los blancos es el 40%.", partida:"Tu punto de partida es Última Milla. Ya tienes la empresa, que es la parte que a casi todos les toma meses. Tu pregunta ya no es cómo empezar.\n\nPero la tuya tiene menos de seis meses, y eso cambia lo que sigue: a una empresa nueva no le prestan lo mismo que a una con antigüedad. Todavía no tiene con qué.",
       llave:"Construir los primeros reportes antes de pedir lo grande",
       llaveD:"Hay un orden: proveedores que reporten, montos chicos, pagos a tiempo. Eso es lo que convierte una empresa nueva en una empresa con historial.",
       freno:"Pedir lo grande de entrada. A los tres meses es un no casi seguro, y ese no queda registrado.",
       cierre:"El viernes 27 muestro las tres llaves en orden. Lo tuyo arranca en la segunda, así que llega con lápiz." },
 
-    milla: { nombre:"Última Milla", detalle:"Empresa de más de 6 meses", pdf:"Tu-ruta-ultima-milla-con-antiguedad.pdf",
-      partida:"Tu punto de partida es Última Milla. Ya tienes la empresa y ya tienes antigüedad, que es lo que casi nadie trae cuando llega acá.\n\nTu pregunta ya no es cómo empezar. Es cómo activar el acceso que esa estructura te permite, y qué hacer con él.",
+    milla: { nombre:"Última Milla", detalle:"Empresa con antigüedad", pdf:"Tu-ruta-ultima-milla-con-antiguedad.pdf",
+      anticipo:"Ya tienes la empresa, con antigüedad y con movimiento. Lo tuyo ya no es cómo empezar.", dato:"No es cosa tuya: solo el 21% de los emprendedores latinos recibe el financiamiento completo que pidió. Entre los blancos es el 40%.", partida:"Tu punto de partida es Última Milla. Ya tienes la empresa, con antigüedad y con movimiento, que es la combinación que casi nadie trae cuando llega acá.\n\nTu pregunta ya no es cómo empezar. Es cómo activar el acceso que esa estructura te permite, y qué hacer con él.",
       llave:"Activar el crédito en el orden correcto y asignarle destino desde el principio",
       llaveD:"Capital disponible sin destino asignado se va en gastos. Es el error más caro de esta etapa, y lo veo seguido en gente que ya hizo bien la parte difícil.",
       freno:"Tener el crédito y no saber a dónde mandarlo. Sin destino asignado, se va en gastos.",
@@ -850,7 +905,7 @@ footer .marca{color:var(--mute);font-size:13px;font-weight:700;text-align:center
       nombre: R.nombre || '', telefono: R.telefono || '',
       motivo: R.motivo || '', pais: R.pais || '', avance: R.avance || '',
       empresa: R.empresa || '', credito: R.credito || '', credito_propio: R.credito || '',
-      itin: R.itin || '', invertido: R.invertido || '', porque: R.porque || '',
+      itin: R.itin || '', uso: R.uso || '', invertido: R.invertido || '', porque: R.porque || '',
       resultado: fin ? ruta() : '',
       ruta: fin ? r.nombre + (r.detalle ? ' (' + r.detalle + ')' : '') : '',
       primera_llave: fin ? r.llave : '',
