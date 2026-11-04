@@ -813,47 +813,47 @@ footer .marca{color:var(--mute);font-size:13px;font-weight:700;text-align:center
   // ═══════════════ CONFIGURACIÓN ═══════════════
   var DEMO = false;
   var GRUPO_URL = "https://chat.whatsapp.com/KeG4giKufWKIaoi1WuZeMx";
-  var GUARDAR_URL = "https://script.google.com/macros/s/AKfycbyd3SvLe1EvowqZG3_i5XWL6Q3DGjySiJQ7cSVSclGaUAieHd5LnTRpibiF59d9iofhMQ/exec";
+  var GUARDAR_URL = "https://script.google.com/macros/s/AKfycbwpFRHv7F0H-IVBxvNTBIJisRtB5jfDK3XLJGF3G40yOJSW5oImL545zo9wjjIVpZF1/exec";
   var GHL_WEBHOOK_URL = "https://services.leadconnectorhq.com/hooks/cX1DErTUIk1O4YRymZcS/webhook-trigger/4K2XShS4FPY0hNmZbzjE";
   var SESION = 'p' + Date.now().toString(36) + Math.random().toString(36).slice(2,8);
 
   var RUTAS = {
-    limpio: { nombre:"Arranque Limpio", pdf:"Tu-ruta-arranque-limpio.pdf",
+    limpio: { nombre:"Arranque Limpio", pdf:"https://ruta.lifeofnena.com/pdfs/Tu-ruta-arranque-limpio.pdf",
       anticipo:"Empiezas sin empresa y sin un crédito dañado que primero haya que arreglar. Eso es una ventaja, aunque ahora no lo parezca.", partida:"Tu punto de partida es Arranque Limpio: no tienes empresa todavía y no arrastras un crédito dañado. Parece que estás atrás y es al revés. No hay nada mal hecho que primero toque deshacer.\n\nLo que vas a construir se levanta desde la empresa, no desde tu nombre. Por eso no tener crédito propio no te resta nada acá.",
       llave:"Formar la empresa en el estado correcto",
       llaveD:"No el más barato, ni el que todo el mundo nombra. El que te deja pedir crédito después sin que te frenen. Esa decisión se toma una sola vez, y tomarla mal se paga en meses.",
       freno:"Elegir el estado o el tipo de empresa por lo barato, o por lo que todo el mundo dice. Eso se paga después y toca deshacerlo.",
       cierre:"El viernes 27 muestro las tres llaves en orden y desde cero, que es justo donde estás." },
 
-    base: { nombre:"Camino Empezado", pdf:"Tu-ruta-camino-empezado.pdf",
+    base: { nombre:"Camino Empezado", pdf:"https://ruta.lifeofnena.com/pdfs/Tu-ruta-camino-empezado.pdf",
       anticipo:"Ya tienes piso: moviste trámites o manejas crédito a tu nombre. No empiezas de cero, empiezas de donde quedaste.", partida:"Tu punto de partida es Camino Empezado. Ya tienes piso: o moviste trámites, o manejas crédito a tu nombre y sabes cómo funciona el sistema por dentro. Eso te ahorra la parte que a otros les cuesta entender.\n\nLo tuyo no es empezar. Es terminar de separar lo tuyo de lo de la empresa.",
       llave:"Montar la estructura que separa tu nombre del de tu empresa",
       llaveD:"Mientras todo esté a tu nombre, tu techo es tu historial personal. Por bueno que sea, se acaba. Separarlo es lo que levanta ese techo.",
       freno:"Dejarlo otra vez a medias, o seguir moviendo todo a tu nombre. Mientras no se separe, el techo sigue siendo el mismo.",
       cierre:"El viernes 27 no vas a ver nada desde cero. Vas a ver dónde encaja lo que ya tienes, qué le falta para que empiece a servirte y en qué orden va lo que sigue." },
 
-    curva: { nombre:"Camino con Curva", pdf:"Tu-ruta-camino-con-curva.pdf",
+    curva: { nombre:"Camino con Curva", pdf:"https://ruta.lifeofnena.com/pdfs/Tu-ruta-camino-con-curva.pdf",
       anticipo:"Te dijeron que no, o tienes el crédito propio copado. Tu nombre ya no te da más espacio, y por ahí no es.", dato:"No es cosa tuya: solo el 21% de los emprendedores latinos recibe el financiamiento completo que pidió. Entre los blancos es el 40%.", partida:"Tu punto de partida es Camino con Curva. O te dijeron que no, o tienes el crédito propio copado. En los dos casos pasa lo mismo: tu nombre ya no te da más espacio.\n\nY eso no se arregla insistiendo por el mismo lado. Cada solicitud nueva a tu nombre deja otro registro en contra.",
       llave:"Dejar de pedir a tu nombre y construir por el lado de la empresa",
       llaveD:"El crédito empresarial no se mira con la misma lupa que el tuyo. Por eso gente con tu mismo historial sí consigue aprobaciones, pidiendo por donde va.",
       freno:"Volver a pedir por el mismo lado. Cada no nuevo queda registrado y te cierra más la puerta.",
       cierre:"El viernes 27 abro explicando por qué se niegan las solicitudes y en qué orden hay que tocar cada puerta. Esa es justo tu parte, y es con la que empiezo." },
 
-    dormida: { nombre:"Empresa Dormida", pdf:"Tu-ruta-empresa-dormida.pdf",
+    dormida: { nombre:"Empresa Dormida", pdf:"https://ruta.lifeofnena.com/pdfs/Tu-ruta-empresa-dormida.pdf",
       anticipo:"Tienes la empresa desde hace rato, pero quieta. Para un banco, una empresa sin movimiento es casi lo mismo que no tenerla.", dato:"No es cosa tuya: solo el 21% de los emprendedores latinos recibe el financiamiento completo que pidió. Entre los blancos es el 40%.", partida:"Tu punto de partida es Empresa Dormida. Tienes la empresa desde hace rato, pero quieta. Y acá está lo que casi nadie te dice: para un banco, una empresa registrada sin movimiento es casi lo mismo que no tener empresa.\n\nNo es que lo hayas hecho mal. Es que nadie te dijo que registrarla era el principio, no el final.",
       llave:"Despertar la empresa para que el banco la vea",
       llaveD:"Una empresa se ve viva por lo que reporta: proveedores que informan, pagos a tiempo, movimiento constante. Sin eso, la antigüedad sola no sirve de nada. La buena noticia es que esos años ya los tienes, solo falta ponerles contenido.",
       freno:"Pedir crédito con la empresa quieta. Te van a decir que no, y ese no queda registrado.",
       cierre:"El viernes 27 empiezo por ahí, por qué una empresa puede existir y aun así ser invisible para un banco. Esa es exactamente tu parte." },
 
-    milla_nueva: { nombre:"Última Milla", detalle:"Empresa de menos de 6 meses", pdf:"Tu-ruta-ultima-milla-empresa-nueva.pdf",
+    milla_nueva: { nombre:"Última Milla", detalle:"Empresa de menos de 6 meses", pdf:"https://ruta.lifeofnena.com/pdfs/Tu-ruta-ultima-milla-empresa-nueva.pdf",
       anticipo:"Ya tienes la empresa, pero tiene menos de seis meses. A una empresa nueva todavía no le prestan lo mismo.", dato:"No es cosa tuya: solo el 21% de los emprendedores latinos recibe el financiamiento completo que pidió. Entre los blancos es el 40%.", partida:"Tu punto de partida es Última Milla. Ya tienes la empresa, que es la parte que a casi todos les toma meses. Tu pregunta ya no es cómo empezar.\n\nPero la tuya tiene menos de seis meses, y eso cambia lo que sigue: a una empresa nueva no le prestan lo mismo que a una con antigüedad. Todavía no tiene con qué.",
       llave:"Construir los primeros reportes antes de pedir lo grande",
       llaveD:"Hay un orden: proveedores que reporten, montos chicos, pagos a tiempo. Eso es lo que convierte una empresa nueva en una empresa con historial.",
       freno:"Pedir lo grande de entrada. A los tres meses es un no casi seguro, y ese no queda registrado.",
       cierre:"El viernes 27 muestro las tres llaves en orden. Lo tuyo arranca en la segunda, así que llega con lápiz." },
 
-    milla: { nombre:"Última Milla", detalle:"Empresa con antigüedad", pdf:"Tu-ruta-ultima-milla-con-antiguedad.pdf",
+    milla: { nombre:"Última Milla", detalle:"Empresa con antigüedad", pdf:"https://ruta.lifeofnena.com/pdfs/Tu-ruta-ultima-milla-con-antiguedad.pdf",
       anticipo:"Ya tienes la empresa, con antigüedad y con movimiento. Lo tuyo ya no es cómo empezar.", dato:"No es cosa tuya: solo el 21% de los emprendedores latinos recibe el financiamiento completo que pidió. Entre los blancos es el 40%.", partida:"Tu punto de partida es Última Milla. Ya tienes la empresa, con antigüedad y con movimiento, que es la combinación que casi nadie trae cuando llega acá.\n\nTu pregunta ya no es cómo empezar. Es cómo activar el acceso que esa estructura te permite, y qué hacer con él.",
       llave:"Activar el crédito en el orden correcto y asignarle destino desde el principio",
       llaveD:"Capital disponible sin destino asignado se va en gastos. Es el error más caro de esta etapa, y lo veo seguido en gente que ya hizo bien la parte difícil.",
