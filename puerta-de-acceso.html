@@ -753,11 +753,12 @@ footer .marca{color:var(--mute);font-size:13px;font-weight:700;text-align:center
 
   // --- la ruta, con la misma lógica del diagnóstico actual
   function ruta(){
-    if (R.empresa !== 'no') return 'Última Milla';
-    if (R.credito === 'negado' || R.credito === 'limite') return 'Camino con Curva';
-    if (R.avance === 'empece' || R.avance === 'medias') return 'Camino Empezado';
-    if (R.credito === 'activo' && R.pais === 'usa') return 'Camino Empezado';
-    return 'Arranque Limpio';
+    if (R.empresa === 'nueva') return 'milla_nueva';
+    if (R.empresa === 'vieja') return 'milla';
+    if (R.credito === 'negado' || R.credito === 'limite') return 'curva';
+    if (R.avance === 'empece' || R.avance === 'medias') return 'base';
+    if (R.credito === 'activo' && R.pais === 'usa') return 'base';
+    return 'limpio';
   }
 
 
@@ -769,44 +770,80 @@ footer .marca{color:var(--mute);font-size:13px;font-weight:700;text-align:center
   var SESION = 'p' + Date.now().toString(36) + Math.random().toString(36).slice(2,8);
 
   var RUTAS = {
-    'Arranque Limpio': { cod:'limpio',
-      partida:"Empiezas desde cero en Estados Unidos, y eso es una ventaja real: no arrastras decisiones mal tomadas que primero haya que deshacer. Tu historial se construye desde la empresa, no desde ti, así que no empezar con crédito propio no te resta nada.",
-      llave:"Formar tu empresa en el estado correcto",
-      llaveD:"No es el más barato ni el más famoso. Es el que te deja pedir crédito después sin que te frenen. Elegirlo mal cuesta meses.",
-      freno:"Elegir el estado o el tipo de empresa por lo barato o por lo que todos dicen. Eso se paga después.",
-      clase:"Esa primera llave decide las dos que vienen después. El viernes las hacemos en vivo, en orden y desde cero, que es justo donde estás." },
-    'Camino Empezado': { cod:'base',
-      partida:"Ya tienes piso: o moviste trámites, o manejas crédito propio y sabes cómo funciona el sistema por dentro. Eso te ahorra la parte que a los demás les cuesta entender. Lo que falta es separar lo tuyo de lo de la empresa.",
+    limpio: { nombre:"Arranque Limpio", pdf:"Tu-ruta-arranque-limpio.pdf",
+      partida:"Tu punto de partida es Arranque Limpio: no tienes empresa todavía y no arrastras un crédito dañado. Parece que estás atrás y es al revés. No hay nada mal hecho que primero toque deshacer.\n\nLo que vas a construir se levanta desde la empresa, no desde tu nombre. Por eso no tener crédito propio no te resta nada acá.",
+      llave:"Formar la empresa en el estado correcto",
+      llaveD:"No el más barato, ni el que todo el mundo nombra. El que te deja pedir crédito después sin que te frenen. Esa decisión se toma una sola vez, y tomarla mal se paga en meses.",
+      freno:"Elegir el estado o el tipo de empresa por lo barato, o por lo que todo el mundo dice. Eso se paga después y toca deshacerlo.",
+      cierre:"El viernes 27 muestro las tres llaves en orden y desde cero, que es justo donde estás." },
+
+    base: { nombre:"Camino Empezado", pdf:"Tu-ruta-camino-empezado.pdf",
+      partida:"Tu punto de partida es Camino Empezado. Ya tienes piso: o moviste trámites, o manejas crédito a tu nombre y sabes cómo funciona el sistema por dentro. Eso te ahorra la parte que a otros les cuesta entender.\n\nLo tuyo no es empezar. Es terminar de separar lo tuyo de lo de la empresa.",
       llave:"Montar la estructura que separa tu nombre del de tu empresa",
-      llaveD:"Mientras todo esté a tu nombre, tu techo es tu historial personal. Separarlo es lo que levanta ese techo.",
-      freno:"Seguir moviendo todo a tu nombre. Mientras no se separe, el techo sigue siendo tu historial.",
-      clase:"Tú ya empezaste, así que el viernes no vas a ver nada desde cero. Vas a ver dónde encaja lo que ya tienes, qué falta para que empiece a servirte y en qué orden va lo que sigue." },
-    'Camino con Curva': { cod:'curva',
-      partida:"O te dijeron que no, o tienes el crédito propio al límite. En los dos casos pasa lo mismo: tu nombre personal ya no te da más espacio. Y eso no se arregla insistiendo por el mismo lado.",
+      llaveD:"Mientras todo esté a tu nombre, tu techo es tu historial personal. Por bueno que sea, se acaba. Separarlo es lo que levanta ese techo.",
+      freno:"Dejarlo otra vez a medias, o seguir moviendo todo a tu nombre. Mientras no se separe, el techo sigue siendo el mismo.",
+      cierre:"El viernes 27 no vas a ver nada desde cero. Vas a ver dónde encaja lo que ya tienes, qué le falta para que empiece a servirte y en qué orden va lo que sigue." },
+
+    curva: { nombre:"Camino con Curva", pdf:"Tu-ruta-camino-con-curva.pdf",
+      partida:"Tu punto de partida es Camino con Curva. O te dijeron que no, o tienes el crédito propio copado. En los dos casos pasa lo mismo: tu nombre ya no te da más espacio.\n\nY eso no se arregla insistiendo por el mismo lado. Cada solicitud nueva a tu nombre deja otro registro en contra.",
       llave:"Dejar de pedir a tu nombre y construir por el lado de la empresa",
-      llaveD:"Volver a aplicar personalmente sin cambiar nada repite el resultado y deja otro registro en contra.",
-      freno:"Volver a pedir por el mismo lado. Cada solicitud nueva deja otro registro en contra.",
-      clase:"El viernes empiezo explicando por qué se niegan las solicitudes y en qué orden hay que tocar cada puerta. Esa es justo la parte que te falta." },
-    'Última Milla': { cod:'milla',
-      partida:"Ya tienes la empresa, que es la parte que a casi todos les toma meses. Tu pregunta ya no es cómo empezar, es cómo activar el acceso que esa estructura te permite y qué hacer con él.",
-      llave:"Activar el crédito en el orden correcto y asignarle destino",
-      llaveD:"Capital disponible sin ruta asignada se consume en gastos. Es el error más caro de esta etapa.",
-      freno:"Tener el crédito sin saber a dónde mandarlo. Sin destino, se va en gastos.",
-      clase:"Tú ya tienes la empresa, así que los primeros minutos del viernes te van a sobrar. Quédate igual: lo tuyo es el final, la tercera llave, que es la parte que casi nadie explica en español." }
+      llaveD:"El crédito empresarial no se mira con la misma lupa que el tuyo. Por eso gente con tu mismo historial sí consigue aprobaciones, pidiendo por donde va.",
+      freno:"Volver a pedir por el mismo lado. Cada no nuevo queda registrado y te cierra más la puerta.",
+      cierre:"El viernes 27 abro explicando por qué se niegan las solicitudes y en qué orden hay que tocar cada puerta. Esa es justo tu parte, y es con la que empiezo." },
+
+    milla_nueva: { nombre:"Última Milla", detalle:"Empresa de menos de 6 meses", pdf:"Tu-ruta-ultima-milla-empresa-nueva.pdf",
+      partida:"Tu punto de partida es Última Milla. Ya tienes la empresa, que es la parte que a casi todos les toma meses. Tu pregunta ya no es cómo empezar.\n\nPero la tuya tiene menos de seis meses, y eso cambia lo que sigue: a una empresa nueva no le prestan lo mismo que a una con antigüedad. Todavía no tiene con qué.",
+      llave:"Construir los primeros reportes antes de pedir lo grande",
+      llaveD:"Hay un orden: proveedores que reporten, montos chicos, pagos a tiempo. Eso es lo que convierte una empresa nueva en una empresa con historial.",
+      freno:"Pedir lo grande de entrada. A los tres meses es un no casi seguro, y ese no queda registrado.",
+      cierre:"El viernes 27 muestro las tres llaves en orden. Lo tuyo arranca en la segunda, así que llega con lápiz." },
+
+    milla: { nombre:"Última Milla", detalle:"Empresa de más de 6 meses", pdf:"Tu-ruta-ultima-milla-con-antiguedad.pdf",
+      partida:"Tu punto de partida es Última Milla. Ya tienes la empresa y ya tienes antigüedad, que es lo que casi nadie trae cuando llega acá.\n\nTu pregunta ya no es cómo empezar. Es cómo activar el acceso que esa estructura te permite, y qué hacer con él.",
+      llave:"Activar el crédito en el orden correcto y asignarle destino desde el principio",
+      llaveD:"Capital disponible sin destino asignado se va en gastos. Es el error más caro de esta etapa, y lo veo seguido en gente que ya hizo bien la parte difícil.",
+      freno:"Tener el crédito y no saber a dónde mandarlo. Sin destino asignado, se va en gastos.",
+      cierre:"El viernes 27 los primeros minutos te van a sobrar. Quédate igual: lo tuyo es la tercera llave, que es la parte que casi nadie explica en español." }
   };
 
+  // La línea de lo que frena NO depende de la ruta: sale de la respuesta más
+  // dura de cada persona. Se mira de arriba hacia abajo y gana la primera.
+  function frena(){
+    if (R.itin === 'ninguno')
+      return "no tienes ninguno de los dos números con los que el IRS identifica a una persona. El trámite se demora y hay pasos que no avanzan sin él. Va dentro del proceso, lo que no puede es quedarse para después.";
+    if (R.itin === 'tramite')
+      return "quedarte esperando el ITIN sin mover nada. Mientras llega hay cosas que sí se adelantan, y así cuando salga no empiezas de cero.";
+    if (R.credito === 'negado')
+      return "volver a pedir por el mismo lado. Cada no nuevo queda registrado y te cierra más la puerta.";
+    if (R.credito === 'limite')
+      return "seguir moviendo todo con tu crédito copado. Mientras no se separe, tu techo sigue siendo tu historial.";
+    if (R.avance === 'empece' || R.avance === 'medias')
+      return "dejarlo otra vez a medias. Lo que arrancaste y quedó quieto sigue contando, hay que terminarlo, no volver a empezar.";
+    return minus(RUTAS[ruta()].freno);
+  }
+
+  function minus(t){ return t.charAt(0).toLowerCase() + t.slice(1); }
+
+  function mensajes(){
+    var r = RUTAS[ruta()], n = R.nombre || '';
+    var link = GRUPO_URL || '{link}';
+    return {
+      m1: "Hola " + n + ", soy Mercedes. Ya leí lo que me contestaste.\n\n" + r.partida,
+      m2: "Tu primera llave es " + minus(r.llave) + ".\n\n" + r.llaveD + "\n\nLo que te va a frenar: " + frena(),
+      m3: r.cierre + "\n\n7 PM Colombia / 8 PM Miami. El acceso lo mando solo por el grupo, no por acá: " + link + "\n\nEntra y me escribes \"ya entré\" para saber que llegaste."
+    };
+  }
+
   function mensajeDiagnostico(){
-    var r = RUTAS[ruta()];
-    return R.nombre + ", este es tu diagnóstico.\n\n" +
-      "Tu punto de partida: " + ruta() + "\n" + r.partida + "\n\n" +
-      "Tu primera llave: " + r.llave + "\n" + r.llaveD + "\n\n" +
-      "Lo que te va a frenar: " + r.freno + "\n\n" + r.clase;
+    var m = mensajes();
+    return m.m1 + "\n\n" + m.m2 + "\n\n" + m.m3;
   }
 
   function guardar(estado, listo){
     if (DEMO){ if (listo) listo(); return; }
     var fin = (estado === 'completo');
     var r = fin ? RUTAS[ruta()] : null;
+    var m = fin ? mensajes() : null;
     var datos = {
       id: SESION, estado: estado, fecha: new Date().toISOString(),
       pregunta: Math.min(i + 1, PASOS.length) + '/' + PASOS.length,
@@ -814,8 +851,13 @@ footer .marca{color:var(--mute);font-size:13px;font-weight:700;text-align:center
       motivo: R.motivo || '', pais: R.pais || '', avance: R.avance || '',
       empresa: R.empresa || '', credito: R.credito || '', credito_propio: R.credito || '',
       itin: R.itin || '', invertido: R.invertido || '', porque: R.porque || '',
-      resultado: fin ? r.cod : '', ruta: fin ? ruta() : '',
-      primera_llave: fin ? r.llave : '', lo_que_frena: fin ? r.freno : '',
+      resultado: fin ? ruta() : '',
+      ruta: fin ? r.nombre + (r.detalle ? ' (' + r.detalle + ')' : '') : '',
+      primera_llave: fin ? r.llave : '',
+      lo_que_frena: fin ? frena() : '',
+      pdf_ruta: fin ? r.pdf : '',
+      audio_ruta: fin ? ruta() : '',
+      msg1: fin ? m.m1 : '', msg2: fin ? m.m2 : '', msg3: fin ? m.m3 : '',
       mensaje_diagnostico: fin ? mensajeDiagnostico() : '',
       grupo_url: GRUPO_URL, origen: location.search.slice(1)
     };
