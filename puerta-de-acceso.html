@@ -879,13 +879,32 @@ footer .marca{color:var(--mute);font-size:13px;font-weight:700;text-align:center
 
   function minus(t){ return t.charAt(0).toLowerCase() + t.slice(1); }
 
+  // Lo que la trajo: abre el primer mensaje con sus propias palabras.
+  var MOTIVOS = {
+    rendir:  "Me dijiste que quieres que tu dinero rinda más. Tenerlo quieto también cuesta, aunque no se sienta.",
+    ingreso: "Me dijiste que quieres un ingreso que no dependa de tu trabajo. Para eso hace falta una estructura, no un segundo trabajo.",
+    sueldo:  "Me dijiste que ya no quieres depender del sueldo. Es de lo que más escucho, y casi nunca es por falta de ganas.",
+    intente: "Me dijiste que ya intentaste cosas y ninguna te funcionó. Casi siempre no es la idea: es el orden en que se hizo."
+  };
+
+  // Por qué ahora: cierra el tercer mensaje con su propia urgencia.
+  var PORQUES = {
+    cansancio: "Y me acuerdo de lo que me dijiste: que te cansaste de seguir igual. Ese cansancio es el que de verdad mueve a la gente.",
+    dinero:    "Y me acuerdo de lo que me dijiste: que liberaste algo de dinero. Entonces lo que decidas estos días pesa más de lo normal.",
+    cambio:    "Y me acuerdo de lo que me dijiste: que algo cambió en tu situación. Esas ventanas son las únicas que de verdad se abren.",
+    entendi:   "Y me acuerdo de lo que me dijiste: que viste mi contenido y entendiste que sí se puede. Esa parte, que es la difícil, ya la pasaste.",
+    decidi:    "Y me acuerdo de lo que me dijiste: que llevabas tiempo queriendo y por fin te decidiste. Lo único que falta es no dejarlo pasar otra vez."
+  };
+
   function mensajes(){
     var r = RUTAS[ruta()], n = R.nombre || '';
     var link = GRUPO_URL || '{link}';
+    var motivo = MOTIVOS[R.motivo] ? MOTIVOS[R.motivo] + "\n\n" : "";
+    var porque = PORQUES[R.porque] ? PORQUES[R.porque] + "\n\n" : "";
     return {
-      m1: "Hola " + n + ", soy Mercedes. Ya leí lo que me contestaste.\n\n" + r.partida,
+      m1: "Hola " + n + ", soy Mercedes. Ya leí lo que me contestaste.\n\n" + motivo + r.partida,
       m2: "Tu primera llave es " + minus(r.llave) + ".\n\n" + r.llaveD + "\n\nLo que te va a frenar: " + frena(),
-      m3: r.cierre + "\n\n7 PM Colombia / 8 PM Miami. El acceso lo mando solo por el grupo, no por acá: " + link + "\n\nEntra y me escribes \"ya entré\" para saber que llegaste."
+      m3: r.cierre + "\n\n" + porque + "7 PM Colombia / 8 PM Miami. El acceso lo mando solo por el grupo, no por acá: " + link + "\n\nEntra y me escribes \"ya entré\" para saber que llegaste."
     };
   }
 
