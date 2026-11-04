@@ -340,9 +340,6 @@ footer .marca{color:var(--mute);font-size:13px;font-weight:700;text-align:center
 }
 </style>
 
-<div class="boceto"><div class="wrap">
-  <b>Boceto</b> · lo que está en gris es lo que falta grabar o conseguir. Nada se guarda todavía.
-</div></div>
 
 <div class="bar"><div class="wrap">
   <span><b>Viernes 27 de noviembre</b></span>
@@ -392,7 +389,7 @@ footer .marca{color:var(--mute);font-size:13px;font-weight:700;text-align:center
   <div class="ok" id="ok" hidden>
     <span class="eyebrow">Listo</span>
     <h2 id="ok-h">Tu diagnóstico va en camino</h2>
-    <p class="lead">Te lo mando hoy mismo al número que me dejaste, escrito para tu caso. Mientras tanto, deja listo tu lugar para el viernes.</p>
+    <p class="lead">Te llega por WhatsApp en unos minutos, escrito para tu caso. Mientras tanto, deja listo tu lugar para el viernes.</p>
     <div class="pasos">
       <div class="p-item">
         <span class="num">1</span>
@@ -414,7 +411,7 @@ footer .marca{color:var(--mute);font-size:13px;font-weight:700;text-align:center
   <!-- ================= QUÉ TE LLEGA ================= -->
   <section>
     <h2 class="sec-h">Qué te llega al WhatsApp</h2>
-    <p class="sec-p">No es un PDF genérico. Sale de lo que contestaste arriba, y Mercedes revisa cada diagnóstico antes de que te llegue.</p>
+    <p class="sec-p">No es un PDF genérico. Sale de lo que contestaste arriba, armado para tu caso.</p>
     <div class="tres">
       <div class="it">
         <span class="k">Uno</span>
@@ -695,7 +692,7 @@ footer .marca{color:var(--mute);font-size:13px;font-weight:700;text-align:center
       b.addEventListener('click', function(){
         var v = inp.value.trim();
         if (!v) return falla('Escribe tu nombre para poder hablarte por él.', inp);
-        R[p.id] = v; i++; pintar();
+        R[p.id] = v; i++; guardar('en curso'); pintar();
       });
       inp.addEventListener('keydown', function(e){ if (e.key === 'Enter') b.click(); });
       caja.appendChild(b);
@@ -742,7 +739,7 @@ footer .marca{color:var(--mute);font-size:13px;font-weight:700;text-align:center
         ops.querySelectorAll('.op').forEach(function(x){ x.classList.remove('elegida'); });
         b.classList.add('elegida');
         R[p.id] = o[0];
-        setTimeout(function(){ i++; pintar(); }, reduce ? 0 : 170);
+        setTimeout(function(){ i++; guardar('en curso'); pintar(); }, reduce ? 0 : 170);
       });
       ops.appendChild(b);
     });
@@ -763,19 +760,93 @@ footer .marca{color:var(--mute);font-size:13px;font-weight:700;text-align:center
     return 'Arranque Limpio';
   }
 
+
+  // ═══════════════ CONFIGURACIÓN ═══════════════
+  var DEMO = false;
+  var GRUPO_URL = "";   // PEGAR AQUÍ el link del grupo del 27 de noviembre
+  var GUARDAR_URL = "https://script.google.com/macros/s/AKfycbyd3SvLe1EvowqZG3_i5XWL6Q3DGjySiJQ7cSVSclGaUAieHd5LnTRpibiF59d9iofhMQ/exec";
+  var GHL_WEBHOOK_URL = "https://services.leadconnectorhq.com/hooks/cX1DErTUIk1O4YRymZcS/webhook-trigger/4K2XShS4FPY0hNmZbzjE";
+  var SESION = 'p' + Date.now().toString(36) + Math.random().toString(36).slice(2,8);
+
+  var RUTAS = {
+    'Arranque Limpio': { cod:'limpio',
+      partida:"Empiezas desde cero en Estados Unidos, y eso es una ventaja real: no arrastras decisiones mal tomadas que primero haya que deshacer. Tu historial se construye desde la empresa, no desde ti, así que no empezar con crédito propio no te resta nada.",
+      llave:"Formar tu empresa en el estado correcto",
+      llaveD:"No es el más barato ni el más famoso. Es el que te deja pedir crédito después sin que te frenen. Elegirlo mal cuesta meses.",
+      freno:"Elegir el estado o el tipo de empresa por lo barato o por lo que todos dicen. Eso se paga después.",
+      clase:"Esa primera llave decide las dos que vienen después. El viernes las hacemos en vivo, en orden y desde cero, que es justo donde estás." },
+    'Camino Empezado': { cod:'base',
+      partida:"Ya tienes piso: o moviste trámites, o manejas crédito propio y sabes cómo funciona el sistema por dentro. Eso te ahorra la parte que a los demás les cuesta entender. Lo que falta es separar lo tuyo de lo de la empresa.",
+      llave:"Montar la estructura que separa tu nombre del de tu empresa",
+      llaveD:"Mientras todo esté a tu nombre, tu techo es tu historial personal. Separarlo es lo que levanta ese techo.",
+      freno:"Seguir moviendo todo a tu nombre. Mientras no se separe, el techo sigue siendo tu historial.",
+      clase:"Tú ya empezaste, así que el viernes no vas a ver nada desde cero. Vas a ver dónde encaja lo que ya tienes, qué falta para que empiece a servirte y en qué orden va lo que sigue." },
+    'Camino con Curva': { cod:'curva',
+      partida:"O te dijeron que no, o tienes el crédito propio al límite. En los dos casos pasa lo mismo: tu nombre personal ya no te da más espacio. Y eso no se arregla insistiendo por el mismo lado.",
+      llave:"Dejar de pedir a tu nombre y construir por el lado de la empresa",
+      llaveD:"Volver a aplicar personalmente sin cambiar nada repite el resultado y deja otro registro en contra.",
+      freno:"Volver a pedir por el mismo lado. Cada solicitud nueva deja otro registro en contra.",
+      clase:"El viernes empiezo explicando por qué se niegan las solicitudes y en qué orden hay que tocar cada puerta. Esa es justo la parte que te falta." },
+    'Última Milla': { cod:'milla',
+      partida:"Ya tienes la empresa, que es la parte que a casi todos les toma meses. Tu pregunta ya no es cómo empezar, es cómo activar el acceso que esa estructura te permite y qué hacer con él.",
+      llave:"Activar el crédito en el orden correcto y asignarle destino",
+      llaveD:"Capital disponible sin ruta asignada se consume en gastos. Es el error más caro de esta etapa.",
+      freno:"Tener el crédito sin saber a dónde mandarlo. Sin destino, se va en gastos.",
+      clase:"Tú ya tienes la empresa, así que los primeros minutos del viernes te van a sobrar. Quédate igual: lo tuyo es el final, la tercera llave, que es la parte que casi nadie explica en español." }
+  };
+
+  function mensajeDiagnostico(){
+    var r = RUTAS[ruta()];
+    return R.nombre + ", este es tu diagnóstico.\n\n" +
+      "Tu punto de partida: " + ruta() + "\n" + r.partida + "\n\n" +
+      "Tu primera llave: " + r.llave + "\n" + r.llaveD + "\n\n" +
+      "Lo que te va a frenar: " + r.freno + "\n\n" + r.clase;
+  }
+
+  function guardar(estado, listo){
+    if (DEMO){ if (listo) listo(); return; }
+    var fin = (estado === 'completo');
+    var r = fin ? RUTAS[ruta()] : null;
+    var datos = {
+      id: SESION, estado: estado, fecha: new Date().toISOString(),
+      pregunta: Math.min(i + 1, PASOS.length) + '/' + PASOS.length,
+      nombre: R.nombre || '', telefono: R.telefono || '',
+      motivo: R.motivo || '', pais: R.pais || '', avance: R.avance || '',
+      empresa: R.empresa || '', credito: R.credito || '', credito_propio: R.credito || '',
+      itin: R.itin || '', invertido: R.invertido || '', porque: R.porque || '',
+      resultado: fin ? r.cod : '', ruta: fin ? ruta() : '',
+      primera_llave: fin ? r.llave : '', lo_que_frena: fin ? r.freno : '',
+      mensaje_diagnostico: fin ? mensajeDiagnostico() : '',
+      grupo_url: GRUPO_URL, origen: location.search.slice(1)
+    };
+    var cuerpo = JSON.stringify(datos);
+    if (fin && R.telefono && GHL_WEBHOOK_URL){
+      try { fetch(GHL_WEBHOOK_URL, {method:'POST', headers:{'Content-Type':'application/json'}, body:cuerpo, keepalive:true}); } catch(e){}
+    }
+    var cerrado = false, cerrar = function(){ if (!cerrado){ cerrado = true; if (listo) listo(); } };
+    setTimeout(cerrar, 4000);
+    try {
+      fetch(GUARDAR_URL, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:cuerpo, keepalive:true})
+        .then(cerrar)['catch'](function(){
+          try { navigator.sendBeacon(GUARDAR_URL, new Blob([cuerpo], {type:'text/plain;charset=utf-8'})); } catch(x){}
+          cerrar();
+        });
+    } catch(e){ cerrar(); }
+  }
+
   function terminar(){
     document.getElementById('ok-h').textContent = R.nombre + ', tu diagnóstico va en camino';
     document.getElementById('form').hidden = true;
     var ok = document.getElementById('ok');
     ok.hidden = false;
     ok.scrollIntoView({block:'start', behavior: reduce ? 'auto' : 'smooth'});
-    // En la página real, aquí se guarda en la hoja y se manda a ManyChat/GHL.
-    console.log('Ruta calculada:', ruta(), R);
+    guardar('completo');
   }
 
   document.getElementById('btn-grupo').addEventListener('click', function(){
+    if (GRUPO_URL){ window.open(GRUPO_URL, '_blank', 'noopener'); return; }
     this.disabled = true;
-    this.textContent = 'En la página real: abre el grupo de WhatsApp';
+    this.textContent = 'Falta pegar el link del grupo';
   });
 
   document.getElementById('subir').addEventListener('click', function(){
