@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ruta Black · Mercedes Ríos</title>
+<meta name="description" content="La membresía de Mercedes Ríos para aprender a invertir en bienes raíces y en bolsa en Estados Unidos desde donde estés, aunque todavía no tengas empresa, crédito ni ITIN.">
+<meta property="og:title" content="Ruta Black · Mercedes Ríos">
+<meta property="og:description" content="Aprende a invertir en Estados Unidos desde donde estés. Clase en vivo cada jueves, biblioteca por tema y comunidad.">
+<meta name="theme-color" content="#0b1210">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=Libre+Baskerville:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b1210;--card:#111c18;--card-2:#0d1613;--line:#22332c;
+    --ivory:#f4efe3;--mute:#a9b5ae;--neon:#3ddc97;--gold:#e2b857;
+    --display:'Libre Baskerville',Georgia,'Times New Roman',serif;
+    --body:'DM Sans',system-ui,-apple-system,Segoe UI,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ivory);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .w{max-width:980px;margin:0 auto;padding:0 20px}
+  section{padding:80px 0;border-bottom:1px solid var(--line)}
+  h1,h2{font-family:var(--display);font-weight:700;line-height:1.18;letter-spacing:-.01em}
+  h1{font-size:clamp(34px,6vw,60px)}
+  h2{font-size:clamp(26px,4vw,38px);margin-bottom:18px}
+  h1 em,h2 em{font-style:italic;font-weight:400;color:var(--gold)}
+  .eyebrow{display:inline-block;text-transform:uppercase;letter-spacing:.16em;font-size:12px;font-weight:700;color:var(--gold);margin-bottom:20px}
+  .lede{font-size:19px;color:var(--mute);max-width:640px;margin-top:18px}
+  .btn{display:inline-block;background:var(--gold);color:#0b1210;font-weight:800;padding:17px 30px;border-radius:10px;text-decoration:none;font-size:17px;transition:transform .15s,filter .15s}
+  .btn:hover{filter:brightness(1.06);transform:translateY(-1px)}
+  .btn:focus-visible{outline:2px solid var(--ivory);outline-offset:3px}
+  .note{font-size:14px;color:var(--mute);margin-top:12px}
+
+  /* Top bar */
+  .top{position:sticky;top:0;z-index:5;background:rgba(11,18,16,.9);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .top .w{display:flex;align-items:center;justify-content:space-between;height:62px}
+  .brand{font-family:var(--display);font-size:20px;letter-spacing:.04em}
+  .brand em{color:var(--gold);font-style:italic;font-weight:400}
+  .top .btn{padding:10px 18px;font-size:14px}
+
+  /* Hero */
+  .hero{padding:96px 0 88px}
+  .hero .cta{margin-top:34px;display:flex;flex-wrap:wrap;align-items:center;gap:18px}
+  .live{display:inline-flex;align-items:center;gap:8px;font-size:14px;color:var(--mute)}
+  .live i{width:8px;height:8px;border-radius:50%;background:var(--neon);box-shadow:0 0 0 4px rgba(61,220,151,.15)}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:30px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px}
+  .card h3{font-size:18px;font-weight:700;margin-bottom:8px}
+  .card p{color:var(--mute);font-size:16px}
+  .card .k{font-family:var(--display);color:var(--gold);font-size:14px;letter-spacing:.06em;margin-bottom:10px;display:block}
+
+  .flow{list-style:none;margin-top:28px;counter-reset:s;border-top:1px solid var(--line)}
+  .flow li{counter-increment:s;display:grid;grid-template-columns:48px 1fr;gap:4px 14px;padding:18px 0;border-bottom:1px solid var(--line)}
+  .flow li::before{content:counter(s);grid-row:span 2;width:36px;height:36px;border-radius:50%;border:1px solid var(--gold);color:var(--gold);display:grid;place-items:center;font-family:var(--display);font-size:15px}
+  .flow b{font-weight:700}
+  .flow span{color:var(--mute);font-size:16px}
+
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}
+  .split ul{list-style:none;margin-top:12px}
+  .split li{padding:8px 0 8px 26px;position:relative;color:var(--mute);font-size:16px;border-top:1px solid var(--line)}
+  .split li:first-child{border-top:0}
+  .yes li::before{content:"✓";position:absolute;left:0;color:var(--neon);font-weight:800}
+  .no li::before{content:"—";position:absolute;left:0;color:var(--mute)}
+
+  .who{display:grid;grid-template-columns:120px 1fr;gap:28px;align-items:center}
+  .who img{width:120px;height:120px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)}
+  .who p{color:var(--mute)}
+
+  .price{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px;margin-top:30px}
+  .plan{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:32px;position:relative;display:flex;flex-direction:column}
+  .plan.best{border-color:var(--gold);background:linear-gradient(180deg,rgba(226,184,87,.07),transparent 40%),var(--card)}
+  .plan .tag{position:absolute;top:-12px;left:24px;background:var(--gold);color:#0b1210;font-size:12px;font-weight:800;padding:4px 11px;border-radius:999px}
+  .plan .name{text-transform:uppercase;letter-spacing:.14em;font-size:12px;font-weight:700;color:var(--mute)}
+  .plan .amt{font-family:var(--display);font-size:50px;margin:10px 0 0;line-height:1}
+  .plan .amt small{font-family:var(--body);font-size:16px;color:var(--mute);font-weight:500}
+  .plan ul{list-style:none;margin:20px 0 26px;flex:1}
+  .plan li{padding:6px 0 6px 24px;position:relative;font-size:15px;color:var(--mute)}
+  .plan li::before{content:"✓";position:absolute;left:0;color:var(--neon);font-weight:800}
+  .plan .btn{text-align:center}
+
+  details{border-bottom:1px solid var(--line);padding:20px 0}
+  details:first-of-type{border-top:1px solid var(--line);margin-top:24px}
+  summary{cursor:pointer;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:16px}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";color:var(--gold);font-size:22px;line-height:1}
+  details[open] summary::after{content:"–"}
+  details p{color:var(--mute);margin-top:10px;font-size:16px}
+
+  .final{text-align:center}
+  .final .lede{margin:18px auto 32px}
+  footer{padding:40px 0 60px;font-size:13px;color:var(--mute)}
+  footer p+p{margin-top:10px}
+
+  @media(max-width:720px){
+    section{padding:60px 0}.hero{padding:64px 0}
+    .split{grid-template-columns:1fr}
+    .who{grid-template-columns:1fr;text-align:left}
+    .top .btn{display:none}
+  }
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="w">
+    <span class="brand">RUTA <em>Black</em></span>
+    <a class="btn" href="#planes">Entrar</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="w">
+      <span class="eyebrow">La membresía de Mercedes Ríos</span>
+      <h1>Aprende a invertir en Estados Unidos <em>desde donde estés</em></h1>
+      <p class="lede">Bienes raíces y bolsa, explicados con claridad, aunque todavía no tengas empresa, crédito ni ITIN. Y el proceso para crear lo que te falta.</p>
+      <div class="cta">
+        <a class="btn" href="#planes">Quiero entrar a Ruta Black</a>
+        <span class="live"><i></i>En vivo cada jueves · 7 PM Colombia</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="w">
+      <h2>De «me gustaría invertir, pero no sé si puedo» a <em>saber qué hacer</em></h2>
+      <p class="lede">En Ruta Black entiendes cómo funciona cada vía de inversión, cuál encaja con tu situación, qué te falta y cómo se consigue.</p>
+      <div class="grid">
+        <div class="card"><span class="k">01</span><h3>Clase en vivo cada jueves</h3><p>7 PM Colombia · 8 PM Nueva York. Un tema por semana con Mercedes y, cada cierto tiempo, un experto invitado.</p></div>
+        <div class="card"><span class="k">02</span><h3>Biblioteca por tema</h3><p>Todas las clases grabadas y ordenadas: tu empresa, crédito de negocio, bienes raíces, bolsa e invitados.</p></div>
+        <div class="card"><span class="k">03</span><h3>Preguntas cualquier día</h3><p>Un espacio en la comunidad para dejar tu duda. Se responden en vivo el jueves.</p></div>
+        <div class="card"><span class="k">04</span><h3>Un reto por semana</h3><p>Cada clase cierra con una acción concreta, para que avances entre jueves y no solo escuches.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="w">
+      <h2>Así es <em>cada jueves</em></h2>
+      <ol class="flow">
+        <li><b>Victorias de la semana</b><span>Lo que avanzaron los miembros con el reto anterior.</span></li>
+        <li><b>¿Mito o realidad?</b><span>Lo que circula en grupos y redes, separado entre lo que abre puertas y lo que las cierra.</span></li>
+        <li><b>El tema del día</b><span>Un mecanismo explicado de principio a fin.</span></li>
+        <li><b>El caso de la semana</b><span>Un ejemplo real analizado paso a paso.</span></li>
+        <li><b>Tus preguntas</b><span>Las que dejaste en la comunidad y las del chat en vivo.</span></li>
+        <li><b>El reto</b><span>Tu acción para la próxima semana.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section>
+    <div class="w">
+      <h2>Qué es Ruta Black <em>y qué no es</em></h2>
+      <div class="split">
+        <div class="card yes"><h3>Te enseña</h3><ul><li>Cómo funciona cada capa: empresa, crédito e inversión</li><li>Qué mira un banco y por qué</li><li>Cómo se evalúan las vías de inversión</li><li>Qué te falta y cómo se consigue</li></ul></div>
+        <div class="card no"><h3>No es</h3><ul><li>Revisión personalizada de tu caso</li><li>Recomendaciones de qué comprar</li><li>Asesoría legal, fiscal ni de inversión</li><li>Una promesa de crédito aprobado</li></ul></div>
+      </div>
+      <p class="note" style="margin-top:22px">Si quieres que se arme contigo, para tu caso, eso es Ruta 90, el programa de acompañamiento de Mercedes.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="w who">
+      <img src="data:image/jpeg;base64,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" alt="Mercedes Ríos" width="120" height="120">
+      <div>
+        <span class="eyebrow" style="margin-bottom:10px">Quién enseña</span>
+        <h2 style="margin-bottom:10px">Mercedes Ríos</h2>
+        <p>Fundadora de Ruta Financiera. Enseña a latinos en Estados Unidos y fuera de él cómo funciona el sistema financiero americano: la empresa, el crédito de negocio y las vías de inversión, explicado sin tecnicismos.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="planes">
+    <div class="w">
+      <h2>Elige <em>tu plan</em></h2>
+      <div class="price">
+        <div class="plan">
+          <span class="name">Mensual</span>
+          <p class="amt">$47 <small>USD / mes</small></p>
+          <ul><li>Clase en vivo cada jueves</li><li>Biblioteca completa de grabaciones</li><li>Comunidad y canal de preguntas</li><li>Cancelas cuando quieras</li></ul>
+          <a class="btn" data-checkout href="#">Empezar mensual</a>
+        </div>
+        <div class="plan best">
+          <span class="tag">2 meses gratis</span>
+          <span class="name">Anual</span>
+          <p class="amt">$470 <small>USD / año</small></p>
+          <ul><li>Todo lo del plan mensual</li><li>Equivale a $39 al mes</li><li>Un solo pago por 12 meses</li><li>Ahorras $94 frente al mensual</li></ul>
+          <a class="btn" data-checkout href="#">Empezar anual</a>
+        </div>
+      </div>
+      <p class="note" style="margin-top:18px">Pago seguro con tarjeta. Al completar el pago recibes tu acceso por email.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="w">
+      <h2>Preguntas <em>frecuentes</em></h2>
+      <details><summary>¿Necesito tener empresa, crédito o ITIN para entrar?</summary><p>No. Ruta Black está hecha para entender cómo funciona cada vía desde donde estás, y para saber qué te falta y cómo se consigue.</p></details>
+      <details><summary>¿Y si no puedo conectarme el jueves?</summary><p>Cada clase queda grabada en la biblioteca, ordenada por tema, dentro de las 48 horas siguientes. Puedes dejar tu pregunta antes en la comunidad.</p></details>
+      <details><summary>¿Puedo cancelar?</summary><p>Sí. El plan mensual se cancela cuando quieras y conservas el acceso hasta el final del periodo que ya pagaste.</p></details>
+      <details><summary>¿Mercedes revisa mi caso personal?</summary><p>En Ruta Black no. Las preguntas generales siempre se responden, pero un caso personal se revisa con tus papeles en la mano, y eso se hace en Ruta 90.</p></details>
+      <details><summary>¿Dónde veo las clases y la comunidad?</summary><p>En el portal de miembros, comunidad.lifeofnena.com. Al pagar te llega el acceso con tu usuario.</p></details>
+    </div>
+  </section>
+
+  <section class="final">
+    <div class="w">
+      <h2>El próximo jueves <em>puedes estar adentro</em></h2>
+      <p class="lede">Entras hoy, ves la biblioteca hoy y llegas a la clase del jueves con tu primera pregunta.</p>
+      <a class="btn" href="#planes">Quiero entrar a Ruta Black</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="w">
+    <p>Ruta Black es un programa educativo. Nada de su contenido constituye asesoría legal, fiscal, crediticia ni de inversión. Los resultados dependen de la situación de cada persona. Para decisiones sobre tu caso, consulta a un profesional con licencia.</p>
+    <p>© Lifeofnena LLC · mjrios@lifeofnena.com</p>
+  </div>
+</footer>
+
+<script>
+  // URL del checkout de GHL (paso "Checkout" del funnel "Ruta Black · Membresía").
+  // Mientras no tenga dominio propio, usar la URL de preview de GHL.
+  var CHECKOUT_URL = '';
+  (function(){
+    var q = location.search; // conserva UTMs hacia el checkout
+    document.querySelectorAll('[data-checkout]').forEach(function(a){
+      if (CHECKOUT_URL) { a.href = CHECKOUT_URL + (CHECKOUT_URL.indexOf('?') > -1 && q ? '&' + q.slice(1) : q); }
+      else { a.href = 'mailto:mjrios@lifeofnena.com?subject=Quiero%20entrar%20a%20Ruta%20Black'; }
+    });
+  })();
+</script>
+</body>
+</html>
