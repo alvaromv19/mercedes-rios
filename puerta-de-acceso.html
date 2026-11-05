@@ -93,21 +93,20 @@ h1 em{font-style:normal;color:var(--neon)}
 
 /* --- video ----------------------------------------------------------- */
 .video{
-  margin:22px auto 0;max-width:720px;width:100%;aspect-ratio:16/9;
-  border-radius:16px;border:1px solid var(--line);
-  background:linear-gradient(135deg,#14251f,#0d1613);
-  display:flex;align-items:center;justify-content:center;text-align:center;
-  overflow:hidden;position:relative;
+  margin:22px auto 0;
+  max-width:720px;
+  width:100%;
+  border-radius:16px;
+  border:1px solid var(--line);
+  background:#000;
+  overflow:hidden;
+  position:relative;
 }
-.video .ph{padding:22px;color:var(--mute);font-size:14px;max-width:420px}
-.video .ph .play{
-  width:56px;height:56px;border-radius:99px;margin:0 auto 12px;
-  border:1px solid rgba(61,220,151,.45);background:rgba(61,220,151,.1);
-  display:flex;align-items:center;justify-content:center;color:var(--neon);font-size:20px;
+.video wistia-player {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
-.video .ph b{display:block;color:var(--ivory);font-size:18px;font-family:var(--display);margin-bottom:7px}
-.bajo-video{text-align:center;color:var(--mute);font-size:14px;margin-top:12px}
-.bajo-video .flecha{font-family:var(--hand);color:var(--gold);font-size:22px;display:block;margin-top:6px}
 
 /* --- tarjeta del diagnóstico ----------------------------------------- */
 .form-card{
@@ -364,12 +363,12 @@ footer .marca{color:var(--mute);font-size:13px;font-weight:700;text-align:center
     <p class="sub">Mira este video de 7 minutos y contesta unas preguntas cortas. Te mando tu diagnóstico por WhatsApp: dónde estás hoy y qué llave abre primero para ti.</p>
   </div>
 
+  <!-- ================= VIDEO WISTIA ================= -->
   <div class="video">
-    <div class="ph">
-      <div class="play">▶</div>
-      <b>Video de Mercedes · 7 minutos</b>
-      Falta grabarlo. El guion ya está escrito palabra por palabra, con los dos casos y la cifra de crédito conseguido.
-    </div>
+    <script src="https://fast.wistia.com/player.js" async></script>
+    <script src="https://fast.wistia.com/embed/1qz1wprn7y.js" async type="module"></script>
+    <style>wistia-player[media-id='1qz1wprn7y']:not(:defined) { background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/1qz1wprn7y/swatch'); display: block; filter: blur(5px); padding-top:56.25%; }</style>
+    <wistia-player media-id="1qz1wprn7y" aspect="1.7777777777777777"></wistia-player>
   </div>
   <p class="bajo-video">
     Cuando termines el video, esto es lo que sigue
