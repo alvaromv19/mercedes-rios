@@ -706,6 +706,7 @@ footer .marca{color:var(--mute);font-size:13px;font-weight:700;text-align:center
     return n;
   }
 
+  var yaArranco = false;
   function pintar(){
     var p = PASOS[i];
     elErr.hidden = true;
@@ -736,7 +737,8 @@ footer .marca{color:var(--mute);font-size:13px;font-weight:700;text-align:center
       inp.addEventListener('keydown', function(e){ if (e.key === 'Enter') b.click(); });
       caja.appendChild(b);
       elPaso.appendChild(caja);
-      if (!reduce) inp.focus();
+      // En la carga inicial no se enfoca: el navegador bajaría hasta el campo y taparía el video.
+      if (!reduce && yaArranco) inp.focus({preventScroll:true});
       return;
     }
 
@@ -1000,6 +1002,7 @@ footer .marca{color:var(--mute);font-size:13px;font-weight:700;text-align:center
   });
 
   pintar();
+  yaArranco = true;
 })();
 </script>
 
