@@ -675,7 +675,10 @@ function guardar(estado, listo){
     var cuerpo = JSON.stringify(datos);
 
      // --- INICIO CÓDIGO NUEVO PARA GHL ---
-    if (estado === 'completo' && typeof GHL_WEBHOOK_URL !== 'undefined' && GHL_WEBHOOK_URL !== "") {
+    // Una sola vez por sesión: el botón del grupo vuelve a llamar guardar('completo')
+    // para la hoja; si el webhook se repite, GHL inscribe al contacto dos veces.
+    if (estado === 'completo' && !window.__ghlEnviado && typeof GHL_WEBHOOK_URL !== 'undefined' && GHL_WEBHOOK_URL !== "") {
+      window.__ghlEnviado = true;
       fetch(GHL_WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
