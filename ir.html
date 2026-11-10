@@ -51,11 +51,10 @@
 
   // Si ya le toco un lado antes, se respeta: la misma persona no debe
   // aparecer en las dos hojas si vuelve a tocar el boton.
-  var lado = leer();
-  if (!lado){
-    lado = (Math.random() < 0.5) ? 'A' : 'B';
-    guardar(lado);
-  }
+  // Test cerrado el 9 de noviembre: todos van a la version con video (A),
+  // incluso quien antes cayo en B.
+  var lado = 'A';
+  guardar(lado);
 
   // Se conservan los parametros que vengan del DM y se agrega la marca del lado.
   var params = new URLSearchParams(location.search);
