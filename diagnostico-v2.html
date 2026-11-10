@@ -799,7 +799,7 @@ function mostrar(){
   var ev = h('div','evento');
   ev.appendChild(h('p','n','El ' + EVENTO_TXT + ', en vivo'));
   ev.appendChild(h('p','ev-l', P.ev));
-  var hr = h('p','ev-h','7:00 PM Colombia · 8:00 PM Miami');
+  var hr = h('p','ev-h','7:00 PM Colombia y Miami');
   ev.appendChild(hr);
   var faltan = diasPara(EVENTO);
   if (faltan !== null) ev.appendChild(h('p','ev-c', faltan));
