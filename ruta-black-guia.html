@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Guía de miembros · Ruta Black</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0b1210">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=Libre+Baskerville:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0b1210;--card:#111c18;--line:#22332c;--ivory:#f4efe3;--mute:#a9b5ae;--neon:#3ddc97;--gold:#e2b857;
+        --display:'Libre Baskerville',Georgia,serif;--body:'DM Sans',system-ui,-apple-system,Segoe UI,sans-serif}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ivory);font-family:var(--body);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  .w{max-width:760px;margin:0 auto;padding:64px 20px 80px}
+  .tag{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
+  h1{font-family:var(--display);font-weight:700;font-size:clamp(30px,5vw,46px);line-height:1.18}
+  h1 em{font-style:italic;font-weight:400;color:var(--gold)}
+  .lede{color:var(--mute);font-size:19px;margin-top:14px}
+  nav.toc{margin:32px 0 8px;display:flex;flex-wrap:wrap;gap:8px}
+  nav.toc a{font-size:14px;color:var(--ivory);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:6px 14px;background:var(--card)}
+  nav.toc a:hover,nav.toc a:focus-visible{border-color:var(--gold);outline:none}
+  section{margin-top:56px;scroll-margin-top:20px}
+  h2{font-family:var(--display);font-size:clamp(23px,3.4vw,30px);line-height:1.25;margin-bottom:14px}
+  h2 .n{color:var(--gold);font-family:var(--body);font-weight:800;font-size:15px;letter-spacing:.1em;display:block;margin-bottom:6px}
+  h3{font-size:17px;font-weight:800;margin:22px 0 6px}
+  p{margin-top:10px}
+  .mute{color:var(--mute)}
+  ol.steps{list-style:none;counter-reset:s;margin-top:18px}
+  ol.steps li{counter-increment:s;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px 18px 66px;position:relative;margin-bottom:10px}
+  ol.steps li::before{content:counter(s);position:absolute;left:20px;top:17px;width:30px;height:30px;border-radius:50%;background:var(--gold);color:#0b1210;display:grid;place-items:center;font-weight:800;font-size:15px}
+  ol.steps b{display:block}
+  ol.steps span{color:var(--mute);font-size:16px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:18px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+  .card b{display:block;margin-bottom:4px}
+  .card span{color:var(--mute);font-size:15.5px}
+  .note{border-left:3px solid var(--gold);background:rgba(226,184,87,.07);padding:14px 18px;border-radius:0 10px 10px 0;margin-top:18px;font-size:16px}
+  ul.plain{margin:10px 0 0 20px}
+  ul.plain li{margin-top:6px}
+  a{color:var(--gold)}
+  .btn{display:inline-block;background:var(--gold);color:#0b1210;font-weight:800;padding:13px 22px;border-radius:10px;text-decoration:none;margin-top:16px}
+  .btn:focus-visible{outline:2px solid var(--ivory);outline-offset:3px}
+  details{border-top:1px solid var(--line);padding:16px 0}
+  details:last-of-type{border-bottom:1px solid var(--line)}
+  summary{cursor:pointer;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:16px}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";color:var(--gold);font-weight:800}
+  details[open] summary::after{content:"–"}
+  details p{color:var(--mute);font-size:16px}
+  footer{margin-top:64px;font-size:13px;color:var(--mute);border-top:1px solid var(--line);padding-top:20px}
+</style>
+</head>
+<body>
+<main class="w">
+  <span class="tag">Guía de miembros</span>
+  <h1>Cómo usar <em>Ruta Black</em> por dentro</h1>
+  <p class="lede">Todo lo que necesitas para entrar, encontrar las clases y aprovechar cada jueves. Lectura de 5 minutos.</p>
+
+  <nav class="toc" aria-label="Contenido">
+    <a href="#entrar">Entrar</a>
+    <a href="#menu">El menú</a>
+    <a href="#biblioteca">Biblioteca</a>
+    <a href="#comunidad">Comunidad</a>
+    <a href="#jueves">Clase del jueves</a>
+    <a href="#celular">En el celular</a>
+    <a href="#pagos">Tu suscripción</a>
+    <a href="#ayuda">Problemas frecuentes</a>
+  </nav>
+
+  <section id="entrar">
+    <h2><span class="n">01</span>Entrar por primera vez</h2>
+    <p>No necesitas una contraseña para la primera vez. Entras con un código que llega a tu correo.</p>
+    <ol class="steps">
+      <li><b>Abre comunidad.lifeofnena.com</b><span>Desde el computador o el celular.</span></li>
+      <li><b>Escribe tu correo</b><span>Tiene que ser el mismo con el que te inscribiste en Ruta Black.</span></li>
+      <li><b>Copia el código que te llega</b><span>Revisa tu bandeja de entrada. Si no aparece en un par de minutos, mira en Spam o Promociones.</span></li>
+      <li><b>Crea tu contraseña</b><span>La plataforma te la pide una sola vez. Desde la próxima visita entras con correo y contraseña.</span></li>
+    </ol>
+    <a class="btn" href="https://comunidad.lifeofnena.com">Entrar a la plataforma</a>
+    <div class="note">Si usas Gmail, también puedes entrar con el botón de Google, siempre que sea el mismo correo con el que te inscribiste.</div>
+  </section>
+
+  <section id="menu">
+    <h2><span class="n">02</span>El menú de la izquierda</h2>
+    <p>Tu portal tiene solo tres secciones. Al entrar llegas directo a Cursos.</p>
+    <div class="grid">
+      <div class="card"><b>Tablero</b><span>Tu resumen: cuántas publicaciones nuevas hay en la comunidad y en qué lección vas.</span></div>
+      <div class="card"><b>Comunidades</b><span>El grupo privado de Ruta Black: conversación, avisos, eventos y miembros.</span></div>
+      <div class="card"><b>Cursos</b><span>La biblioteca con todas las clases grabadas, ordenadas por tema.</span></div>
+    </div>
+  </section>
+
+  <section id="biblioteca">
+    <h2><span class="n">03</span>La biblioteca de clases</h2>
+    <p>En <b>Cursos</b> encuentras <b>Ruta Black · Biblioteca</b>. Pulsa «Continúe aprendiendo» y te lleva a la lección donde te quedaste.</p>
+    <h3>Cómo está ordenada</h3>
+    <ul class="plain">
+      <li><b>Empieza aquí</b>: tres lecciones cortas (bienvenida, cómo funciona tu semana y las reglas de la sala). Hazlas primero.</li>
+      <li><b>Tu empresa en Estados Unidos</b></li>
+      <li><b>Crédito de negocio</b></li>
+      <li><b>Bienes raíces</b></li>
+      <li><b>Bolsa, ETF y REITs</b></li>
+      <li><b>Invitados expertos</b></li>
+    </ul>
+    <p>Cada clase del jueves se sube a su tema dentro de las 48 horas siguientes. Al terminar una lección, márcala como completada: así la plataforma guarda tu avance.</p>
+  </section>
+
+  <section id="comunidad">
+    <h2><span class="n">04</span>La comunidad</h2>
+    <p>Entra en <b>Comunidades → Ruta Black</b>. Arriba verás estas pestañas:</p>
+    <div class="grid">
+      <div class="card"><b>Conversación</b><span>Las publicaciones del grupo. Aquí dejas tus preguntas para el jueves.</span></div>
+      <div class="card"><b>Aprendizaje</b><span>Acceso rápido a la biblioteca desde el grupo.</span></div>
+      <div class="card"><b>Eventos</b><span>El calendario con la clase de cada jueves.</span></div>
+      <div class="card"><b>Miembros</b><span>Quién más está en Ruta Black.</span></div>
+    </div>
+    <h3>Cómo dejar una pregunta para el jueves</h3>
+    <ol class="steps">
+      <li><b>Abre la pestaña Conversación</b><span>Escribe en el cuadro de nueva publicación.</span></li>
+      <li><b>Escribe tu pregunta en una o dos frases</b><span>Las preguntas generales se responden en vivo. Un caso personal con tus documentos no se revisa en Ruta Black: eso es Ruta 90.</span></li>
+      <li><b>Publícala antes del jueves a mediodía</b><span>Así entra en la lista de esa semana.</span></li>
+    </ol>
+    <p class="mute">La campana de arriba te avisa cuando alguien responde o menciona tu nombre.</p>
+  </section>
+
+  <section id="jueves">
+    <h2><span class="n">05</span>La clase en vivo del jueves</h2>
+    <div class="grid">
+      <div class="card"><b>Cuándo</b><span>Todos los jueves a las 7 PM hora de Colombia (Bogotá, Lima, Quito). En Nueva York son las 7 PM de noviembre a marzo y las 8 PM de marzo a noviembre.</span></div>
+      <div class="card"><b>Dónde</b><span>Google Meet. El enlace es siempre el mismo y te llega por WhatsApp dos horas antes.</span></div>
+      <div class="card"><b>Si no llegas</b><span>La grabación queda en la biblioteca dentro de las 48 horas siguientes.</span></div>
+    </div>
+    <p>Cada clase sigue el mismo orden: victorias de la semana, ¿mito o realidad?, el tema del día, el caso de la semana, tus preguntas y el reto para la próxima semana.</p>
+  </section>
+
+  <section id="celular">
+    <h2><span class="n">06</span>Desde el celular</h2>
+    <p>La plataforma funciona desde el navegador del celular, sin instalar nada. Para tenerla a un toque:</p>
+    <ul class="plain">
+      <li><b>iPhone (Safari):</b> abre comunidad.lifeofnena.com, toca el botón Compartir y elige «Agregar a pantalla de inicio».</li>
+      <li><b>Android (Chrome):</b> abre comunidad.lifeofnena.com, toca los tres puntos y elige «Agregar a la pantalla principal».</li>
+    </ul>
+  </section>
+
+  <section id="pagos">
+    <h2><span class="n">07</span>Tu suscripción</h2>
+    <p>El cobro es automático a la tarjeta que registraste: $47 cada mes o $470 cada año, según tu plan. Te llega un recibo por correo en cada cobro.</p>
+    <p>Para cambiar de tarjeta, pasar del plan mensual al anual o cancelar, escríbenos a <a href="mailto:mjrios@lifeofnena.com">mjrios@lifeofnena.com</a> desde el correo con el que te inscribiste. Lo resolvemos en un día hábil. Si cancelas, conservas el acceso hasta el final del periodo que ya pagaste.</p>
+  </section>
+
+  <section id="ayuda">
+    <h2><span class="n">08</span>Problemas frecuentes</h2>
+    <details><summary>No me llega el código</summary><p>Revisa Spam y Promociones. Comprueba que escribiste el mismo correo con el que te inscribiste. Si después de 5 minutos no aparece, pide un código nuevo desde la misma pantalla.</p></details>
+    <details><summary>Olvidé mi contraseña</summary><p>En la pantalla de inicio elige entrar con código. Te llega uno nuevo al correo y entras sin contraseña.</p></details>
+    <details><summary>Entro pero no veo el curso o la comunidad</summary><p>Casi siempre es porque entraste con otro correo. Sal, vuelve a entrar con el correo de tu inscripción y, si sigue igual, escríbenos.</p></details>
+    <details><summary>Quiero cambiar el correo de mi cuenta</summary><p>Escríbenos a mjrios@lifeofnena.com desde el correo actual indicando el nuevo. Lo cambiamos nosotros para no perder tu avance.</p></details>
+    <details><summary>No me llega el WhatsApp del jueves</summary><p>Responde a cualquiera de nuestros correos con tu número de WhatsApp, con código de país. Mientras tanto, el enlace está en la pestaña Eventos de la comunidad.</p></details>
+  </section>
+
+  <footer>
+    Ruta Black es un programa educativo de Lifeofnena LLC. Nada de su contenido constituye asesoría legal, fiscal, crediticia ni de inversión. ¿Necesitas ayuda? <a href="mailto:mjrios@lifeofnena.com">mjrios@lifeofnena.com</a>
+  </footer>
+</main>
+</body>
+</html>
