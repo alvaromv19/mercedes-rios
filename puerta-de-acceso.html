@@ -915,6 +915,25 @@ footer .marca{color:var(--mute);font-size:13px;font-weight:700;text-align:center
     return m.m1 + "\n\n" + m.m2 + "\n\n" + m.m3;
   }
 
+
+  // ── Atribución (primer toque): UTMs + click IDs, persistidos para que no se pierdan si vuelve sin parámetros
+  var ATR = (function(){
+    var K = 'mr_atr_v1', q = new URLSearchParams(location.search), a = {};
+    ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid','ttclid'].forEach(function(k){ var v = q.get(k); if (v) a[k] = v; });
+    var guardado = null; try { guardado = JSON.parse(localStorage.getItem(K) || 'null'); } catch(e){}
+    if (!guardado && (a.utm_source || a.fbclid || a.ttclid)) {
+      a.landing = location.pathname; a.referrer = document.referrer || ''; a.primer_toque = new Date().toISOString();
+      try { localStorage.setItem(K, JSON.stringify(a)); } catch(e){}
+      guardado = a;
+    }
+    var ck = function(n){ var m = document.cookie.match(new RegExp('(?:^|; )' + n + '=([^;]*)')); return m ? decodeURIComponent(m[1]) : ''; };
+    var r = guardado || a;
+    if (!r.utm_source && r.fbclid) r.utm_source = 'meta';
+    if (!r.utm_source && r.ttclid) r.utm_source = 'tiktok';
+    r.fbp = ck('_fbp'); r.fbc = ck('_fbc') || (r.fbclid ? 'fb.1.' + Date.now() + '.' + r.fbclid : '');
+    return r;
+  })();
+
   function guardar(estado, listo){
     if (DEMO){ if (listo) listo(); return; }
     var fin = (estado === 'completo');
@@ -935,6 +954,7 @@ footer .marca{color:var(--mute);font-size:13px;font-weight:700;text-align:center
       audio_ruta: fin ? ruta() : '',
       msg1: fin ? m.m1 : '', msg2: fin ? m.m2 : '', msg3: fin ? m.m3 : '',
       mensaje_diagnostico: fin ? mensajeDiagnostico() : '',
+      utm_source: ATR.utm_source || '', utm_medium: ATR.utm_medium || '', utm_campaign: ATR.utm_campaign || '', utm_content: ATR.utm_content || '', utm_term: ATR.utm_term || '', fbclid: ATR.fbclid || '', ttclid: ATR.ttclid || '', fbp: ATR.fbp || '', fbc: ATR.fbc || '', landing: ATR.landing || location.pathname,
       grupo_url: GRUPO_URL, origen: location.search.slice(1)
     };
     var cuerpo = JSON.stringify(datos);
