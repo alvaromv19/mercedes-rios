@@ -144,7 +144,7 @@ tr.click:hover td{background:var(--surface-2);cursor:pointer}
     <div class="card"><h3>Comparativa de funnels</h3><div class="sub">Mismo periodo y filtros · lanzamientos vs. VSL</div><div class="tw"><table id="t-funnels"></table></div></div>
     <div class="sec">Atribución (primer toque)</div>
     <div class="grid c2">
-      <div class="card"><h3>Por origen / canal</h3><div class="sub">utm_source del primer contacto · "Sin rastrear" = sin UTM capturado</div><div class="tw"><table id="t-src"></table></div></div>
+      <div class="card"><h3>Por origen / canal</h3><div class="sub">utm_source del primer contacto · sin UTM = Instagram (orgánico / ManyChat)</div><div class="tw"><table id="t-src"></table></div></div>
       <div class="card"><h3>Por campaña / anuncio</h3><div class="sub">utm_campaign · utm_content del primer contacto</div><div class="tw"><table id="t-camp"></table></div></div>
     </div>
     <div class="sec">Calidad del lead</div>
@@ -287,7 +287,9 @@ const pct=(a,b)=>b?Math.round(a/b*1000)/10+"%":"—";
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const fdate=ts=>{ if(!ts) return "—"; const d=new Date(ts.length===10?ts+"T12:00:00":ts); return d.toLocaleDateString("es-PE",{day:"2-digit",month:"short",year:"2-digit"}); };
 const fdt=ts=>ts?new Date(ts).toLocaleString("es-PE",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"}):"—";
-const srcOf=c=>(c?.first_source||"").toLowerCase()||"sin rastrear";
+// Sin UTM = Instagram (orgánico/ManyChat): es el canal por defecto del negocio. ig/manychat se unifican.
+const SRC_ALIAS={ig:"instagram",insta:"instagram",manychat:"instagram",facebook:"meta",fb:"meta"};
+const srcOf=c=>{const v=(c?.first_source||"").toLowerCase().trim(); return v?(SRC_ALIAS[v]||v):"instagram";};
 const isHT=s=>PR[s.product_id]?.tipo!=="membresia";
 const ENTRY=new Set(["diag_iniciado","registro_webinar","form_evaluacion","cita_agendada"]);
 const STATUS={pagado:["var(--good)","Pagado"],pendiente:["var(--warn)","Pendiente"],vencido:["var(--crit)","Vencido"],suscripcion:["var(--s1)","Suscripción"],cancelada:["var(--muted)","Cancelada"],reembolsada:["var(--muted)","Reembolsada"]};
@@ -361,9 +363,7 @@ function render(){
 }
 
 function renderResumen(x,m){
-  const sinAttr=m.leads.filter(id=>srcOf(C[id])==="sin rastrear").length;
-  $("warn-attr").innerHTML = m.leads.length && sinAttr/m.leads.length>0.3
-    ? `<div class="warnbox"><b>${pct(sinAttr,m.leads.length)}</b> de los leads del periodo no tienen origen (UTM) capturado. Las métricas por canal y el ROAS solo son confiables para el resto.</div>`:"";
+  $("warn-attr").innerHTML = "";
   const cpl=m.inversion&&m.leads.length?usd(m.inversion/m.leads.length,2):"—";
   const cac=m.inversion&&m.compradores.length?usd(m.inversion/m.compradores.length):"—";
   $("kpi-main").innerHTML=[
