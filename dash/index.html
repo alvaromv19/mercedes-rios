@@ -142,6 +142,7 @@ tr.click:hover td{background:var(--surface-2);cursor:pointer}
   <!-- FUNNEL -->
   <section id="v-funnel" class="view">
     <div class="card"><h3>Comparativa de funnels</h3><div class="sub">Mismo periodo y filtros · lanzamientos vs. VSL</div><div class="tw"><table id="t-funnels"></table></div></div>
+    <div class="card"><h3>Instagram · ManyChat por palabra clave</h3><div class="sub">Entró a la automatización en el periodo → clic al link → diagnóstico → agenda → asistió → compró. Las etapas posteriores al clic solo se unen si el link de ManyChat lleva <code>mc_id</code>.</div><div class="tw"><table id="t-ig"></table></div></div>
     <div class="sec">Atribución (primer toque)</div>
     <div class="grid c2">
       <div class="card"><h3>Por origen / canal</h3><div class="sub">utm_source del primer contacto · sin UTM = Instagram (orgánico / ManyChat)</div><div class="tw"><table id="t-src"></table></div></div>
@@ -429,6 +430,17 @@ function renderFunnel(x){
       r.map(([k,v])=>`<tr><td>${esc(k)}</td><td class="num">${fmt(v.leads)}</td><td class="num">${fmt(v.ag)}</td><td class="num">${fmt(v.as)}</td><td class="num">${fmt(v.v)}</td><td class="num">${pct(v.v,v.leads)}</td><td class="num">${usd(v.cash)}</td></tr>`).join("");
   };
   attr(srcOf,"t-src","Origen");
+  // embudo Instagram / ManyChat por palabra clave
+  {
+    const ent={}; D.events.filter(e=>e.tipo==="ig_entrada"&&x.inR(e.occurred_at)&&x.cOk(e.contact_id)).forEach(e=>{const k=(e.data?.keyword||e.campaign||"(sin palabra)").toLowerCase(); (ent[k]??=new Set()).add(e.contact_id);});
+    const has=(id,t)=>(evByC[id]||[]).some(e=>e.tipo===t);
+    const rows=Object.entries(ent).map(([k,set])=>{const ids=[...set]; const clic=ids.filter(id=>has(id,"ig_click")), diag=ids.filter(id=>has(id,"diag_completado")), ag=ids.filter(id=>(apptsByC[id]||[]).length), as=ids.filter(id=>(apptsByC[id]||[]).some(a=>a.estado==="asistio")), v=ids.filter(id=>(salesByC[id]||[]).some(isHT));
+      return {k,n:ids.length,clic:clic.length,diag:diag.length,ag:ag.length,as:as.length,v:v.length,cash:sum(v.flatMap(id=>(salesByC[id]||[]).filter(isHT)),s=>s._bruto)};}).sort((a,b)=>b.n-a.n);
+    const tot=rows.reduce((t,r)=>{for(const f of ["n","clic","diag","ag","as","v","cash"]) t[f]=(t[f]||0)+r[f]; return t;},{k:"Total"});
+    $("t-ig").innerHTML=`<tr><th>Palabra clave</th><th class="num">Entraron</th><th class="num">Clic link</th><th class="num">% clic</th><th class="num">Diagnóstico</th><th class="num">% diag/clic</th><th class="num">Agendaron</th><th class="num">% agenda/diag</th><th class="num">Asistieron</th><th class="num">Compraron</th><th class="num">Cobrado</th></tr>`+
+      (rows.length?[...rows,tot]:[]).map(r=>`<tr${r.k==="Total"?' style="font-weight:700"':''}><td>${esc(r.k)}</td><td class="num">${fmt(r.n)}</td><td class="num">${fmt(r.clic)}</td><td class="num">${pct(r.clic,r.n)}</td><td class="num">${fmt(r.diag)}</td><td class="num">${pct(r.diag,r.clic)}</td><td class="num">${fmt(r.ag)}</td><td class="num">${pct(r.ag,r.diag)}</td><td class="num">${fmt(r.as)}</td><td class="num">${fmt(r.v)}</td><td class="num">${usd(r.cash)}</td></tr>`).join("")
+      ||`<tr><td colspan="11" class="muted">Aún no hay entradas de ManyChat en el periodo. Llegan en vivo desde las reglas "DB · entrada …".</td></tr>`;
+  }
   attr(c=>[c?.first_campaign,c?.first_content].filter(Boolean).join(" · ")||"sin campaña","t-camp","Campaña · anuncio");
   // ruta del diagnóstico
   const rutaOf={}; m.ev.filter(e=>e.tipo==="diag_completado").forEach(e=>rutaOf[e.contact_id]=e.data?.ruta||"—");
@@ -556,7 +568,7 @@ function renderClientes(){
     list.slice(0,500).map(c=>{const [,l,col]=stageOf(c.id); return `<tr class="click" onclick="journey('${c.id}')"><td>${esc(c.nombre||"(sin nombre)")}</td><td class="muted">${esc(c.email||c.telefono||"—")}</td><td><span class="pill"><i style="background:${col}"></i>${l}</span></td><td>${fdate(c.first_seen_at)}</td><td>${esc(srcOf(c))}</td><td class="muted">${esc(F[c.first_funnel_id]?.nombre||"—")}</td><td class="num">${(evByC[c.id]||[]).length}</td><td class="num">${usd(sum(salesByC[c.id]||[],"valor_total"))}</td></tr>`;}).join("")+
     (list.length>500?`<tr><td colspan="8" class="muted">Mostrando 500 de ${fmt(list.length)} · usa el buscador</td></tr>`:"");
 }
-const EVL={diag_iniciado:"Inició diagnóstico",diag_completado:"Completó diagnóstico",registro_webinar:"Se registró al webinar",asistio_webinar:"Asistió al webinar",form_evaluacion:"Llenó evaluación",calificado:"Calificado",descalificado:"Descalificado",cita_agendada:"Agendó llamada",cita_asistida:"Asistió a la llamada",no_show:"No asistió",reagendada:"Reagendó",venta:"Compró",pago:"Pago recibido",reembolso:"Reembolso",membresia_alta:"Alta en membresía",membresia_baja:"Baja de membresía",onboarding_diagnostico:"Llenó diagnóstico 1 a 1",sesion1_agendada:"Agendó sesión 1 con Mercedes"};
+const EVL={diag_iniciado:"Inició diagnóstico",diag_completado:"Completó diagnóstico",registro_webinar:"Se registró al webinar",asistio_webinar:"Asistió al webinar",form_evaluacion:"Llenó evaluación",calificado:"Calificado",descalificado:"Descalificado",cita_agendada:"Agendó llamada",cita_asistida:"Asistió a la llamada",no_show:"No asistió",reagendada:"Reagendó",venta:"Compró",pago:"Pago recibido",reembolso:"Reembolso",membresia_alta:"Alta en membresía",membresia_baja:"Baja de membresía",onboarding_diagnostico:"Llenó diagnóstico 1 a 1",sesion1_agendada:"Agendó sesión 1 con Mercedes",ig_entrada:"Entró a ManyChat (IG)",ig_link_enviado:"Recibió el link (IG)",ig_click:"Clic al link del diagnóstico (IG)"};
 const EVC={venta:"var(--good)",pago:"var(--good)",cita_asistida:"var(--s3)",cita_agendada:"var(--s2)",no_show:"var(--crit)",diag_completado:"var(--s1)",membresia_alta:"var(--s1)"};
 function journey(id){
   const c=C[id]; if(!c) return;
