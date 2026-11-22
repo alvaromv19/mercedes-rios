@@ -244,13 +244,14 @@ function index(){
   // Parte de cada pago que cae en la 1ª cuota (base de Closers y LLC). Sin venta o suscripción: cuenta entero.
   D.payments.forEach(p=>{p._b1=+p.monto_bruto; p._f1=+p.fee;});
   D.sales.forEach(s=>{
-    if(s.modalidad==="suscripcion") return;
+    const ps0=(paysBySale[s.id]||[]);
+    // Membresía (Ruta Black): ni Closers ni LLC; solo comisión de Stripe.
+    if(s.modalidad==="suscripcion"){ ps0.forEach(p=>{p._b1=0; p._f1=0;}); return; }
     const plan=(instBySale[s.id]||[]).slice().sort((a,b)=>a.n-b.n);
-    // reserva del histórico: 1ª cuota = reserva + su complemento (n1+n2); resto: n1; sin plan: total
-    let cap=plan.length?+plan[0].monto:+s.valor_total;
-    if(s.modalidad==="reserva"&&plan.length>=4) cap+= +plan[1].monto;
+    // 1ª cuota: campo primera_cuota de la venta; si falta, 1ª fila del plan; sin plan, el total
+    let cap=s.primera_cuota!=null?+s.primera_cuota:plan.length?+plan[0].monto:+s.valor_total;
     let acc=0;
-    (paysBySale[s.id]||[]).filter(p=>p.estado==="pagado").sort((a,b)=>String(a.fecha).localeCompare(String(b.fecha))).forEach(p=>{
+    ps0.filter(p=>p.estado==="pagado").sort((a,b)=>String(a.fecha).localeCompare(String(b.fecha))).forEach(p=>{
       const m=+p.monto_bruto; p._b1=Math.max(0,Math.min(m,cap-acc)); p._f1=m?+p.fee*p._b1/m:0; acc+=m;
     });
   });
