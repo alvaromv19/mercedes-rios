@@ -241,8 +241,22 @@ function index(){
   paysBySale=group(D.payments.filter(p=>p.sale_id),p=>p.sale_id);
   instBySale=group(D.installments,i=>i.sale_id);
   apptsByC=group(D.appointments,a=>a.contact_id); evByC=group(D.events,e=>e.contact_id); salesByC=group(D.sales,s=>s.contact_id);
+  // Parte de cada pago que cae en la 1ª cuota (base de Closers y LLC). Sin venta o suscripción: cuenta entero.
+  D.payments.forEach(p=>{p._b1=+p.monto_bruto; p._f1=+p.fee;});
+  D.sales.forEach(s=>{
+    if(s.modalidad==="suscripcion") return;
+    const plan=(instBySale[s.id]||[]).slice().sort((a,b)=>a.n-b.n);
+    // reserva del histórico: 1ª cuota = reserva + su complemento (n1+n2); resto: n1; sin plan: total
+    let cap=plan.length?+plan[0].monto:+s.valor_total;
+    if(s.modalidad==="reserva"&&plan.length>=4) cap+= +plan[1].monto;
+    let acc=0;
+    (paysBySale[s.id]||[]).filter(p=>p.estado==="pagado").sort((a,b)=>String(a.fecha).localeCompare(String(b.fecha))).forEach(p=>{
+      const m=+p.monto_bruto; p._b1=Math.max(0,Math.min(m,cap-acc)); p._f1=m?+p.fee*p._b1/m:0; acc+=m;
+    });
+  });
   D.sales.forEach(s=>{
     const ps=(paysBySale[s.id]||[]).filter(p=>p.estado==="pagado");
+    s._b1=sum(ps,"_b1");
     s._bruto=sum(ps,"monto_bruto"); s._neto=ps.reduce((a,p)=>a+(+p.monto_bruto-+p.fee),0);
     s._sub = s.modalidad==="suscripcion";
     s._saldo = s._sub||["cancelada","reembolsada"].includes(s.estado) ? 0 : Math.max(+s.valor_total-s._bruto,0);
@@ -322,8 +336,9 @@ function metrics(x){
   const pays=D.payments.filter(p=>p.estado==="pagado"&&x.inR(p.fecha)&&(x.fu==="all"||x.fOk(salesById[p.sale_id]?.funnel_id))&&(x.src==="all"||x.cOk(p.contact_id)));
   const spend=D.ad_spend.filter(a=>x.inR(a.fecha)&&x.fOk(a.funnel_id));
   const bruto=sum(pays,"monto_bruto"), fee=sum(pays,"fee");
+  const bruto1=sum(pays,"_b1"), neto1=bruto1-sum(pays,"_f1");
   return {ev,leads,diag,agend,asis,noshow,sales,ht,pays,spend,
-    contratado:sum(ht,"valor_total"), bruto, fee, neto:bruto-fee,
+    contratado:sum(ht,"valor_total"), bruto, fee, neto:bruto-fee, bruto1, neto1,
     saldo:sum(ht,s=>s._saldo), vencido:sum(ht.filter(s=>s._estado==="vencido"),s=>s._saldo),
     cobradoCohorte:sum(ht,s=>s._bruto), inversion:sum(spend,"gasto"),
     compradores:uniq(ht.map(s=>s.contact_id))};
@@ -454,11 +469,11 @@ function renderCash(x,m){
   if(ROLE==="admin"){
     const rules=D.payout_rules.filter(r=>r.activo).sort((a,b)=>a.orden-b.orden);
     // cascada en orden: cada regla descuenta del remanente; 'remanente' usa lo que queda en ese punto
-    let rem=m.neto; const out=rules.map(r=>{const base=r.base==="cobrado_bruto"?m.bruto:r.base==="cobrado_neto"?m.neto:rem; const v=base*r.pct/100; rem-=v; return {r,base,v};});
+    let rem=m.neto; const out=rules.map(r=>{const p1=!!r.solo_primera_cuota; const base=r.base==="cobrado_bruto"?(p1?m.bruto1:m.bruto):r.base==="cobrado_neto"?(p1?m.neto1:m.neto):rem; const v=base*r.pct/100; rem-=v; return {r,base,v,p1};});
     const remFinal=rem;
     $("payout").innerHTML=`<table><tr><th>Beneficiario</th><th>Regla</th><th class="num">Base</th><th class="num">Monto</th></tr>`+
       `<tr><td>Cash neto</td><td class="muted">bruto ${usd(m.bruto,2)} − fees</td><td></td><td class="num"><b>${usd(m.neto,2)}</b></td></tr>`+
-      out.map(o=>`<tr><td>${esc(o.r.beneficiario)}</td><td class="muted">${o.r.pct}% de ${o.r.base.replace("_"," ")}</td><td class="num">${usd(o.base,2)}</td><td class="num">${usd(o.v,2)}</td></tr>`).join("")+
+      out.map(o=>`<tr><td>${esc(o.r.beneficiario)}</td><td class="muted">${o.r.pct}% de ${o.r.base.replace("_"," ")}${o.p1?" · solo 1ª cuota":""}</td><td class="num">${usd(o.base,2)}</td><td class="num">${usd(o.v,2)}</td></tr>`).join("")+
       `<tr><td><b>Eduardo</b></td><td class="muted">remanente final</td><td></td><td class="num"><b>${usd(remFinal,2)}</b></td></tr></table>`;
   }
   const un=D.payments.filter(p=>!p.sale_id);
@@ -475,9 +490,9 @@ function renderClosers(x){
     const a=ap.filter(z=>(z.closer_id||"sin_asignar")===id), s=ss.filter(z=>(z.closer_id||"sin_asignar")===id);
     const asis=uniq(a.filter(z=>z.estado==="asistio").map(z=>z.contact_id)), ns=uniq(a.filter(z=>z.estado==="no_show").map(z=>z.contact_id)).filter(c=>!asis.includes(c));
     const cob=sum(s,z=>z._bruto); const pctc=CL[id]?.comision_pct??0;
-    return {id,n:uniq(a.map(z=>z.contact_id)).length,asis:asis.length,ns:ns.length,seg:a.filter(z=>z.resultado==="seguimiento").length,v:s.length,contr:sum(s,"valor_total"),cob,saldo:sum(s,z=>z._saldo),com:cob*pctc/100,pctc};
+    return {id,n:uniq(a.map(z=>z.contact_id)).length,asis:asis.length,ns:ns.length,seg:a.filter(z=>z.resultado==="seguimiento").length,v:s.length,contr:sum(s,"valor_total"),cob,saldo:sum(s,z=>z._saldo),com:sum(s,z=>z._b1)*pctc/100,pctc};
   }).sort((a,b)=>b.cob-a.cob);
-  $("t-closers").innerHTML=`<tr><th>Closer</th><th class="num">Leads agendados</th><th class="num">Asistieron</th><th class="num">No-show</th><th class="num">Show</th><th class="num">Seguimiento</th><th class="num">Ventas</th><th class="num">Cierre</th><th class="num">Contratado</th><th class="num">Cobrado</th><th class="num">Por cobrar</th>${ROLE==="admin"?'<th class="num">Comisión</th>':''}</tr>`+
+  $("t-closers").innerHTML=`<tr><th>Closer</th><th class="num">Leads agendados</th><th class="num">Asistieron</th><th class="num">No-show</th><th class="num">Show</th><th class="num">Seguimiento</th><th class="num">Ventas</th><th class="num">Cierre</th><th class="num">Contratado</th><th class="num">Cobrado</th><th class="num">Por cobrar</th>${ROLE==="admin"?'<th class="num">Comisión (1ª cuota)</th>':''}</tr>`+
     rows.map(r=>`<tr><td>${esc(CL[r.id]?.nombre||"Sin asignar")}</td><td class="num">${r.n}</td><td class="num">${r.asis}</td><td class="num">${r.ns}</td><td class="num">${pct(r.asis,r.asis+r.ns)}</td><td class="num">${r.seg}</td><td class="num">${r.v}</td><td class="num">${pct(r.v,r.asis)}</td><td class="num">${usd(r.contr)}</td><td class="num">${usd(r.cob)}</td><td class="num">${usd(r.saldo)}</td>${ROLE==="admin"?`<td class="num">${usd(r.com,2)} <span class="muted">(${r.pctc}%)</span></td>`:''}</tr>`).join("");
   const rc=rows.filter(r=>r.cob>0);
   barChart("ch-closer",{labels:rc.map(r=>CL[r.id]?.nombre||"Sin asignar"),data:rc.map(r=>r.cob)},"Cobrado","var(--s1)",true,true);
