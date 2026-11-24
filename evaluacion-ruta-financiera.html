@@ -853,7 +853,7 @@
             <div class="brand-badge" style="margin-bottom: 16px;">Solicitud Registrada</div>
             <h2 class="question-title" style="font-size: 1.45rem;">Gracias por completar tu evaluación, <span id="downsellName"></span></h2>
             <p class="question-helper" style="max-width: 520px; margin: 12px auto 24px;">
-                En este momento nuestro programa de acompañamiento personalizado 1 a 1 requiere contar con un capital mínimo de arranque para la radicación de tu LLC y estructura bancaria en EE. UU. Te hemos enviado a tu correo y WhatsApp recursos gratuitos para que empieces a preparar tus cimientos financieros.
+                En este momento nuestro programa de acompañamiento personalizado 1 a 1 requiere contar con un capital mínimo de arranque para la radicación de tu LLC y estructura bancaria en EE. UU. Te enviamos por WhatsApp un recurso gratuito para que empieces a preparar tus cimientos financieros, y el enlace para volver a aplicar cuando estés listo.
             </p>
         </div>
     </div>
@@ -866,7 +866,7 @@
         /* =====================================================================
            CONFIGURACIÓN DE ENDPOINTS GOHIGHLEVEL (GHL)
            ===================================================================== */
-        const GHL_WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/cX1DErTUIk1O4YRymZcS/webhook-trigger/ea8ee2d4-83c0-4b04-a44a-7a4ce46839ff';
+        const GHL_WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/cX1DErTUIk1O4YRymZcS/webhook-trigger/cIdMU5PE41hh1E5ENMOs';
         const GHL_CALENDAR_WIDGET_URL = 'https://api.leadconnectorhq.com/widget/booking/5m5j2hzwFfel7xF8Nwcx';
         // Si tienes una URL externa para el Downsell, colócala aquí. Si la dejas vacía (''), mostrará la tarjeta de Downsell integrada.
         const DOWNSELL_REDIRECT_URL = '';
@@ -1133,7 +1133,7 @@
 
             // Formatear Teléfono E.164
             const dialCode = document.getElementById('selectedDial').textContent.trim();
-            const nationalNumber = document.getElementById('whatsapp').value.replace(/\D/g, '');
+            const nationalNumber = document.getElementById('whatsapp').value.replace(/\D/g, '').replace(/^0+/, '');
             const fullPhone = dialCode + nationalNumber;
 
             // Respuestas de las preguntas
@@ -1156,20 +1156,20 @@
             if (capitalDisponible === '$2,000 USD o más') {
                 tagClasificacion = 'lead:vip-2k';
                 esCalificado = 'SI';
-                estrategiaCloser = 'Lead Ideal: Presentar Opción A (Pago Único $2,000 USD) anclando bonos de acción rápida.';
+                estrategiaCloser = 'Lead ideal: presentar pago único de $2,500 USD (precio Black Friday; desde el 5-dic $3,000). Alternativa: 2 cuotas de $1,297.';
             } else if (capitalDisponible === '$1,000 a $1,999 USD') {
                 tagClasificacion = 'lead:calificado-1k';
                 esCalificado = 'SI';
-                estrategiaCloser = 'Calificado Medio: Intentar Pago Único con tarjeta; si el límite es real, cerrar con Opción B (2 cuotas de $1,000 USD).';
+                estrategiaCloser = 'Calificado medio: intentar pago único de $2,500; si el límite es real, cerrar con 2 cuotas de $1,297 o 3 de $897.';
             } else if (capitalDisponible === '$700 a $999 USD') {
                 tagClasificacion = 'lead:calificado-700';
                 esCalificado = 'SI';
-                estrategiaCloser = 'Calificado Base: Presentar valor completo y bajar directo a Opción C (3 cuotas de $700 USD) o Reserva de $700.';
+                estrategiaCloser = 'Calificado base: presentar valor completo y bajar a 3 cuotas de $897, o reserva de $500-$700 para asegurar el cupo.';
             } else if (capitalDisponible === 'Menos de $700 USD') {
                 if (rescateCapital === 'Sí estoy dispuesto a conseguir entre $500 y $700') {
                     tagClasificacion = 'lead:rescate-500-700';
                     esCalificado = 'SI';
-                    estrategiaCloser = 'Lead Rescatado ($500-$700): Confirmó disposición a conseguir capital de reserva/compromiso.';
+                    estrategiaCloser = 'Lead rescatado ($500-$700): confirmó que consigue capital. Cerrar reserva de $500-$700 hoy y luego plan de cuotas.';
                 } else {
                     tagClasificacion = 'lead:descalificado-sin-capital';
                     esCalificado = 'NO';
@@ -1192,7 +1192,7 @@
                 es_calificado: esCalificado,
                 tag_clasificacion: tagClasificacion,
                 estrategia_closer: estrategiaCloser,
-                canal_de_captacion_inicial: 'VSL Evergreen',
+                canal_de_captacion_inicial: urlSearchParams.get('canal') || urlSearchParams.get('utm_source') || 'VSL Evergreen',
                 fbclid: urlSearchParams.get('fbclid') || '',
                 utm_source: urlSearchParams.get('utm_source') || '',
                 utm_medium: urlSearchParams.get('utm_medium') || '',
@@ -1206,7 +1206,8 @@
             fetch(GHL_WEBHOOK_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(ghlPayload)
+                body: JSON.stringify(ghlPayload),
+                keepalive: true
             })
             .then(() => {
                 enrutarSegunCalificacion(ghlPayload);
