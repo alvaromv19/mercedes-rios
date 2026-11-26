@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ruta Black · Jueves 26</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap">
+<style>
+:root{
+  --paper:#FAF7F0; --surface:#FFFFFF; --ink:#13342A; --body:#23332C;
+  --muted:#5C6C63; --gold:#A8762A; --gold-soft:#F2E6CE; --rule:#DED7C8;
+  --band:#13342A; --band-ink:#FAF7F0; color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#0E201A; --surface:#15291F; --ink:#F0EADD; --body:#D8E0D8;
+    --muted:#95A79C; --gold:#D9A64A; --gold-soft:#2A2113; --rule:#2C4237;
+    --band:#1E3A2E; --band-ink:#F5EFE2; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0E201A; --surface:#15291F; --ink:#F0EADD; --body:#D8E0D8;
+  --muted:#95A79C; --gold:#D9A64A; --gold-soft:#2A2113; --rule:#2C4237;
+  --band:#1E3A2E; --band-ink:#F5EFE2; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--body);
+  font-family:'DM Sans',system-ui,-apple-system,Segoe UI,sans-serif;
+  font-size:17px;line-height:1.62;margin:0;padding:0 16px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:780px;margin:0 auto;padding-bottom:80px}
+header.top{padding:60px 0 0}
+.brand{font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);font-weight:500;margin:0 0 6px}
+.brand b{color:var(--ink);font-weight:700}
+h1{font-family:'Libre Baskerville',Georgia,serif;font-weight:700;
+  font-size:clamp(34px,6vw,52px);line-height:1.06;letter-spacing:-.015em;color:var(--ink);margin:14px 0 0;text-wrap:balance}
+h1 em{display:block;font-style:normal;color:var(--gold)}
+.dek{font-family:'Libre Baskerville',Georgia,serif;font-style:italic;
+  font-size:18px;line-height:1.5;color:var(--muted);max-width:46ch;margin:20px 0 0}
+.meta{margin:34px 0 0;padding:18px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px 26px}
+.meta dt{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:500;margin:0 0 3px}
+.meta dd{margin:0;font-size:14.5px;color:var(--ink);font-weight:500}
+h2{font-family:'Libre Baskerville',Georgia,serif;font-weight:700;
+  font-size:clamp(25px,4vw,32px);line-height:1.18;color:var(--ink);
+  margin:0 0 8px;padding-bottom:12px;border-bottom:2px solid var(--ink);text-wrap:balance}
+section{padding:58px 0 0}
+p{margin:0 0 14px}
+.lede{font-size:17px;color:var(--muted);font-style:italic;
+  font-family:'Libre Baskerville',Georgia,serif;line-height:1.55;margin:0 0 26px;max-width:58ch}
+.blk{margin:0 0 28px;border:1px solid var(--rule);border-radius:4px;overflow:hidden;background:var(--surface)}
+.blk-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px;
+  background:var(--band);color:var(--band-ink);padding:9px 18px}
+.blk-h .t{font-size:12px;letter-spacing:.12em;font-weight:700;font-variant-numeric:tabular-nums;color:var(--gold)}
+.blk-h .n{font-size:12.5px;letter-spacing:.04em;font-weight:500;opacity:.9}
+.say{padding:20px 20px 6px;font-family:'Libre Baskerville',Georgia,serif;
+  font-size:19.5px;line-height:1.62;color:var(--ink)}
+.say p{margin:0 0 15px}
+.say .do{display:block;font-family:'DM Sans',sans-serif;font-style:italic;
+  font-size:15px;color:var(--gold);margin:0 0 14px}
+.tone{margin:0;padding:14px 20px 16px;border-top:1px dashed var(--rule);background:var(--gold-soft)}
+.tone p{margin:0 0 7px;font-size:15px;line-height:1.55}
+.tone p:last-child{margin:0}
+.tone b{color:var(--ink)}
+.tone .lbl{display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--gold);font-weight:700;margin-bottom:6px}
+.flag{margin:0 0 18px;padding:14px 18px;border:1px solid var(--rule);border-left:3px solid var(--gold);
+  background:var(--gold-soft);border-radius:4px;font-size:15.5px;line-height:1.6}
+.flag p{margin:0 0 9px}.flag p:last-child{margin:0}
+.flag b{color:var(--ink)}
+ul.plain{margin:0 0 16px;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+ul.plain li{position:relative;padding-left:19px;font-size:16px;line-height:1.58}
+ul.plain li::before{content:"";position:absolute;left:0;top:.66em;width:5px;height:5px;border-radius:50%;background:var(--gold)}
+.no{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px}
+.no li{padding:12px 16px;background:var(--surface);border:1px solid var(--rule);
+  border-left:3px solid #B23B2E;border-radius:0 4px 4px 0;font-size:15.5px;line-height:1.55}
+.no li b{color:var(--ink)}
+.msg{background:var(--surface);border:1px solid var(--rule);border-radius:4px;padding:18px 20px;
+  font-size:16.5px;line-height:1.6;white-space:pre-wrap;word-break:break-word;color:var(--ink)}
+.small{font-size:14.5px;color:var(--muted)}
+code{font-size:13px;word-break:break-all;background:var(--gold-soft);padding:1px 4px;border-radius:3px}
+footer{margin-top:72px;padding:22px 0 0;border-top:1px solid var(--rule);font-size:12.5px;color:var(--muted)}
+@media print{body{background:#fff;font-size:12pt}.blk{break-inside:avoid}section{padding-top:28px}}
+
+table.num{width:100%;border-collapse:collapse;font-size:16px;margin:6px 0 4px}
+table.num td{padding:6px 8px;border-bottom:1px solid var(--rule)}
+table.num td:last-child{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.num tr.tot td{font-weight:700;color:var(--ink)}
+.say table.num{font-family:'DM Sans',sans-serif}
+code{font-size:13.5px;word-break:break-all;background:var(--gold-soft);padding:2px 5px;border-radius:3px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <p class="brand"><b>RUTA BLACK VIP</b> &nbsp;·&nbsp; Para Mercedes Ríos</p>
+  <h1>Los números de una propiedad<em>Clase del jueves 26</em></h1>
+  <p class="dek">Lo que está en letra grande se dice. Lo de abajo de cada bloque es cómo decirlo.</p>
+  <dl class="meta">
+    <div><dt>Cuándo</dt><dd>Jueves 26 de noviembre</dd></div>
+    <div><dt>Hora</dt><dd>7:00 PM Colombia</dd></div>
+    <div><dt>Duración</dt><dd>~60 minutos</dd></div>
+    <div><dt>Al final</dt><dd>Invitación a la clase de mañana</dd></div>
+  </dl>
+</header>
+<section>
+  <h2>Antes de la clase</h2>
+  <ul class="plain">
+    <li><b>Hoy es Acción de Gracias</b> en Estados Unidos. Puede llegar menos gente: no lo menciones como problema, agradece a los que están.</li>
+    <li><b>Ten el ejemplo en pantalla</b> o en una hoja: la tabla del ejercicio se entiende mejor viéndola.</li>
+    <li><b>Es una clase para enseñar, no para vender.</b> La única mención a lo de mañana va en los últimos tres minutos.</li>
+  </ul>
+</section>
+<section>
+  <h2>La clase</h2>
+  <div class="blk">
+    <div class="blk-h"><span class="t">0 – 5 min</span><span class="n">Apertura</span></div>
+    <div class="say">
+      <p>“Hoy es jueves de Acción de Gracias, y ustedes están acá. Gracias de verdad.</p>
+      <p>Hoy no vamos a hablar de cómo conseguir el dinero. Hoy vamos a hablar de algo que casi nadie hace antes de comprar: <b>mirar los números de una propiedad.</b></p>
+      <p>Antes de empezar, escríbanme en el chat: ¿qué propiedad tienen en la cabeza? La ciudad y más o menos el precio.”</p>
+    </div>
+    <div class="tone">
+      <span class="lbl">Cómo se dice</span>
+      <p><b>Cálida y corta.</b> Lee tres o cuatro del chat en voz alta, con nombre y ciudad. Vas a volver a ellos en el ejercicio.</p>
+    </div>
+  </div>
+  <div class="blk">
+    <div class="blk-h"><span class="t">5 – 10 min</span><span class="n">La idea de hoy</span></div>
+    <div class="say">
+      <p>“Una propiedad no se compra porque es bonita. <b>Se compra por los números.</b></p>
+      <p>Casi todo el mundo mira dos cosas: el precio y cuánto le toca pagar al mes. Y con eso decide. Un inversionista mira otra cosa: <b>cuánto le queda.</b></p>
+      <p>Porque hay casas que se ven buenísimas, en buen barrio, con buena renta… y pierden plata todos los meses. Y el dueño no lo sabe hasta que lleva un año poniendo de su bolsillo.”</p>
+    </div>
+    <div class="tone">
+      <span class="lbl">Cómo se dice</span>
+      <p><b>Seria.</b> «Cuánto le queda» va solo, con pausa antes.</p>
+    </div>
+  </div>
+  <div class="blk">
+    <div class="blk-h"><span class="t">10 – 30 min</span><span class="n">Los cinco números</span></div>
+    <div class="say">
+      <p>“Estos son los cinco números que yo miro antes de meterme en una propiedad.</p>
+      <p><b>Uno: la renta de verdad.</b> No la que dice el vendedor. La que se paga hoy en esa zona por algo parecido. Eso se mira en anuncios de alquiler de la misma calle o el mismo barrio.</p>
+      <p><b>Dos: los gastos que nadie te cuenta.</b> El impuesto de la propiedad. El seguro. El mantenimiento, porque algo siempre se daña. Los meses que la casa está vacía. Si alguien la administra, lo que cobra. Y si hay asociación de vecinos, la cuota.</p>
+      <p><b>Tres: lo que queda.</b> La renta del año menos todos esos gastos. Eso es lo que la propiedad produce sola. Si lo divides por el precio, te da un porcentaje, y así puedes comparar una casa con otra.</p>
+      <p><b>Cuatro: la cuota del préstamo.</b> Si la compras con préstamo, a lo que queda le restas la cuota. Lo que sobra es tu flujo: lo que entra a tu bolsillo cada mes. O lo que sale.</p>
+      <p><b>Y cinco: cuánto pones tú, y cuánto te devuelve.</b> La inicial más los gastos de cierre. Y ese flujo del año, dividido por lo que pusiste, te dice cuánto te rinde tu plata.</p>
+      <p>Y un filtro rápido, solo para descartar: si la renta del mes no llega más o menos al uno por ciento del precio, mírala con lupa. No es una regla para decidir, es para no perder tiempo.”</p>
+    </div>
+    <div class="tone">
+      <span class="lbl">Cómo se dice</span>
+      <p><b>Despacio, número por número.</b> Si tienes pizarra o pantalla, escribe los cinco mientras hablas. La gente va a querer anotar.</p>
+      <p>No hace falta decir «NOI», «cap rate» ni «cash on cash». Si alguien pregunta, dilo, pero la clase va en palabras simples.</p>
+    </div>
+  </div>
+  <div class="blk">
+    <div class="blk-h"><span class="t">30 – 45 min</span><span class="n">Ejercicio en vivo</span></div>
+    <div class="say">
+      <p>“Vamos a hacerlo con una casa. Los números son de ejemplo, redondos.</p>
+      <table class="num">
+        <tr><td>Precio</td><td>$200,000</td></tr>
+        <tr><td>Renta</td><td>$1,800 al mes · $21,600 al año</td></tr>
+        <tr><td>Impuesto de la propiedad</td><td>−$3,000</td></tr>
+        <tr><td>Seguro</td><td>−$1,800</td></tr>
+        <tr><td>Mantenimiento (8% de la renta)</td><td>−$1,728</td></tr>
+        <tr><td>Meses vacíos (5%)</td><td>−$1,080</td></tr>
+        <tr><td>Administración (8%)</td><td>−$1,728</td></tr>
+        <tr class="tot"><td>Lo que queda al año</td><td>$12,264 · 6.1% del precio</td></tr>
+        <tr><td>Cuota del préstamo (80% a 30 años, 7%)</td><td>−$1,064 al mes · −$12,774 al año</td></tr>
+        <tr class="tot"><td>Tu flujo</td><td>−$510 al año · −$42 al mes</td></tr>
+      </table>
+      <p>¿Vieron? <b>Esta casa pierde plata.</b> Poquito, pero todos los meses. Y ustedes pusieron cuarenta y seis mil dólares de inicial y cierre para eso.</p>
+      <p>Ahora cambiemos una sola cosa: la renta. Si en esa zona se paga dos mil cien en vez de mil ochocientos, lo que queda sube a quince mil cien al año, y tu flujo pasa a <b>ganar unos ciento noventa y cinco dólares al mes.</b> Más o menos un cinco por ciento al año sobre lo que pusiste.</p>
+      <p>La diferencia entre perder y ganar fueron trescientos dólares de renta. <b>Por eso se mira antes, no después.</b>”</p>
+    </div>
+    <div class="tone">
+      <span class="lbl">Cómo se dice</span>
+      <p><b>Muéstralo en pantalla</b>, línea por línea. Pausa larga en «esta casa pierde plata».</p>
+      <p>Si da el tiempo, toma una de las propiedades que escribieron en el chat y haz la misma cuenta en voz alta, con números aproximados.</p>
+    </div>
+  </div>
+  <div class="blk">
+    <div class="blk-h"><span class="t">45 – 47 min</span><span class="n">Lo que esto no es</span></div>
+    <div class="say">
+      <p>“Una cosa importante. Esto es para que aprendas a mirar, no es una recomendación de qué comprar. Los números cambian según el estado, el barrio y la tasa del día. En Florida, por ejemplo, el seguro puede ser bastante más alto que en este ejemplo. Toda inversión tiene riesgo, incluida la pérdida del capital.”</p>
+    </div>
+    <div class="tone">
+      <span class="lbl">Cómo se dice</span>
+      <p><b>Tranquila, sin asustar.</b> Es para que nadie salga a comprar con estos números.</p>
+    </div>
+  </div>
+  <div class="blk">
+    <div class="blk-h"><span class="t">47 – 57 min</span><span class="n">Preguntas</span></div>
+    <div class="say">
+      <p>“Ahora sí, pregúntenme lo que quieran de lo que vimos hoy.”</p>
+    </div>
+    <div class="tone">
+      <span class="lbl">Cómo se dice</span>
+      <p>Si alguien pregunta por su caso personal (su empresa, su crédito, a qué banco ir), responde en general y dile que eso se ve en su caso, no en grupo.</p>
+    </div>
+  </div>
+  <div class="blk">
+    <div class="blk-h"><span class="t">57 – 60 min</span><span class="n">Mañana · La Puerta de Acceso</span></div>
+    <div class="say">
+      <p>“Y antes de irnos, algo que no se pueden perder.</p>
+      <p>Mañana, viernes 27, a las siete de la noche, misma hora en Colombia y en Miami, doy una clase especial: <b>La Puerta de Acceso.</b></p>
+      <p>Hoy vimos qué mirar en una propiedad. Mañana les muestro la otra mitad: <b>de dónde sale el dinero para comprarla.</b> El crédito que los bancos le dan a las empresas, y en qué orden se consigue.</p>
+      <p>Si todavía no tienes empresa ni crédito, esta clase es para ti. Y si conoces a alguien que siempre te dice «yo quisiera invertir, pero no tengo con qué», mándale el link. Es gratis.”</p>
+    </div>
+    <div class="tone">
+      <span class="lbl">Cómo se dice</span>
+      <p><b>Corto, sin vender.</b> No digas precio, ni cupos, ni de qué trata la oferta. Solo que mañana es la otra mitad de lo que vieron hoy.</p>
+      <p>Al terminar, que el equipo fije en el chat el link del diagnóstico y el de la clase.</p>
+    </div>
+  </div>
+</section>
+<footer>Ruta Black VIP · Para Mercedes Ríos · 26 de noviembre de 2026</footer>
+</div>
+</body>
+</html>
