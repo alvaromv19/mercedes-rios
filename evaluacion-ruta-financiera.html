@@ -594,7 +594,7 @@
             <!-- PASO 1: NOMBRE Y APELLIDO -->
             <div class="step active" data-step="1">
                 <div class="step-header-row">
-                    <div class="step-number">Paso 1 de 8 <span>→</span></div>
+                    <div class="step-number">Paso 1 de 4 <span>→</span></div>
                 </div>
                 <h2 class="question-title">1. ¿Cuál es tu Nombre y Apellido? *</h2>
                 <p class="question-helper">Escribe tu nombre completo tal como aparecerá en tu invitación oficial.</p>
@@ -610,7 +610,7 @@
             <!-- PASO 2: CORREO ELECTRÓNICO -->
             <div class="step" data-step="2">
                 <div class="step-header-row">
-                    <div class="step-number">Paso 2 de 8 <span>→</span></div>
+                    <div class="step-number">Paso 2 de 4 <span>→</span></div>
                     <button type="button" class="back-btn" onclick="prevStep(2)">← Atrás</button>
                 </div>
                 <h2 class="question-title">2. ¿Cuál es tu Correo Electrónico principal? *</h2>
@@ -627,7 +627,7 @@
             <!-- PASO 3: WHATSAPP CON CÓDIGO DE PAÍS -->
             <div class="step" data-step="3">
                 <div class="step-header-row">
-                    <div class="step-number">Paso 3 de 8 <span>→</span></div>
+                    <div class="step-number">Paso 3 de 4 <span>→</span></div>
                     <button type="button" class="back-btn" onclick="prevStep(3)">← Atrás</button>
                 </div>
                 <h2 class="question-title">3. Número de WhatsApp (con código de país) *</h2>
@@ -656,127 +656,13 @@
                 </div>
             </div>
 
-            <!-- PASO 4: PUNTO DE PARTIDA RESPECTO A EE. UU. -->
+            <!-- PASO 8: FILTRO FINANCIERO CLASIFICATORIO -->
             <div class="step" data-step="4">
                 <div class="step-header-row">
-                    <div class="step-number">Paso 4 de 8 <span>→</span></div>
+                    <div class="step-number">Paso 4 de 4 <span>→</span></div>
                     <button type="button" class="back-btn" onclick="prevStep(4)">← Atrás</button>
                 </div>
-                <h2 class="question-title">4. ¿En qué punto te encuentras hoy respecto a Estados Unidos? *</h2>
-                <div class="options-list">
-                    <label class="option-card">
-                        <input type="radio" name="q_estatus_fiscal" value="Vivo en EE. UU. (tengo SSN/ITIN)" required class="auto-advance">
-                        <span class="card-indicator"></span>
-                        <span class="card-text">Vivo en EE. UU. y ya tengo SSN o ITIN vigente (o en trámite).</span>
-                    </label>
-                    <label class="option-card">
-                        <input type="radio" name="q_estatus_fiscal" value="Vivo fuera de EE. UU." class="auto-advance">
-                        <span class="card-indicator"></span>
-                        <span class="card-text">Vivo fuera de EE. UU. (Latam/Otro) y quiero estructurar mi empresa a distancia.</span>
-                    </label>
-                    <label class="option-card">
-                        <input type="radio" name="q_estatus_fiscal" value="Vivo en EE. UU. pero no tengo SSN/ITIN" class="auto-advance">
-                        <span class="card-indicator"></span>
-                        <span class="card-text">Vivo en EE. UU., pero aún no tengo SSN ni ITIN.</span>
-                    </label>
-                </div>
-            </div>
-
-            <!-- PASO 5: SITUACIÓN ACTUAL CON LLC -->
-            <div class="step" data-step="5">
-                <div class="step-header-row">
-                    <div class="step-number">Paso 5 de 8 <span>→</span></div>
-                    <button type="button" class="back-btn" onclick="prevStep(5)">← Atrás</button>
-                </div>
-                <h2 class="question-title">5. ¿Cuál es tu situación actual con tu empresa (LLC) en EE. UU.? *</h2>
-                <div class="options-list">
-                    <label class="option-card">
-                        <input type="radio" name="q_situacion_llc" value="Empiezo desde cero" required class="auto-advance">
-                        <span class="card-indicator"></span>
-                        <span class="card-text">Empiezo desde cero: aún no tengo LLC y quiero formarla bien desde el primer día.</span>
-                    </label>
-                    <label class="option-card">
-                        <input type="radio" name="q_situacion_llc" value="Tengo LLC inactiva o mal estructurada" class="auto-advance">
-                        <span class="card-indicator"></span>
-                        <span class="card-text">Ya tengo una LLC creada, pero está inactiva, mal estructurada o los bancos no me aprueban crédito.</span>
-                    </label>
-                    <label class="option-card">
-                        <input type="radio" name="q_situacion_llc" value="Tengo LLC activa y operando" class="auto-advance">
-                        <span class="card-indicator"></span>
-                        <span class="card-text">Ya tengo LLC activa y operando, y busco escalar mi acceso a capital empresarial.</span>
-                    </label>
-                </div>
-            </div>
-
-            <!-- PASO 6: MOTIVACIÓN PRINCIPAL EN LOS PRÓXIMOS 90 DÍAS -->
-            <div class="step" data-step="6">
-                <div class="step-header-row">
-                    <div class="step-number">Paso 6 de 8 <span>→</span></div>
-                    <button type="button" class="back-btn" onclick="prevStep(6)">← Atrás</button>
-                </div>
-                <h2 class="question-title">6. ¿Cuál es tu motivación principal para dar este paso en los próximos 90 días? *</h2>
-                <div class="options-list">
-                    <label class="option-card">
-                        <input type="radio" name="q_motivacion" value="Acceder a capital bancario al 0%" required class="motivation-radio">
-                        <span class="card-indicator"></span>
-                        <span class="card-text">Acceder a capital bancario al 0% en EE. UU. para invertir (Bienes Raíces, Bolsa u Oro) sin usar mis ahorros.</span>
-                    </label>
-                    <label class="option-card">
-                        <input type="radio" name="q_motivacion" value="Inyectar liquidez a mi negocio actual" class="motivation-radio">
-                        <span class="card-indicator"></span>
-                        <span class="card-text">Inyectar liquidez, inventario o capital de trabajo a mi negocio actual.</span>
-                    </label>
-                    <label class="option-card">
-                        <input type="radio" name="q_motivacion" value="Dejar de cometer errores y ordenarme" class="motivation-radio">
-                        <span class="card-indicator"></span>
-                        <span class="card-text">Dejar de cometer errores por mi cuenta, ordenar mis finanzas/impuestos y tener una estructura bancaria sólida.</span>
-                    </label>
-                    <label class="option-card">
-                        <input type="radio" name="q_motivacion" value="Otra" class="motivation-radio">
-                        <span class="card-indicator"></span>
-                        <span class="card-text">Otra motivación (Especificar brevemente).</span>
-                    </label>
-                </div>
-
-                <div class="other-motivation-wrap" id="otherMotivationWrap">
-                    <input type="text" id="otraMotivacionTexto" class="no-advance" placeholder="Escribe brevemente tu motivación principal...">
-                    <div class="nav-controls" style="margin-top: 16px;">
-                        <button type="button" class="next-button" onclick="validateStep6Other()">Continuar →</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- PASO 7: FILTRO DE AUTORIDAD / TOMADOR DE DECISIÓN -->
-            <div class="step" data-step="7">
-                <div class="step-header-row">
-                    <div class="step-number">Paso 7 de 8 <span>→</span></div>
-                    <button type="button" class="back-btn" onclick="prevStep(7)">← Atrás</button>
-                </div>
-                <h2 class="question-title">7. Para estructurar tu empresa y tomar decisiones financieras, ¿quién participa en la decisión? *</h2>
-                <div class="options-list">
-                    <label class="option-card">
-                        <input type="radio" name="q_decision" value="La decisión depende 100% de mí" required class="auto-advance">
-                        <span class="card-indicator"></span>
-                        <span class="card-text">La decisión depende 100% de mí.</span>
-                    </label>
-                    <label class="option-card">
-                        <input type="radio" name="q_decision" value="Tomo la decisión con pareja/socio" class="auto-advance">
-                        <span class="card-indicator"></span>
-                        <span class="card-text">Tomo la decisión junto con mi pareja o socio(a) de negocio.</span>
-                    </label>
-                </div>
-                <div class="warning-box">
-                    📌 <strong>Nota importante:</strong> Si tomas decisiones financieras con tu pareja o socio(a), es requisito indispensable que ambos asistan a la videollamada, ya que no reprogramamos segundas sesiones informativas.
-                </div>
-            </div>
-
-            <!-- PASO 8: FILTRO FINANCIERO CLASIFICATORIO -->
-            <div class="step" data-step="8">
-                <div class="step-header-row">
-                    <div class="step-number">Paso 8 de 8 <span>→</span></div>
-                    <button type="button" class="back-btn" onclick="prevStep(8)">← Atrás</button>
-                </div>
-                <h2 class="question-title">8. El acompañamiento personalizado de 90 días requiere capital para tu inscripción y puesta en marcha. Si en la llamada confirmamos que tu perfil califica, ¿con qué capital dispones hoy para iniciar? *</h2>
+                <h2 class="question-title">4. El acompañamiento personalizado de 90 días requiere capital para tu inscripción y puesta en marcha. Si en la llamada confirmamos que tu perfil califica, ¿con qué capital dispones hoy para iniciar? *</h2>
                 <div class="options-list">
                     <label class="option-card">
                         <input type="radio" name="q_capital" value="$2,000 USD o más" required class="capital-radio">
@@ -808,10 +694,10 @@
             </div>
 
             <!-- PASO 9 (PREGUNTA OCULTA DE RESCATE SI ELIGE MENOS DE $700 USD) -->
-            <div class="step" data-step="9">
+            <div class="step" data-step="5">
                 <div class="step-header-row">
                     <div class="step-number">Verificación de Compromiso <span>→</span></div>
-                    <button type="button" class="back-btn" onclick="prevStep(9)">← Atrás</button>
+                    <button type="button" class="back-btn" onclick="prevStep(5)">← Atrás</button>
                 </div>
                 <h2 class="question-title">¿Estarías dispuesto(a) a conseguir entre $500 y $700 USD al menos para asegurar tu ingreso o compromiso si confirmamos que tu perfil aplica? *</h2>
                 <p class="question-helper">Solo habilitamos espacios de agenda privada con personas listas para tomar acción real sobre su estructura en EE. UU.</p>
@@ -871,7 +757,7 @@
         // Si tienes una URL externa para el Downsell, colócala aquí. Si la dejas vacía (''), mostrará la tarjeta de Downsell integrada.
         const DOWNSELL_REDIRECT_URL = '';
 
-        const totalSteps = 8;
+        const totalSteps = 4;
 
         function updateProgressBar(currentStep) {
             const clamped = Math.min(currentStep, totalSteps);
@@ -916,7 +802,7 @@
         }
 
         function prevStep(currentStepNum) {
-            const targetStep = currentStepNum === 9 ? 8 : currentStepNum - 1;
+            const targetStep = currentStepNum - 1;
             showStep(currentStepNum, targetStep);
         }
 
@@ -941,31 +827,6 @@
             });
         });
 
-        // Lógica del Paso 6 (Motivación + Opción abierta "Otra")
-        document.querySelectorAll('.motivation-radio').forEach(radio => {
-            radio.addEventListener('change', function() {
-                const otherWrap = document.getElementById('otherMotivationWrap');
-                const otherInput = document.getElementById('otraMotivacionTexto');
-                if (this.value === 'Otra') {
-                    otherWrap.classList.add('visible');
-                    setTimeout(() => otherInput.focus(), 100);
-                } else {
-                    otherWrap.classList.remove('visible');
-                    setTimeout(() => showStep(6, 7), 320);
-                }
-            });
-        });
-
-        function validateStep6Other() {
-            const txt = document.getElementById('otraMotivacionTexto').value.trim();
-            if (!txt) {
-                alert('Por favor escribe brevemente tu motivación principal.');
-                document.getElementById('otraMotivacionTexto').focus();
-                return;
-            }
-            showStep(6, 7);
-        }
-
         // Lógica del Paso 8 (Si marca "Menos de $700 USD" abre Paso 9 Oculto; si no, envía directo)
         function handleStep8Continue() {
             const selectedCapital = document.querySelector('input[name="q_capital"]:checked');
@@ -975,7 +836,7 @@
             }
 
             if (selectedCapital.value === 'Menos de $700 USD') {
-                showStep(8, 9);
+                showStep(4, 5);
             } else {
                 submitEvaluationAndRoute();
             }
@@ -1137,14 +998,6 @@
             const fullPhone = dialCode + nationalNumber;
 
             // Respuestas de las preguntas
-            const estatusFiscal = document.querySelector('input[name="q_estatus_fiscal"]:checked')?.value || '';
-            const situacionLlc = document.querySelector('input[name="q_situacion_llc"]:checked')?.value || '';
-            let motivacion = document.querySelector('input[name="q_motivacion"]:checked')?.value || '';
-            const motivacionDetalle = document.getElementById('otraMotivacionTexto').value.trim();
-            if (motivacion === 'Otra' && motivacionDetalle) {
-                motivacion = 'Otra: ' + motivacionDetalle;
-            }
-            const tomadorDecision = document.querySelector('input[name="q_decision"]:checked')?.value || '';
             const capitalDisponible = document.querySelector('input[name="q_capital"]:checked')?.value || '';
             const rescateCapital = document.querySelector('input[name="q_rescate"]:checked')?.value || 'No aplica (Calificó directo)';
 
@@ -1183,10 +1036,6 @@
                 full_name: fullName,
                 email: document.getElementById('email').value.trim(),
                 phone: fullPhone,
-                estatus_fiscal_actual: estatusFiscal,
-                situacion_de_llc: situacionLlc,
-                motivacion_principal: motivacion,
-                tomador_de_decision: tomadorDecision,
                 capital_disponible: capitalDisponible,
                 rescate_de_capital: rescateCapital,
                 es_calificado: esCalificado,
@@ -1202,6 +1051,8 @@
                 _fbp: getCookie('_fbp'),
                 _fbc: getCookie('_fbc')
             };
+
+            try { localStorage.setItem('ruta_first_name', firstName); } catch (e) {}
 
             fetch(GHL_WEBHOOK_URL, {
                 method: 'POST',

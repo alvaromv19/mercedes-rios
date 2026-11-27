@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Tu llamada quedó agendada | Tu Ruta Financiera · Mercedes Ríos</title>
+    <meta name="robots" content="noindex">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script src="https://fast.wistia.com/player.js" async></script>
+    <script src="https://fast.wistia.com/embed/w8sn7zb8fx.js" async type="module"></script>
+
+    <style>
+        :root {
+            --bg-canvas: #060807;
+            --bg-surface: #0D140F;
+            --bg-card: rgba(255, 255, 255, 0.035);
+            --border: rgba(239, 246, 240, 0.09);
+            --neon-green: #39FF60;
+            --deep-green: #1B7A34;
+            --text-ivory: #EFF6F0;
+            --text-soft: rgba(239, 246, 240, 0.72);
+            --text-muted: rgba(239, 246, 240, 0.5);
+            --gold-accent: #D4AF37;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { -webkit-text-size-adjust: 100%; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg-canvas);
+            color: var(--text-ivory);
+            line-height: 1.55;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .bg-glow {
+            position: fixed;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle, rgba(27, 122, 52, 0.22) 0%, rgba(57, 255, 96, 0.05) 45%, rgba(6, 8, 7, 0) 75%);
+            filter: blur(120px);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .page {
+            max-width: 1040px;
+            margin: 0 auto;
+            padding: 36px 20px calc(48px + env(safe-area-inset-bottom));
+        }
+
+        /* ---------- Cabecera ---------- */
+        .hero { text-align: center; margin-bottom: 28px; }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            border-radius: 999px;
+            background: rgba(27, 122, 52, 0.2);
+            border: 1px solid rgba(57, 255, 96, 0.35);
+            font-size: 0.72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--neon-green);
+        }
+        .badge .dot {
+            width: 7px; height: 7px; border-radius: 50%;
+            background: var(--neon-green);
+            box-shadow: 0 0 10px var(--neon-green);
+        }
+
+        h1 {
+            margin-top: 16px;
+            font-size: clamp(1.6rem, 4.6vw, 2.35rem);
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+        }
+        h1 .accent { color: var(--neon-green); }
+
+        .hero p {
+            margin: 12px auto 0;
+            max-width: 560px;
+            color: var(--text-soft);
+            font-size: 1rem;
+        }
+
+        /* ---------- Bloque video + pasos ---------- */
+        .layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 28px;
+            align-items: start;
+        }
+
+        @media (min-width: 880px) {
+            .layout { grid-template-columns: 360px 1fr; gap: 40px; }
+            .video-col { position: sticky; top: 24px; }
+        }
+
+        .video-col { display: flex; flex-direction: column; align-items: center; }
+
+        .video-frame {
+            width: 100%;
+            max-width: 340px;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(57, 255, 96, 0.28);
+            box-shadow: 0 18px 60px rgba(0, 0, 0, 0.55), 0 0 40px rgba(57, 255, 96, 0.08);
+            background: #000;
+        }
+
+        wistia-player[media-id='w8sn7zb8fx']:not(:defined) {
+            background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/w8sn7zb8fx/swatch');
+            display: block;
+            filter: blur(5px);
+            padding-top: 177.78%;
+        }
+        wistia-player { display: block; width: 100%; }
+
+        .video-hint {
+            margin-top: 12px;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            text-align: center;
+        }
+        .video-hint strong { color: var(--text-ivory); }
+
+        /* ---------- Tarjetas ---------- */
+        .stack { display: flex; flex-direction: column; gap: 18px; }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 22px 20px;
+        }
+        .card h2 {
+            font-size: 1.08rem;
+            font-weight: 800;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .card h2 .tag {
+            font-size: 0.66rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--neon-green);
+            border: 1px solid rgba(57, 255, 96, 0.35);
+            border-radius: 999px;
+            padding: 3px 9px;
+        }
+
+        .card.highlight {
+            border-color: rgba(57, 255, 96, 0.45);
+            background: linear-gradient(180deg, rgba(27, 122, 52, 0.22), rgba(27, 122, 52, 0.06));
+        }
+
+        /* Pasos numerados */
+        .steps { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+        .steps li { display: grid; grid-template-columns: 34px 1fr; gap: 12px; }
+        .num {
+            width: 34px; height: 34px;
+            border-radius: 50%;
+            display: grid; place-items: center;
+            font-weight: 800;
+            font-size: 0.92rem;
+            color: #06210d;
+            background: var(--neon-green);
+        }
+        .steps h3 { font-size: 0.98rem; font-weight: 700; margin-bottom: 2px; }
+        .steps p { font-size: 0.92rem; color: var(--text-soft); }
+
+        .confirmo {
+            display: inline-block;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            color: var(--neon-green);
+            background: rgba(57, 255, 96, 0.1);
+            border: 1px dashed rgba(57, 255, 96, 0.5);
+            border-radius: 6px;
+            padding: 0 6px;
+        }
+
+        /* Listas con check */
+        .checks { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+        .checks li {
+            position: relative;
+            padding-left: 28px;
+            font-size: 0.93rem;
+            color: var(--text-soft);
+        }
+        .checks li::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 4px;
+            width: 16px; height: 16px;
+            border-radius: 5px;
+            background: rgba(57, 255, 96, 0.15);
+            border: 1px solid rgba(57, 255, 96, 0.55);
+        }
+        .checks li::after {
+            content: '';
+            position: absolute;
+            left: 5px; top: 7px;
+            width: 5px; height: 8px;
+            border: solid var(--neon-green);
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        .checks strong { color: var(--text-ivory); }
+
+        .note {
+            margin-top: 14px;
+            font-size: 0.86rem;
+            color: var(--text-muted);
+        }
+
+        .warning {
+            border-left: 3px solid var(--gold-accent);
+            padding: 12px 14px;
+            background: rgba(212, 175, 55, 0.07);
+            border-radius: 0 10px 10px 0;
+            font-size: 0.9rem;
+            color: var(--text-soft);
+        }
+        .warning strong { color: var(--gold-accent); }
+
+        .quote {
+            font-size: 1rem;
+            font-style: italic;
+            color: var(--text-ivory);
+            border-left: 3px solid var(--neon-green);
+            padding-left: 14px;
+        }
+        .quote span {
+            display: block;
+            margin-top: 6px;
+            font-style: normal;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 36px;
+            font-size: 0.72rem;
+            color: rgba(239, 246, 240, 0.32);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-glow"></div>
+
+    <main class="page">
+        <header class="hero">
+            <div class="badge"><span class="dot"></span>Llamada agendada</div>
+            <h1>Listo<span id="nombre"></span>, <span class="accent">tu llamada ya está reservada.</span></h1>
+            <p>Antes de la llamada, mira este video de Mercedes. Te explica qué pasa ahora y cómo llegar para que la llamada te sirva de verdad.</p>
+        </header>
+
+        <section class="layout">
+            <div class="video-col">
+                <div class="video-frame">
+                    <wistia-player media-id="w8sn7zb8fx" aspect="0.5625"></wistia-player>
+                </div>
+                <p class="video-hint">Activa el sonido. <strong>Dura pocos minutos</strong> y te ahorra dudas en la llamada.</p>
+            </div>
+
+            <div class="stack">
+                <article class="card highlight">
+                    <h2><span class="tag">Ahora</span>Lo que va a pasar</h2>
+                    <ol class="steps">
+                        <li>
+                            <span class="num">1</span>
+                            <div>
+                                <h3>Te escribe Nicole por WhatsApp</h3>
+                                <p>En unos minutos te escribe Nicole, del equipo de Mercedes. Respóndele <span class="confirmo">CONFIRMO</span> ese mismo día. Las citas que no se confirman se liberan para otra persona.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="num">2</span>
+                            <div>
+                                <h3>Te llegan los recordatorios y el link</h3>
+                                <p>Antes de la llamada te mandamos los recordatorios y el enlace para entrar. No tienes que buscar nada.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="num">3</span>
+                            <div>
+                                <h3>La llamada</h3>
+                                <p>No es una llamada de ventas genérica. Ya tenemos tus respuestas. Revisamos tu situación real (tu empresa, tu estatus, tu crédito) y te decimos cuál es tu primera llave y en qué orden va lo demás. Si no es tu momento, también te lo decimos.</p>
+                            </div>
+                        </li>
+                    </ol>
+                </article>
+
+                <article class="card">
+                    <h2>Por qué hay una llamada antes de pagar</h2>
+                    <p class="quote">"No te vendo un curso para que lo veas por tu cuenta. Te doy mi proceso, y cada caso lo reviso yo personalmente. Si le dijera que sí a todo el que me escribe, dejaría de ver tu caso."<span>Mercedes Ríos</span></p>
+                </article>
+
+                <article class="card">
+                    <h2>Solo te pido 3 cosas</h2>
+                    <ul class="checks">
+                        <li><strong>Que sepas para qué lo quieres.</strong> Aunque sea un destino pequeño: una propiedad, tu negocio, empezar a invertir.</li>
+                        <li><strong>Que quieras seguir el orden.</strong> Aunque a veces te den ganas de saltarte un paso, el orden es lo que hace que esto funcione.</li>
+                        <li><strong>Que nos digas la verdad de tu caso.</strong> Si te falta el ITIN o ya te dijeron que no en un banco, nada de eso te deja fuera. Lo único que nos impide ayudarte es no saberlo.</li>
+                    </ul>
+                    <p class="note">Si buscas algo rápido o que alguien te prometa cifras, esto no es para ti.</p>
+                </article>
+
+                <article class="card">
+                    <h2>Para sacarle provecho a la llamada</h2>
+                    <ul class="checks">
+                        <li>Conéctate desde un <strong>computador</strong>, en un lugar <strong>sin ruido</strong>.</li>
+                        <li>Ten a mano tu situación tal como es: <strong>ITIN o Social</strong>, tipo de empresa y desde cuándo la tienes.</li>
+                        <li>Si llegas con una pregunta, es la primera que vamos a resolver.</li>
+                        <li>Si la decisión la tomas con tu <strong>pareja o socio</strong>, que esa persona esté contigo en la llamada.</li>
+                    </ul>
+                </article>
+
+                <div class="warning">
+                    <strong>Lo que no te vamos a prometer:</strong> no te decimos cuánto vas a generar. Nosotros te damos el proceso; el monto lo decide un banco. Y lo que firmes lo lees completo, en español, antes de hacer cualquier pago.
+                </div>
+            </div>
+        </section>
+
+        <p class="footer">&copy; 2026 LIFEOFNENA LLC · Tu Ruta Financiera · Mercedes Ríos. Todos los derechos reservados.</p>
+    </main>
+
+    <script>
+        (function () {
+            var name = '';
+            try {
+                var params = new URLSearchParams(window.location.search);
+                name = params.get('first_name') || params.get('name') || localStorage.getItem('ruta_first_name') || '';
+            } catch (e) {}
+            name = (name || '').trim().split(/\s+/)[0];
+            if (name) {
+                name = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+                document.getElementById('nombre').textContent = ', ' + name;
+            }
+            // Si la página se abrió dentro del iframe del calendario, salir al navegador completo
+            try {
+                if (window.top !== window.self) { window.top.location.href = window.location.href; }
+            } catch (e) {}
+        })();
+    </script>
+</body>
+</html>
